@@ -12,7 +12,7 @@ If you're following good style, you're probably already pushing all knowledge of
 
 I intend to keep this library small. It should be possible to learn all it does in a short time, so that you can feel secure about depending on it. The most important thing is that the code is stable, well-tested and bug-free.
 
-Any addons will be made into separate gems (with names like "minimapper-FOO").
+Any significant addons will be made into separate gems (with names like "minimapper-FOO").
 
 ## Installation
 
