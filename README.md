@@ -99,7 +99,7 @@ Robert "Uncle Bob" Martin:
 
 ## Implementing another mapper
 
-# todo: shared examples, possibly move AR into a minimapper-ar gem and recommend the same for other mappers.
+*todo*: shared examples, possibly move AR into a minimapper-ar gem and recommend the same for other mappers.
 
 ## Contributing
 
