@@ -4,7 +4,7 @@ This is work in progress. It's being extracted from https://github.com/joakimk/d
 
 # Minimapper
 
-A minimalistic way of separating your models from ORMs like ActiveRecord. This separation allows you to swap out your persistance layer for an in-memory implementation in tests, or use different persistance for different models, etc.
+A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistance layer for an in-memory implementation in tests or use different persistance for different models and so on.
 
 If you're following good style, you're probably already pushing all knowledge of ActiveRecord down into your models or model-layer classes and away from controllers and mailers, etc. This takes it a step further and let's you work with your models without loading rails or needing a database.
 
