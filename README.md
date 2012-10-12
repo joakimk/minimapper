@@ -43,10 +43,10 @@ end
 class UserMapper < Minimapper::Memory
 end
 
-# Persisting
+# Creating
 user = User.new(name: "Joe")
 mapper = UserMapper.new
-mapper.add(user)
+mapper.create(user)
 
 # Finding
 user = mapper.find(1)
@@ -55,10 +55,10 @@ user = mapper.find(1)
 user.name = "Joey"
 mapper.update(user)
 
-# Removing
+# Deleting
 mapper.delete(user)
 
-# Removing all
+# Deleting all
 mapper.delete_all
 ```
 
@@ -88,6 +88,10 @@ user = User.new(name: "Joe")
 mapper = AR::UserMapper.new
 mapper.add(user)
 ```
+
+## Implementing custom queries
+
+*todo* show how, talk about shared examples.
 
 ## Inspiration
 
