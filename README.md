@@ -86,7 +86,7 @@ end
 
 user = User.new(name: "Joe")
 mapper = AR::UserMapper.new
-mapper.add(user)
+mapper.create(user)
 ```
 
 ## Implementing custom queries
