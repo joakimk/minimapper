@@ -8,7 +8,7 @@ A minimalistic way of separating your models from ORMs like ActiveRecord. This s
 
 If you're following good style, you're probably already pushing all knowledge of ActiveRecord down into your models or model-layer classes and away from controllers and mailers, etc. This takes it a step further and let's you work with your models without loading rails or needing a database.
 
-Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation. It implements repository and data mappers, but skips the critera builders.
+Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation. It implements repositories and data mappers but not critera builders.
 
 ## Keeping it small
 
