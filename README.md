@@ -8,9 +8,11 @@ A minimalistic way of separating your models from ORMs like ActiveRecord. This s
 
 If you're following good style, you're probably already pushing all knowledge of ActiveRecord down into your models or model-layer classes and away from controllers and mailers, etc. This takes it a step further and let's you work with your models without loading rails or needing a database.
 
+Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation. It implements repository and data mappers, but skips the critera builders.
+
 ## Keeping it small
 
-I intend to keep this library small. It should be possible to learn all it does in a short time, so that you can feel secure about depending on it. The most important thing is that the code is stable, well-tested and bug-free.
+I intend to keep this library small. It should be possible to learn all it does in a short time so that you can feel secure about depending on it. The most important thing is that the code is stable, well-tested and bug-free.
 
 Any significant addons will be made into separate gems (with names like "minimapper-FOO").
 
@@ -63,11 +65,10 @@ mapper.delete_all
 Or though a repository:
 
 ``` ruby
-MemoryRepo = Minimapper::Repository.build({
+repository = Minimapper::Repository.build({
   users: UserMapper.new
 })
 
-repository = MemoryRepo
 MemoryRepo.users.find(1)
 ```
 
