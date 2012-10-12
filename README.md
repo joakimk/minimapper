@@ -69,7 +69,7 @@ repository = Minimapper::Repository.build({
   users: UserMapper.new
 })
 
-MemoryRepo.users.find(1)
+repository.users.find(1)
 ```
 
 Using the ActiveRecord mapper:
