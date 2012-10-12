@@ -66,7 +66,8 @@ Or though a repository:
 
 ``` ruby
 repository = Minimapper::Repository.build({
-  users: UserMapper.new
+  users:    UserMapper.new,
+  projects: ProjectMapper.new
 })
 
 repository.users.find(1)
