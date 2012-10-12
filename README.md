@@ -73,9 +73,7 @@ repository = Minimapper::Repository.build({
 repository.users.find(1)
 ```
 
-## Using other mappers
-
-Like the ActiveRecord mapper:
+## Using the ActiveRecord mapper
 
 ``` ruby
 module AR
