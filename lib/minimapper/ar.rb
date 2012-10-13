@@ -1,3 +1,5 @@
+require "minimapper/common"
+
 module Minimapper
   class AR
     def add(entity)

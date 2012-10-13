@@ -19,5 +19,14 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "informal"
   gem.add_dependency "rake"
+
   gem.add_development_dependency "rspec"
+
+  # We don't require active_record to use minimapper, only to
+  # use minimapper/ar. We do require it for the tests though :)
+  gem.add_development_dependency "activerecord"
+
+  # ActiveRecord isn't a perfect abstraction so we'll need to test against
+  # many different databases. To begin with, we're using in-memory sqlite3.
+  gem.add_development_dependency "sqlite3"
 end
