@@ -4,7 +4,7 @@ require "minimapper"
 ROOT = File.expand_path(File.join(File.dirname(__FILE__), "..")) unless defined?(ROOT)
 Dir[File.join(ROOT, "spec/support/shared_examples/*.rb")].each { |f| require f }
 
-if RUBY_ENGINE == "jruby"
+if RUBY_PLATFORM == "java"
   ActiveRecord::Base.establish_connection :adapter => "jdbcsqlite3", :database => ":memory:"
 else
   ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
