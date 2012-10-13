@@ -1,3 +1,5 @@
+![Build status](https://secure.travis-ci.org/joakimk/minimapper.png) | [builds](https://travis-ci.org/#!/joakimk/minimapper/builds)
+
 # WIP
 
 This is work in progress. It's being extracted from https://github.com/joakimk/deployer.
