@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+#
+# Command to run the specs the correct way when triggered from the turbux vim plugin.
+
+rails_spec = ARGV.first.start_with?("spec/") || ARGV.first.include?('/spec/')
+
+if rails_spec
+  command = "rspec"
+else
+  spec_helper_path = File.expand_path("unit/spec_helper.rb")
+
+  # Don't load bundler for non-rails unit tests
+  command = "RUBYOPT='' rspec -r#{spec_helper_path} --color --tty"
+end
+
+command += " #{ARGV.first}"
+exit(1) unless system(command)
