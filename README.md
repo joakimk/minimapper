@@ -94,6 +94,10 @@ mapper.create(user)
 
 *todo* show how, talk about shared examples.
 
+## Implementing another mapper
+
+*todo*: shared examples, possibly move AR into a minimapper-ar gem and recommend the same for other mappers.b
+
 ## Inspiration
 
 Jason Roelofs:
@@ -102,10 +106,6 @@ Jason Roelofs:
 Robert "Uncle Bob" Martin:
 * [Architecture: The Lost Years](http://www.confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years)
 * [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-
-## Implementing another mapper
-
-*todo*: shared examples, possibly move AR into a minimapper-ar gem and recommend the same for other mappers.
 
 ## Contributing
 
