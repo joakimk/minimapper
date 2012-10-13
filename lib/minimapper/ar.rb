@@ -72,7 +72,7 @@ module Minimapper
 
     def find_record(id)
       (id && record_klass.find_by_id(id)) ||
-        raise(Common::CanNotFindEntity, id: id)
+        raise(Common::CanNotFindEntity, :id => id)
     end
 
     def record_for(entity)

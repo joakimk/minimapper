@@ -4,7 +4,7 @@ require 'minimapper/entity'
 
 class TestEntity < Minimapper::Entity
   attributes :name
-  validates :name, presence: true
+  validates :name, :presence => true
 end
 
 describe Minimapper::Memory do

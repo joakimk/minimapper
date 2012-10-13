@@ -4,7 +4,7 @@ require "minimapper/ar"
 
 class TestEntity < Minimapper::Entity
   attributes :name, :github_url
-  validates :name, presence: true
+  validates :name, :presence => true
 end
 
 class TestMapper < Minimapper::AR

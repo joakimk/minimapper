@@ -17,16 +17,16 @@ end
 
 describe Minimapper::Entity, "attributes" do
   it "returns the attributes" do
-    base = described_class.new(id: 5)
+    base = described_class.new(:id => 5)
     time = Time.now
     base.created_at = time
-    base.attributes.should == { id: 5, created_at: time }
+    base.attributes.should == { :id => 5, :created_at => time }
   end
 end
 
 describe Minimapper::Entity, "to_param" do
   it "responds with the id to be compatible with rails link helpers" do
-    base = described_class.new(id: 5)
+    base = described_class.new(:id => 5)
     base.to_param.should == 5
   end
 end

@@ -1,7 +1,7 @@
 require "active_record"
 require "minimapper"
 
-ROOT = File.expand_path(File.join(File.dirname(__FILE__), ".."))
+ROOT = File.expand_path(File.join(File.dirname(__FILE__), "..")) unless defined?(ROOT)
 Dir[File.join(ROOT, "spec/support/shared_examples/*.rb")].each { |f| require f }
 
 if RUBY_ENGINE == "jruby"

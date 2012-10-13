@@ -62,14 +62,14 @@ shared_examples :mapper do
 
     it "fails when the entity does not have an id" do
       entity = build_valid_entity
-      -> { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
 
     it "fails when the entity no longer exists" do
       entity = build_valid_entity
       repository.add(entity)
       repository.delete_all
-      -> { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
@@ -105,7 +105,7 @@ shared_examples :mapper do
     end
 
     it "fails when the an entity can not be found" do
-      -> { repository.find(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { repository.find(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
@@ -170,7 +170,7 @@ shared_examples :mapper do
     end
 
     it "fails when the an entity can not be found" do
-      -> { repository.delete_by_id(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { repository.delete_by_id(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
@@ -186,18 +186,18 @@ shared_examples :mapper do
 
     it "fails when the entity does not have an id" do
       entity = entity_klass.new
-      -> { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
 
     it "fails when the entity can not be found" do
-      entity = entity_klass.new(id: -1)
-      -> { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      entity = entity_klass.new(:id => -1)
+      lambda { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
   private
 
   def build_valid_entity
-    entity_klass.new(name: 'test')
+    entity_klass.new(:name => 'test')
   end
 end

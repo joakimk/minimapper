@@ -62,7 +62,7 @@ module Minimapper
 
     def find_internal(id)
       (id && store.find { |e| e.id == id.to_i }) ||
-        raise(Common::CanNotFindEntity, id: id)
+        raise(Common::CanNotFindEntity, :id => id)
     end
 
     def next_id
