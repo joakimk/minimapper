@@ -4,7 +4,11 @@ require "minimapper"
 ROOT = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 Dir[File.join(ROOT, "spec/support/shared_examples/*.rb")].each { |f| require f }
 
-ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
+if RUBY_ENGINE == "jruby"
+  ActiveRecord::Base.establish_connection :adapter => "jdbcsqlite3", :database => ":memory:"
+else
+  ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
+end
 
 RSpec.configure do |config|
   config.before(:each) do

@@ -3,5 +3,5 @@ rvm:
   - 1.9.3
   - 1.9.2
   - rbx-19mode
-  #- jruby-19mode # needs jruby compatible deps
+  - jruby-19mode
 script: "script/ci"

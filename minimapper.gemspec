@@ -29,4 +29,5 @@ Gem::Specification.new do |gem|
   # ActiveRecord isn't a perfect abstraction so we'll need to test against
   # many different databases. To begin with, we're using in-memory sqlite3.
   gem.add_development_dependency "sqlite3"
+  gem.add_development_dependency "jdbc-sqlite3"
 end
