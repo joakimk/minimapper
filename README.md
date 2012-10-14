@@ -82,14 +82,6 @@ puts mapper.find_by_id(old_id) # -> nil
 # Deleting all
 mapper.delete_all
 
-# Using ActiveModel validations
-user = User.new
-mapper = UserMapper.new
-mapper.create(user)
-
-puts mapper.count              # -> 0
-puts user.errors.full_messages # Name can't be blank
-
 # Using a repository
 require "minimapper/repository"
 
@@ -101,6 +93,13 @@ repository = Minimapper::Repository.build({
 user = User.new(:name => "Joe")
 repository.users.create(user)
 puts repository.users.find(user.id).name # -> Joe
+
+# Using ActiveModel validations
+user = User.new
+repository.users.create(user)
+
+puts mapper.count              # -> 0
+puts user.errors.full_messages # Name can't be blank
 ```
 
 ## Using the ActiveRecord mapper
