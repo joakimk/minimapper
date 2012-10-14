@@ -115,6 +115,10 @@ Robert "Uncle Bob" Martin:
 * [Architecture: The Lost Years](http://www.confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years)
 * [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
+## Known apps using minimapper
+
+* The deploy status app that minimapper was extracted from [https://github.com/joakimk/deployer](https://github.com/joakimk/deployer)
+
 ## Running the tests
 
 You need mysql and postgres installed (but they do not have to be running) to be able to run bundle. The sql-mapper tests use sqlite3 by default.
