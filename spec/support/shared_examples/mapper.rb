@@ -202,11 +202,20 @@ shared_examples :mapper do
   describe "delete" do
     it "removes the entity" do
       entity = build_valid_entity
+      removed_entity_id = entity.id
       repository.create(entity)
       repository.create(build_valid_entity)
       repository.delete(entity)
       repository.all.size.should == 1
-      repository.first.id.should_not == entity.id
+      repository.first.id.should_not == removed_entity_id
+    end
+
+    it "clears the entity id" do
+      entity = build_valid_entity
+      repository.create(entity)
+      entity.id.should_not be_nil
+      repository.delete(entity)
+      entity.id.should be_nil
     end
 
     it "fails when the entity does not have an id" do

@@ -63,18 +63,20 @@ mapper.create(user)
 
 # Finding
 user = mapper.find(user.id)
-puts user.name         # -> Joe
-puts mapper.first.name # -> Joe
+puts user.name             # -> Joe
+puts mapper.first.name     # -> Joe
 
 # Updating
 user.name = "Joey"
 mapper.update(user)
-puts mapper.first.name # -> Joey
+puts mapper.first.name    # -> Joey
 
 # Deleting
+old_id = user.id
 mapper.delete(user)
-# mapper.find(user.id)      # raises Minimapper::Common::CanNotFindEntity
-mapper.find_by_id(user.id) # -> nil
+user.id                   # -> nil
+# mapper.find(old_id)     # raises Minimapper::Common::CanNotFindEntity
+mapper.find_by_id(old_id) # -> nil
 
 # Deleting all
 mapper.delete_all

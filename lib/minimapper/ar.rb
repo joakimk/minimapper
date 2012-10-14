@@ -49,6 +49,7 @@ module Minimapper
     # Delete
     def delete(entity)
       delete_by_id(entity.id)
+      entity.id = nil
     end
 
     def delete_by_id(id)
