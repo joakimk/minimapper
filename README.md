@@ -20,6 +20,7 @@ The reasons for this are:
 * It should be possible to learn all it does in a short time
 * You should be able to feel secure about depending on the API
 * It should be simple to add an adapter for a new database
+* It should be simple to maintain minimapper
 
 Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
