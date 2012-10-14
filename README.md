@@ -81,9 +81,17 @@ puts mapper.find_by_id(old_id) # -> nil
 
 # Deleting all
 mapper.delete_all
+
+# Using ActiveModel validations
+user = User.new
+mapper = UserMapper.new
+mapper.create(user)
+
+puts mapper.count              # -> 0
+puts user.errors.full_messages # Name can't be blank
 ```
 
-Or though a repository:
+Or though a repository (append to that same file):
 
 ``` ruby
 require "minimapper/repository"
@@ -115,18 +123,6 @@ end
 user = User.new(name: "Joe")
 mapper = AR::UserMapper.new
 mapper.create(user)
-```
-
-## Using ActiveModel validation
-
-``` ruby
-user = User.new
-
-mapper = UserMapper.new
-mapper.create(user)
-
-mapper.count              # -> 0
-user.errors.full_messages # Name can't be blank
 ```
 
 ## Implementing custom queries
