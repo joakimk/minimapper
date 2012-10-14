@@ -3,7 +3,7 @@ require "minimapper/common"
 module Minimapper
   class AR
     # Create
-    def add(entity)
+    def create(entity)
       if entity.valid?
         entity.id = record_klass.create!(entity.attributes).id
       else

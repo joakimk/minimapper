@@ -6,7 +6,7 @@ module Minimapper
     end
 
     # Create
-    def add(entity)
+    def create(entity)
       if entity.valid?
         entity.id = next_id
         store.push(entity.dup)

@@ -1,41 +1,41 @@
 shared_examples :mapper do
   # expects repository and entity_klass to be defined
 
-  describe "add" do
+  describe "create" do
     it "sets an id on the entity" do
       entity1 = build_valid_entity
       entity1.id.should be_nil
-      repository.add(entity1)
+      repository.create(entity1)
       entity1.id.should > 0
 
       entity2 = build_valid_entity
-      repository.add(entity2)
+      repository.create(entity2)
       entity2.id.should == entity1.id + 1
     end
 
     it "returns the id" do
-      id = repository.add(build_valid_entity)
+      id = repository.create(build_valid_entity)
       id.should be_kind_of(Fixnum)
       id.should > 0
     end
 
     it "does not store by reference" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.last.object_id.should_not == entity.object_id
       repository.last.name.should == "test"
     end
 
     it "validates the record before saving" do
       entity = entity_klass.new
-      repository.add(entity).should be_false
+      repository.create(entity).should be_false
     end
   end
 
   describe "find" do
     it "returns an entity matching the id" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       found_entity = repository.find(entity.id)
       found_entity.name.should == "test"
       found_entity.id.should == entity.id
@@ -44,13 +44,13 @@ shared_examples :mapper do
 
     it "supports string ids" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.find(entity.id.to_s)
     end
 
     it "does not return the same instance" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.find(entity.id).object_id.should_not == entity.object_id
       repository.find(entity.id).object_id.should_not == repository.find(entity.id).object_id
     end
@@ -62,16 +62,16 @@ shared_examples :mapper do
 
   describe "first" do
     it "returns the first entity" do
-      first_added_entity = build_valid_entity
-      repository.add(first_added_entity)
-      repository.add(build_valid_entity)
-      repository.first.id.should == first_added_entity.id
+      first_created_entity = build_valid_entity
+      repository.create(first_created_entity)
+      repository.create(build_valid_entity)
+      repository.first.id.should == first_created_entity.id
       repository.first.should be_kind_of(entity_klass)
     end
 
     it "does not return the same instance" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.first.object_id.should_not == entity.object_id
       repository.first.object_id.should_not == repository.first.object_id
     end
@@ -83,16 +83,16 @@ shared_examples :mapper do
 
   describe "last" do
     it "returns the last entity" do
-      last_added_entity = build_valid_entity
-      repository.add(build_valid_entity)
-      repository.add(last_added_entity)
-      repository.last.id.should == last_added_entity.id
+      last_created_entity = build_valid_entity
+      repository.create(build_valid_entity)
+      repository.create(last_created_entity)
+      repository.last.id.should == last_created_entity.id
       repository.last.should be_kind_of(entity_klass)
     end
 
     it "does not return the same instance" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.last.object_id.should_not == entity.object_id
       repository.last.object_id.should_not == repository.last.object_id
     end
@@ -104,8 +104,8 @@ shared_examples :mapper do
 
   describe "count" do
     it "returns the number of entities" do
-      repository.add(build_valid_entity)
-      repository.add(build_valid_entity)
+      repository.create(build_valid_entity)
+      repository.create(build_valid_entity)
       repository.count.should == 2
     end
   end
@@ -113,7 +113,7 @@ shared_examples :mapper do
   describe "update" do
     it "updates" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
 
       entity.name = "Updated"
       repository.last.name.should == "test"
@@ -125,7 +125,7 @@ shared_examples :mapper do
 
     it "does not update and returns false when the entity isn't valid" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       entity.name = nil
 
       repository.update(entity).should be_false
@@ -134,7 +134,7 @@ shared_examples :mapper do
 
     it "returns true" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.update(entity).should == true
     end
 
@@ -145,7 +145,7 @@ shared_examples :mapper do
 
     it "fails when the entity no longer exists" do
       entity = build_valid_entity
-      repository.add(entity)
+      repository.create(entity)
       repository.delete_all
       lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
@@ -154,8 +154,8 @@ shared_examples :mapper do
   describe "delete" do
     it "removes the entity" do
       entity = build_valid_entity
-      repository.add(entity)
-      repository.add(build_valid_entity)
+      repository.create(entity)
+      repository.create(build_valid_entity)
       repository.delete(entity)
       repository.all.size.should == 1
       repository.first.id.should_not == entity.id
@@ -175,8 +175,8 @@ shared_examples :mapper do
   describe "delete_by_id" do
     it "removes the entity" do
       entity = build_valid_entity
-      repository.add(entity)
-      repository.add(build_valid_entity)
+      repository.create(entity)
+      repository.create(build_valid_entity)
       repository.delete_by_id(entity.id)
       repository.all.size.should == 1
       repository.first.id.should_not == entity.id
@@ -189,7 +189,7 @@ shared_examples :mapper do
 
   describe "delete_all" do
     it "empties the repository" do
-      repository.add(build_valid_entity)
+      repository.create(build_valid_entity)
       repository.delete_all
       repository.all.should == []
     end
