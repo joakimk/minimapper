@@ -88,11 +88,13 @@ Or though a repository:
 require "minimapper/repository"
 
 repository = Minimapper::Repository.build({
-  :users    => UserMapper.new,
-  :projects => ProjectMapper.new
+  :users    => UserMapper.new
+  # :projects => ProjectMapper.new
 })
 
-repository.users.find(1)
+user = User.new(:name => "Joe")
+repository.users.create(user)
+puts repository.users.find(user.id).name # -> Joe
 ```
 
 ## Using the ActiveRecord mapper
@@ -112,6 +114,18 @@ end
 user = User.new(name: "Joe")
 mapper = AR::UserMapper.new
 mapper.create(user)
+```
+
+## Using ActiveModel validation
+
+``` ruby
+user = User.new
+
+mapper = UserMapper.new
+mapper.create(user)
+
+mapper.count              # -> 0
+user.errors.full_messages # Name can't be blank
 ```
 
 ## Implementing custom queries
