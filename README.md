@@ -14,9 +14,18 @@ Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/
 
 ## Keeping it small
 
-I intend to keep this library small. It should be possible to learn all it does in a short time so that you can feel secure about depending on it. The most important thing is that the code is stable, well-tested and bug-free.
+This library only implements the most basic persistance API (mostly just CRUD).
 
-Any significant addons will be made into separate gems (with names like "minimapper-FOO").
+The reasons for this are:
+* It should be possible to learn all it does in a short time
+* You should be able to feel secure about depending on the API
+* It should be simple to add an adapter for a new database
+
+Any significant additions will be made into separate gems (with names like "minimapper-FOO").
+
+## Compatibility
+
+This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml).
 
 ## Installation
 
