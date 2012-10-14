@@ -73,7 +73,8 @@ puts mapper.first.name # -> Joey
 
 # Deleting
 mapper.delete(user)
-mapper.find(user)      # raises Minimapper::Common::CanNotFindEntity
+# mapper.find(user)      # raises Minimapper::Common::CanNotFindEntity
+mapper.find_by_id(user) # -> nil
 
 # Deleting all
 mapper.delete_all

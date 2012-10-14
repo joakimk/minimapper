@@ -13,6 +13,10 @@ module Minimapper
 
     # Read
     def find(id)
+      entity_for(find_record_safely(id))
+    end
+
+    def find_by_id(id)
       entity_for(find_record(id))
     end
 
@@ -48,7 +52,7 @@ module Minimapper
     end
 
     def delete_by_id(id)
-      find_record(id).delete
+      find_record_safely(id).delete
     end
 
     def delete_all
@@ -74,9 +78,13 @@ module Minimapper
       @entity_klass
     end
 
-    def find_record(id)
-      (id && record_klass.find_by_id(id)) ||
+    def find_record_safely(id)
+      find_record(id) ||
         raise(Common::CanNotFindEntity, :id => id)
+    end
+
+    def find_record(id)
+      id && record_klass.find_by_id(id)
     end
 
     def record_for(entity)

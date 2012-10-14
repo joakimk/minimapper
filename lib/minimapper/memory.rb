@@ -20,7 +20,12 @@ module Minimapper
 
     # Read
     def find(id)
-      find_internal(id).dup
+      find_internal_safely(id).dup
+    end
+
+    def find_by_id(id)
+      entity = find_internal(id)
+      entity && entity.dup
     end
 
     def all
@@ -42,7 +47,7 @@ module Minimapper
     # Update
     def update(entity)
       if entity.valid?
-        known_entity = find_internal(entity.id)
+        known_entity = find_internal_safely(entity.id)
         known_entity.attributes = entity.attributes
         true
       else
@@ -56,7 +61,7 @@ module Minimapper
     end
 
     def delete_by_id(id)
-      entity = find_internal(id)
+      entity = find_internal_safely(id)
       store.delete(entity)
     end
 
@@ -66,9 +71,13 @@ module Minimapper
 
     private
 
-    def find_internal(id)
-      (id && store.find { |e| e.id == id.to_i }) ||
+    def find_internal_safely(id)
+      find_internal(id) ||
         raise(Common::CanNotFindEntity, :id => id)
+    end
+
+    def find_internal(id)
+      id && store.find { |e| e.id == id.to_i }
     end
 
     def next_id

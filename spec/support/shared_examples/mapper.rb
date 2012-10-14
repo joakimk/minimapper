@@ -60,6 +60,34 @@ shared_examples :mapper do
     end
   end
 
+  describe "find_by_id" do
+    it "returns an entity matching the id" do
+      entity = build_valid_entity
+      repository.create(entity)
+      found_entity = repository.find_by_id(entity.id)
+      found_entity.name.should == "test"
+      found_entity.id.should == entity.id
+      found_entity.should be_kind_of(Minimapper::Entity)
+    end
+
+    it "supports string ids" do
+      entity = build_valid_entity
+      repository.create(entity)
+      repository.find_by_id(entity.id.to_s)
+    end
+
+    it "does not return the same instance" do
+      entity = build_valid_entity
+      repository.create(entity)
+      repository.find_by_id(entity.id).object_id.should_not == entity.object_id
+      repository.find_by_id(entity.id).object_id.should_not == repository.find_by_id(entity.id).object_id
+    end
+
+    it "returns nil when the an entity can not be found" do
+      repository.find_by_id(-1).should be_nil
+    end
+  end
+
   describe "all" do
     it "returns all entities in undefined order" do
       first_created_entity = build_valid_entity
