@@ -64,19 +64,19 @@ mapper.create(user)
 
 ## Finding
 user = mapper.find(user.id)
-puts user.name             # -> Joe
-puts mapper.first.name     # -> Joe
+puts user.name             # => Joe
+puts mapper.first.name     # => Joe
 
 ## Updating
 user.name = "Joey"
 mapper.update(user)
-puts mapper.first.name    # -> Joey
+puts mapper.first.name    # => Joey
 
 ## Deleting
 old_id = user.id
 mapper.delete(user)
-puts user.id                   # -> nil
-puts mapper.find_by_id(old_id) # -> nil
+puts user.id                   # => nil
+puts mapper.find_by_id(old_id) # => nil
 # mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
 # mapper.delete_all
 # mapper.delete_by_id(1)
@@ -91,13 +91,13 @@ repository = Minimapper::Repository.build({
 
 user = User.new(:name => "Joe")
 repository.users.create(user)
-puts repository.users.find(user.id).name # -> Joe
+puts repository.users.find(user.id).name # => Joe
 
 ## Using ActiveModel validations
 user = User.new
 repository.users.create(user)
 
-puts mapper.count              # -> 0
+puts mapper.count              # => 0
 puts user.errors.full_messages # Name can't be blank
 ```
 
