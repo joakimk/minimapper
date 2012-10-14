@@ -20,3 +20,7 @@ end
 
 task :spec => [ :"spec:unit", :spacer, :"spec:integrated" ]
 task :default => :spec
+
+task :doc do
+  system("yardoc --no-private  lib/*/*.rb") || exit(1)
+end

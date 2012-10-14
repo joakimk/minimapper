@@ -23,6 +23,13 @@ module Minimapper
       find_internal_safely(id).dup
     end
 
+    # Find an entity by id
+    #
+    # Returns an entity when found, otherwise nil.
+    #
+    # @param [Integer, String] id the entity id to find
+    # @return [Minimapper::Entity]
+    # @return [nil]
     def find_by_id(id)
       entity = find_internal(id)
       entity && entity.dup
@@ -32,16 +39,34 @@ module Minimapper
       store.map { |entity| entity.dup }
     end
 
+    # Get the first added entity
+    #
+    #  mapper.first
+    #  # => #<User:...>
+    #
+    # @return (see #entity_class)
     def first
       store.first && store.first.dup
     end
 
+    # Get the last added entity
+    #
+    #  mapper.last
+    #  # => #<User:...>
+    #
+    # @return (see #entity_class)
     def last
       store.last && store.last.dup
     end
 
+    # Return the total number of entities
+    # @return [Integer]
     def count
       all.size
+    end
+
+    # @return an instance of the class set with self.entity_class=
+    def entity_class
     end
 
     # Update

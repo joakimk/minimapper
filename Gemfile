@@ -5,6 +5,10 @@ source 'https://rubygems.org'
 gem "activerecord"
 gem "rspec"
 
+# For generating API documentation
+gem "tomdoc"
+gem "redcarpet"
+
 platforms :ruby do
   gem "sqlite3"
   gem "pg"
