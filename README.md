@@ -104,7 +104,7 @@ puts user.errors.full_messages # Name can't be blank
 
 ## Using the ActiveRecord mapper
 
-(not runnable like the previous example, requires active record)
+(Not directly runnable like the previous example, requires ActiveRecord and a users table)
 
 ``` ruby
 require "minimapper/ar"
