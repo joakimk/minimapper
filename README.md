@@ -40,8 +40,9 @@ Please avoid installing directly from the github repository. Code will be pushed
 
 ## Usage
 
-You can use the mappers directly like this:
+You can use the mappers directly like this (it's runnable, try copy and pasting it into a ruby file):
 
+# minimapper_test.rb
 ``` ruby
 require "rubygems"
 require "minimapper"
@@ -74,9 +75,9 @@ puts mapper.first.name    # -> Joey
 # Deleting
 old_id = user.id
 mapper.delete(user)
-user.id                   # -> nil
-# mapper.find(old_id)     # raises Minimapper::Common::CanNotFindEntity
-mapper.find_by_id(old_id) # -> nil
+puts user.id                   # -> nil
+# mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
+puts mapper.find_by_id(old_id) # -> nil
 
 # Deleting all
 mapper.delete_all
