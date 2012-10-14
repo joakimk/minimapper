@@ -14,15 +14,13 @@ Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/
 
 ## Keeping it small
 
-This library only implements the most basic persistance API (mostly just CRUD).
+This library only implements the most basic persistance API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
 The reasons for this are:
 * It should be possible to learn all it does in a short time
 * You should be able to feel secure about depending on the API
 * It should be simple to add an adapter for a new database
 * It should be simple to maintain minimapper
-
-Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
 ## Compatibility
 
