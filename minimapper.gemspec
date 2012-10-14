@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Minimapper::VERSION
   gem.authors       = ["Joakim Kolsjö"]
   gem.email         = ["joakim.kolsjo@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{A minimalistic way of separating your models from ORMs like ActiveRecord (by implementing the repository pattern)}
+  gem.summary       = %q{A minimalistic way of separating your models from ORMs like ActiveRecord (by implementing the repository pattern)}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
@@ -19,10 +19,4 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "informal"
   gem.add_dependency "rake"
-
-  gem.add_development_dependency "rspec"
-
-  # We don't require active_record to use minimapper, only to
-  # use minimapper/ar. We do require it for the tests though :)
-  gem.add_development_dependency "activerecord"
 end

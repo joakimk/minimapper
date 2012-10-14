@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+# We don't require active_record to use minimapper, only to
+# use minimapper/ar. We do require it for the tests though :)
+gem "activerecord"
+gem "rspec"
+
 platforms :ruby do
   gem "sqlite3"
   gem "pg"

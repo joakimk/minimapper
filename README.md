@@ -1,9 +1,5 @@
 ![Build status](https://secure.travis-ci.org/joakimk/minimapper.png) | [builds](https://travis-ci.org/#!/joakimk/minimapper/builds)
 
-# WIP
-
-This is work in progress. It's being extracted from https://github.com/joakimk/deployer.
-
 # Minimapper
 
 A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistance layer for an in-memory implementation in tests or use different persistance for different models.
