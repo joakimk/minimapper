@@ -106,7 +106,7 @@ mapper.create(user)
 
 ## Implementing another mapper
 
-*todo*: shared examples, possibly move AR into a minimapper-ar gem and recommend the same for other mappers.b
+*todo*: how to use the shared examples
 
 ## Inspiration
 
@@ -119,7 +119,7 @@ Robert "Uncle Bob" Martin:
 
 ## Running the tests
 
-You need mysql and postgres installed (but it does not have to be running) to be able to run bundle. The sql-mapper tests use sqlite3 by default.
+You need mysql and postgres installed (but they do not have to be running) to be able to run bundle. The sql-mapper tests use sqlite3 by default.
 
     bundle
     rake
