@@ -43,28 +43,37 @@ Please avoid installing directly from the github repository. Code will be pushed
 You can use the mappers directly like this:
 
 ``` ruby
+require "rubygems"
+require "minimapper"
+require "minimapper/entity"
+require "minimapper/memory"
+
 class User < Minimapper::Entity
   attributes :name, :email
-  validates :name, presence: true
+  validates :name, :presence => true
 end
 
 class UserMapper < Minimapper::Memory
 end
 
 # Creating
-user = User.new(name: "Joe")
+user = User.new(:name => "Joe")
 mapper = UserMapper.new
 mapper.create(user)
 
 # Finding
-user = mapper.find(1)
+user = mapper.find(user.id)
+puts user.name         # -> Joe
+puts mapper.first.name # -> Joe
 
 # Updating
 user.name = "Joey"
 mapper.update(user)
+puts mapper.first.name # -> Joey
 
 # Deleting
 mapper.delete(user)
+mapper.find(user)      # raises Minimapper::Common::CanNotFindEntity
 
 # Deleting all
 mapper.delete_all
@@ -73,9 +82,11 @@ mapper.delete_all
 Or though a repository:
 
 ``` ruby
+require "minimapper/repository"
+
 repository = Minimapper::Repository.build({
-  users:    UserMapper.new,
-  projects: ProjectMapper.new
+  :users    => UserMapper.new,
+  :projects => ProjectMapper.new
 })
 
 repository.users.find(1)
@@ -84,6 +95,8 @@ repository.users.find(1)
 ## Using the ActiveRecord mapper
 
 ``` ruby
+require "minimapper/ar"
+
 module AR
   class UserMapper < Minimapper::AR
   end

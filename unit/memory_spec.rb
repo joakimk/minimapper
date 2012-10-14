@@ -1,5 +1,4 @@
 require 'minimapper/memory'
-require 'minimapper/common'
 require 'minimapper/entity'
 
 class TestEntity < Minimapper::Entity

@@ -1,3 +1,5 @@
+require 'minimapper/common'
+
 module Minimapper
   class Memory
     def initialize
