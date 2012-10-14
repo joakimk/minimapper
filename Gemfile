@@ -6,7 +6,7 @@ gem "activerecord"
 gem "rspec"
 
 # For generating API documentation
-gem "tomdoc"
+gem "yard"
 gem "redcarpet"
 
 platforms :ruby do
