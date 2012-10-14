@@ -57,32 +57,31 @@ end
 class UserMapper < Minimapper::Memory
 end
 
-# Creating
+## Creating
 user = User.new(:name => "Joe")
 mapper = UserMapper.new
 mapper.create(user)
 
-# Finding
+## Finding
 user = mapper.find(user.id)
 puts user.name             # -> Joe
 puts mapper.first.name     # -> Joe
 
-# Updating
+## Updating
 user.name = "Joey"
 mapper.update(user)
 puts mapper.first.name    # -> Joey
 
-# Deleting
+## Deleting
 old_id = user.id
 mapper.delete(user)
 puts user.id                   # -> nil
-# mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
 puts mapper.find_by_id(old_id) # -> nil
+# mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
+# mapper.delete_all
+# mapper.delete_by_id(1)
 
-# Deleting all
-mapper.delete_all
-
-# Using a repository
+## Using a repository
 require "minimapper/repository"
 
 repository = Minimapper::Repository.build({
@@ -94,7 +93,7 @@ user = User.new(:name => "Joe")
 repository.users.create(user)
 puts repository.users.find(user.id).name # -> Joe
 
-# Using ActiveModel validations
+## Using ActiveModel validations
 user = User.new
 repository.users.create(user)
 
