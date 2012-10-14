@@ -12,7 +12,7 @@ If you're following good style, you're probably already pushing all knowledge of
 
 Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation. It implements repositories and data mappers but not critera builders.
 
-## Keeping it small
+## Only the most basic API
 
 This library only implements the most basic persistance API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
