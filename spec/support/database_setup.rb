@@ -2,7 +2,7 @@ class DB
   POSTGRES_USERNAME = ENV['CI'] ? 'postgres' : ENV['USER']
 
   def use_sqlite3
-    if RUBY_PLATFORM == "java"
+    if jruby?
       connect :adapter => "jdbcsqlite3", :database => ":memory:"
     else
       connect :adapter => "sqlite3", :database => ":memory:"
@@ -15,17 +15,31 @@ class DB
             :username => POSTGRES_USERNAME
   end
 
+  def use_mysql
+    system "mysql -e 'create database minimapper_test;' 2> /dev/null"
+    adapter = jruby? ? "jdbcmysql" : "mysql2"
+    connect :adapter => adapter, :database => "minimapper_test",
+            :username => "root"
+  end
+
   private
+
+  def jruby?
+    RUBY_PLATFORM == "java"
+  end
 
   def connect(opts)
     ActiveRecord::Base.establish_connection(opts)
   end
 end
 
-if !ENV['DB']
-  DB.new.use_sqlite3
-elsif ENV['DB'] == 'postgres'
+case ENV['DB']
+when 'postgres'
   DB.new.use_postgres
+when 'mysql'
+  DB.new.use_mysql
+else
+  DB.new.use_sqlite3
 end
 
 silence_stream(STDOUT) do

@@ -10,3 +10,7 @@ bundle exec rake spec:integrated
 echo
 echo "Using postgres:"
 bundle exec rake spec:integrated DB=postgres
+
+echo
+echo "Using mysql:"
+bundle exec rake spec:integrated DB=mysql

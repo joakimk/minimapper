@@ -117,11 +117,19 @@ Robert "Uncle Bob" Martin:
 * [Architecture: The Lost Years](http://www.confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years)
 * [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
+## Running the tests
+
+You need mysql and postgres installed (but it does not have to be running) to be able to run bundle. The sql-mapper tests use sqlite3 by default.
+
+    bundle
+    rake
+
 ## Contributing
 
 0. Read "Keeping it small" above
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+4. Don't forget to write test
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request

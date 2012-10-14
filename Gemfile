@@ -1,15 +1,16 @@
 source 'https://rubygems.org'
 
-# ActiveRecord isn't a perfect abstraction so we'll need to test against
-# many different databases. To begin with, we're using in-memory sqlite3.
 platforms :ruby do
   gem "sqlite3"
   gem "pg"
+  gem "mysql2"
+  gem "activerecord-mysql2-adapter"
 end
 
 platforms :jruby do
   gem "activerecord-jdbcsqlite3-adapter"
   gem "activerecord-jdbcpostgresql-adapter"
+  gem "activerecord-jdbcmysql-adapter"
 end
 
 # Specify your gem's dependencies in minimapper.gemspec
