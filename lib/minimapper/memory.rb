@@ -5,6 +5,7 @@ module Minimapper
       @last_id = 0
     end
 
+    # Create
     def add(entity)
       if entity.valid?
         entity.id = next_id
@@ -15,31 +16,13 @@ module Minimapper
       end
     end
 
+    # Read
     def find(id)
       find_internal(id).dup
     end
 
-    def update(entity)
-      if entity.valid?
-        known_entity = find_internal(entity.id)
-        known_entity.attributes = entity.attributes
-        true
-      else
-        false
-      end
-    end
-
-    def delete(entity)
-      delete_by_id(entity.id)
-    end
-
-    def delete_by_id(id)
-      entity = find_internal(id)
-      store.delete(entity)
-    end
-
-    def delete_all
-      store.clear
+    def all
+      store.dup
     end
 
     def first
@@ -54,8 +37,29 @@ module Minimapper
       all.size
     end
 
-    def all
-      store.dup
+    # Update
+    def update(entity)
+      if entity.valid?
+        known_entity = find_internal(entity.id)
+        known_entity.attributes = entity.attributes
+        true
+      else
+        false
+      end
+    end
+
+    # Delete
+    def delete(entity)
+      delete_by_id(entity.id)
+    end
+
+    def delete_by_id(id)
+      entity = find_internal(id)
+      store.delete(entity)
+    end
+
+    def delete_all
+      store.clear
     end
 
     private

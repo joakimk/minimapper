@@ -2,6 +2,7 @@ require "minimapper/common"
 
 module Minimapper
   class AR
+    # Create
     def add(entity)
       if entity.valid?
         entity.id = record_klass.create!(entity.attributes).id
@@ -10,25 +11,13 @@ module Minimapper
       end
     end
 
-    def update(entity)
-      if entity.valid?
-        record_for(entity).update_attributes!(entity.attributes)
-        true
-      else
-        false
-      end
-    end
-
-    def delete(entity)
-      delete_by_id(entity.id)
-    end
-
-    def delete_by_id(id)
-      find_record(id).delete
-    end
-
+    # Read
     def find(id)
       entity_for(find_record(id))
+    end
+
+    def all
+      record_klass.all.map { |record| entity_klass.new(record.attributes) }
     end
 
     def first
@@ -39,16 +28,31 @@ module Minimapper
       entity_for(record_klass.order("id ASC").last)
     end
 
-    def all
-      record_klass.all.map { |record| entity_klass.new(record.attributes) }
+    def count
+      record_klass.count
+    end
+
+    # Update
+    def update(entity)
+      if entity.valid?
+        record_for(entity).update_attributes!(entity.attributes)
+        true
+      else
+        false
+      end
+    end
+
+    # Delete
+    def delete(entity)
+      delete_by_id(entity.id)
+    end
+
+    def delete_by_id(id)
+      find_record(id).delete
     end
 
     def delete_all
       record_klass.delete_all
-    end
-
-    def count
-      record_klass.count
     end
 
     private

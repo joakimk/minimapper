@@ -32,55 +32,6 @@ shared_examples :mapper do
     end
   end
 
-  describe "update" do
-    it "updates" do
-      entity = build_valid_entity
-      repository.add(entity)
-
-      entity.name = "Updated"
-      repository.last.name.should == "test"
-
-      repository.update(entity)
-      repository.last.id.should == entity.id
-      repository.last.name.should == "Updated"
-    end
-
-    it "does not update and returns false when the entity isn't valid" do
-      entity = build_valid_entity
-      repository.add(entity)
-      entity.name = nil
-
-      repository.update(entity).should be_false
-      repository.last.name.should == "test"
-    end
-
-    it "returns true" do
-      entity = build_valid_entity
-      repository.add(entity)
-      repository.update(entity).should == true
-    end
-
-    it "fails when the entity does not have an id" do
-      entity = build_valid_entity
-      lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
-    end
-
-    it "fails when the entity no longer exists" do
-      entity = build_valid_entity
-      repository.add(entity)
-      repository.delete_all
-      lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
-    end
-  end
-
-  describe "delete_all" do
-    it "empties the repository" do
-      repository.add(build_valid_entity)
-      repository.delete_all
-      repository.all.should == []
-    end
-  end
-
   describe "find" do
     it "returns an entity matching the id" do
       entity = build_valid_entity
@@ -159,18 +110,44 @@ shared_examples :mapper do
     end
   end
 
-  describe "delete_by_id" do
-    it "removes the entity" do
+  describe "update" do
+    it "updates" do
       entity = build_valid_entity
       repository.add(entity)
-      repository.add(build_valid_entity)
-      repository.delete_by_id(entity.id)
-      repository.all.size.should == 1
-      repository.first.id.should_not == entity.id
+
+      entity.name = "Updated"
+      repository.last.name.should == "test"
+
+      repository.update(entity)
+      repository.last.id.should == entity.id
+      repository.last.name.should == "Updated"
     end
 
-    it "fails when the an entity can not be found" do
-      lambda { repository.delete_by_id(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+    it "does not update and returns false when the entity isn't valid" do
+      entity = build_valid_entity
+      repository.add(entity)
+      entity.name = nil
+
+      repository.update(entity).should be_false
+      repository.last.name.should == "test"
+    end
+
+    it "returns true" do
+      entity = build_valid_entity
+      repository.add(entity)
+      repository.update(entity).should == true
+    end
+
+    it "fails when the entity does not have an id" do
+      entity = build_valid_entity
+      lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+    end
+
+    it "fails when the entity no longer exists" do
+      entity = build_valid_entity
+      repository.add(entity)
+      repository.delete_all
+      lambda { repository.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
@@ -192,6 +169,29 @@ shared_examples :mapper do
     it "fails when the entity can not be found" do
       entity = entity_klass.new(:id => -1)
       lambda { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+    end
+  end
+
+  describe "delete_by_id" do
+    it "removes the entity" do
+      entity = build_valid_entity
+      repository.add(entity)
+      repository.add(build_valid_entity)
+      repository.delete_by_id(entity.id)
+      repository.all.size.should == 1
+      repository.first.id.should_not == entity.id
+    end
+
+    it "fails when the an entity can not be found" do
+      lambda { repository.delete_by_id(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+    end
+  end
+
+  describe "delete_all" do
+    it "empties the repository" do
+      repository.add(build_valid_entity)
+      repository.delete_all
+      repository.all.should == []
     end
   end
 
