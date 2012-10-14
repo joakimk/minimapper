@@ -89,11 +89,8 @@ mapper.create(user)
 
 puts mapper.count              # -> 0
 puts user.errors.full_messages # Name can't be blank
-```
 
-Or though a repository (append to that same file):
-
-``` ruby
+# Using a repository
 require "minimapper/repository"
 
 repository = Minimapper::Repository.build({
