@@ -93,7 +93,7 @@ user = User.new(:name => "Joe")
 repository.users.create(user)
 puts repository.users.find(user.id).name # => Joe
 
-## Using ActiveModel validations
+### Using ActiveModel validations
 user = User.new
 repository.users.create(user)
 puts repository.users.count    # => 0
