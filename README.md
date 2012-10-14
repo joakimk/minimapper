@@ -6,11 +6,11 @@ This is work in progress. It's being extracted from https://github.com/joakimk/d
 
 # Minimapper
 
-A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistance layer for an in-memory implementation in tests or use different persistance for different models and so on.
+A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistance layer for an in-memory implementation in tests or use different persistance for different models.
 
-If you're following good style, you're probably already pushing all knowledge of your ORM down into your models or model-layer classes. This takes it a step further and let's you work with your models without depending on heavy frameworks like rails or needing a database.
+If you're following good style you're probably already pushing all knowledge of your ORM down into your models or model-layer classes. This takes it a step further and let's you work with your models without depending on heavy frameworks like rails or needing a database.
 
-Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation. It implements repositories and data mappers but not critera builders.
+Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation (it implements repositories and data mappers but not critera builders).
 
 ## Only the most basic API
 
