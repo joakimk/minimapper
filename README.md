@@ -104,7 +104,7 @@ puts user.errors.full_messages # Name can't be blank
 
 This is not directly runnable like the previous example, it requires ActiveRecord, a database and a users table. Isn't it interesting how much you could do without those things in the previous example? :)
 
-When you do need to use an ORM like ActiveRecord however, it now has the same API as your in-memory persistance (thanks to the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) used to test all mappers).
+When you do need to use an ORM like ActiveRecord however, it now has the same API as your in-memory persistance (thanks to the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) which define how a mapper is supposed to behave).
 
 ``` ruby
 require "minimapper/ar"
