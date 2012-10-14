@@ -161,6 +161,20 @@ You need mysql and postgres installed (but they do not have to be running) to be
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
 
+## Todo
+
+* Provide examples for custom queries and new mappers in the readme.
+* Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
+* Change the memory mapper to store entity attributes, not entity instances.
+* Make Minimapper::Entity a module so you won't have to inherit from it.
+* Make using Minimapper::Entity optional by providing shared examples of the behavior required by the mappers. Test the mappers with an object implementing only this behavior.
+
+### Ideas
+
+I won't implement anything that isn't actually used. But here are some ideas for things that might make it into minimapper someday if there is a need for it.
+
+* Provide a hook to convert attributes between entities and the backing models (when your entity attributes and db-schema isn't a one-to-one match).
+
 ## Credits and license
 
 By [Joakim Kolsjö](https://twitter.com/joakimk) under the MIT license:
