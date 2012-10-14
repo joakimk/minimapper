@@ -60,6 +60,26 @@ shared_examples :mapper do
     end
   end
 
+  describe "all" do
+    it "returns all entities in undefined order" do
+      first_created_entity = build_valid_entity
+      second_created_entity = build_valid_entity
+      repository.create(first_created_entity)
+      repository.create(second_created_entity)
+      all_entities = repository.all
+      all_entities.map(&:id).should include(first_created_entity.id)
+      all_entities.map(&:id).should include(second_created_entity.id)
+      all_entities.first.should be_kind_of(Minimapper::Entity)
+    end
+
+    it "does not return the same instances" do
+      entity = build_valid_entity
+      repository.create(entity)
+      repository.all.first.object_id.should_not == entity.object_id
+      repository.all.first.object_id.should_not == repository.all.first.object_id
+    end
+  end
+
   describe "first" do
     it "returns the first entity" do
       first_created_entity = build_valid_entity

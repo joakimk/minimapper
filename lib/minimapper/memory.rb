@@ -22,7 +22,7 @@ module Minimapper
     end
 
     def all
-      store.dup
+      store.map { |entity| entity.dup }
     end
 
     def first
