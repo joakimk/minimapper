@@ -4,10 +4,12 @@ source 'https://rubygems.org'
 # many different databases. To begin with, we're using in-memory sqlite3.
 platforms :ruby do
   gem "sqlite3"
+  gem "pg"
 end
 
 platforms :jruby do
   gem "activerecord-jdbcsqlite3-adapter"
+  gem "activerecord-jdbcpostgresql-adapter"
 end
 
 # Specify your gem's dependencies in minimapper.gemspec
