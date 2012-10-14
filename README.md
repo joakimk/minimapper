@@ -96,7 +96,6 @@ puts repository.users.find(user.id).name # => Joe
 ## Using ActiveModel validations
 user = User.new
 repository.users.create(user)
-
 puts repository.users.count    # => 0
 puts user.errors.full_messages # Name can't be blank
 ```
