@@ -1,5 +1,12 @@
 #!/bin/bash
 set -e
 export CI=true
-bundle exec rake
-bundle exec rake DB=postgres
+bundle exec rake spec:unit
+
+echo
+echo "Using sqlite3:"
+bundle exec rake spec:integrated
+
+echo
+echo "Using postgres:"
+bundle exec rake spec:integrated DB=postgres
