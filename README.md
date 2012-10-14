@@ -117,7 +117,7 @@ Robert "Uncle Bob" Martin:
 
 ## Apps using minimapper
 
-* The deploy status app that minimapper was extracted from [https://github.com/joakimk/deployer](https://github.com/joakimk/deployer)
+* The deploy status app that minimapper was extracted from: [https://github.com/joakimk/deployer](https://github.com/joakimk/deployer)
 
 ## Running the tests
 
