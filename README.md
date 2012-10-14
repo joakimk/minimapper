@@ -122,7 +122,7 @@ You need mysql and postgres installed (but they do not have to be running) to be
 
 ## Contributing
 
-0. Read "Keeping it small" above
+0. Read "Only the most basic API" above
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
