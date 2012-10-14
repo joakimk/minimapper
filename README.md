@@ -97,7 +97,7 @@ puts repository.users.find(user.id).name # => Joe
 user = User.new
 repository.users.create(user)
 
-puts mapper.count              # => 0
+puts repository.users.count    # => 0
 puts user.errors.full_messages # Name can't be blank
 ```
 
