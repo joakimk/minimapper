@@ -108,6 +108,8 @@ puts repository.users.find(user.id).name # -> Joe
 
 ## Using the ActiveRecord mapper
 
+(not runnable like the previous example, requires active record)
+
 ``` ruby
 require "minimapper/ar"
 
