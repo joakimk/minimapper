@@ -36,7 +36,7 @@ Or install it yourself as:
 
     $ gem install minimapper
 
-Please avoid installing directly from the github repository. Code will be pushed there that might fail in [CI](https://travis-ci.org/#!/joakimk/minimapper/builds), gem releases are only done when CI is green.
+Please avoid installing directly from the github repository. Code will be pushed there that might fail in [CI](https://travis-ci.org/#!/joakimk/minimapper/builds) (because testing all permutations of ruby versions and databases locally isn't practical). Gem releases are only done when CI is green.
 
 ## Usage
 
