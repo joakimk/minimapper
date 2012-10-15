@@ -13,6 +13,7 @@ Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/
 This library only implements the most basic persistance API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
 The reasons for this are:
+
 * You should be able to depend on the API
 * It should be possible to learn all it does in a short time
 * It should be simple to add an adapter for a new database
@@ -136,9 +137,11 @@ mapper.create(user)
 ### People
 
 Jason Roelofs:
+
 * [Designing a Rails App](http://jasonroelofs.com/2012/05/29/designing-a-rails-app-part-1/) (find the whole series of posts)
 
 Robert "Uncle Bob" Martin:
+
 * [Architecture: The Lost Years](http://www.confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years)
 * [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
