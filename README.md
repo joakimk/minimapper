@@ -146,7 +146,9 @@ end
 module AR
   class ProjectMapper < Minimapper::AR
     def waiting_for_review
-      record_klass.where(waiting_for_review: true).order("id DESC")
+      record_klass.where(waiting_for_review: true).order("id DESC").map do |record|
+        entity_for(record)
+      end
     end
   end
 end
