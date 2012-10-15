@@ -156,7 +156,7 @@ module AR
 end
 ```
 
-And use it like this:
+And then use it like this:
 
 ``` ruby
 # repository = Minimapper::Repository.build(...)
