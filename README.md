@@ -2,7 +2,7 @@
 
 # Minimapper
 
-### About
+## About
 
 A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistance layer for an in-memory implementation in tests or use different persistance for different models.
 
