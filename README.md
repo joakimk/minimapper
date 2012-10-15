@@ -132,7 +132,36 @@ mapper.create(user)
 
 ### Custom queries
 
-*todo* show how, talk about shared examples.
+You can write custom queries like this:
+
+``` ruby
+module Memory
+  class ProjectMapper < Minimapper::Memory
+    def waiting_for_review
+      all.find_all { |p| p.waiting_for_review }.sort_by(&:id).reverse
+    end
+  end
+end
+
+module AR
+  class ProjectMapper < Minimapper::AR
+    def waiting_for_review
+      record_klass.where(waiting_for_review: true).order("id DESC")
+    end
+  end
+end
+```
+
+And use it like this:
+
+``` ruby
+# repository = Minimapper::Repository.build(...)
+repository.projects.waiting_for_review.each do |project|
+  puts project.name
+end
+```
+
+It gets simpler to maintain if you use shared tests to test both implementations. For inspiration, see the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) used to test minimapper.
 
 ### Adding a new mapper
 
