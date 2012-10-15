@@ -176,6 +176,7 @@ You need mysql and postgres installed (but they do not have to be running) to be
 I won't implement anything that isn't actually used. But here are some ideas for things that might make it into minimapper someday if there is a need for it.
 
 * Provide a hook to convert attributes between entities and the backing models (when your entity attributes and db-schema isn't a one-to-one match).
+* Copy validation errors back from the mapper to the entity (for example if you do uniqueness validation in a backing ActiveRecord-model).
 
 ## Credits and license
 
