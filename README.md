@@ -41,6 +41,8 @@ Please avoid installing directly from the github repository. Code will be pushed
 
 ## Usage
 
+### Basics
+
 You can use the mappers like this (**it's runnable, try copy and pasting it into a ruby file**):
 
 ``` ruby
