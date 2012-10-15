@@ -1,7 +1,7 @@
 shared_examples :mapper do
   # expects repository and entity_klass to be defined
 
-  describe "create" do
+  describe "#create" do
     it "sets an id on the entity" do
       entity1 = build_valid_entity
       entity1.id.should be_nil
@@ -32,7 +32,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "find" do
+  describe "#find" do
     it "returns an entity matching the id" do
       entity = build_valid_entity
       repository.create(entity)
@@ -55,12 +55,12 @@ shared_examples :mapper do
       repository.find(entity.id).object_id.should_not == repository.find(entity.id).object_id
     end
 
-    it "fails when the an entity can not be found" do
+    it "fails when an entity can not be found" do
       lambda { repository.find(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
-  describe "find_by_id" do
+  describe "#find_by_id" do
     it "returns an entity matching the id" do
       entity = build_valid_entity
       repository.create(entity)
@@ -83,12 +83,12 @@ shared_examples :mapper do
       repository.find_by_id(entity.id).object_id.should_not == repository.find_by_id(entity.id).object_id
     end
 
-    it "returns nil when the an entity can not be found" do
+    it "returns nil when an entity can not be found" do
       repository.find_by_id(-1).should be_nil
     end
   end
 
-  describe "all" do
+  describe "#all" do
     it "returns all entities in undefined order" do
       first_created_entity = build_valid_entity
       second_created_entity = build_valid_entity
@@ -108,7 +108,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "first" do
+  describe "#first" do
     it "returns the first entity" do
       first_created_entity = build_valid_entity
       repository.create(first_created_entity)
@@ -129,7 +129,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "last" do
+  describe "#last" do
     it "returns the last entity" do
       last_created_entity = build_valid_entity
       repository.create(build_valid_entity)
@@ -150,7 +150,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "count" do
+  describe "#count" do
     it "returns the number of entities" do
       repository.create(build_valid_entity)
       repository.create(build_valid_entity)
@@ -158,7 +158,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "update" do
+  describe "#update" do
     it "updates" do
       entity = build_valid_entity
       repository.create(entity)
@@ -199,7 +199,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "delete" do
+  describe "#delete" do
     it "removes the entity" do
       entity = build_valid_entity
       removed_entity_id = entity.id
@@ -229,7 +229,7 @@ shared_examples :mapper do
     end
   end
 
-  describe "delete_by_id" do
+  describe "#delete_by_id" do
     it "removes the entity" do
       entity = build_valid_entity
       repository.create(entity)
@@ -239,12 +239,12 @@ shared_examples :mapper do
       repository.first.id.should_not == entity.id
     end
 
-    it "fails when the an entity can not be found" do
+    it "fails when an entity can not be found" do
       lambda { repository.delete_by_id(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
 
-  describe "delete_all" do
+  describe "#delete_all" do
     it "empties the repository" do
       repository.create(build_valid_entity)
       repository.delete_all
