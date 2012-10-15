@@ -169,7 +169,14 @@ It gets simpler to maintain if you use shared tests to test both implementations
 
 ### Adding a new mapper
 
-*todo*: how to use the shared examples
+If you where to add a [Mongoid](http://mongoid.org/en/mongoid/index.html) mapper:
+
+1. Start by copying spec/ar_spec.rb to spec/mongoid_spec.rb and adapt it for Mongoid.
+2. Add any setup code needed in spec/support/database_setup.rb.
+3. Get the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) to pass for spec/mongoid_spec.rb.
+4. Ensure all other tests pass.
+5. Send a pull request.
+6. As soon as it can be made to work in travis in all ruby versions that apply (in Mongoid's case that is only the 1.9 rubies), I'll merge it in.
 
 ## Inspiration
 
