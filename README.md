@@ -135,6 +135,7 @@ mapper.create(user)
 You can write custom queries like this:
 
 ``` ruby
+# Memory implementation
 module Memory
   class ProjectMapper < Minimapper::Memory
     def waiting_for_review
@@ -143,6 +144,7 @@ module Memory
   end
 end
 
+# ActiveRecord implementation
 module AR
   class ProjectMapper < Minimapper::AR
     def waiting_for_review
