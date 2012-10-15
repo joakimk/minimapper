@@ -155,14 +155,16 @@ Robert "Uncle Bob" Martin:
 
 * The deploy status app that minimapper was extracted from: [https://github.com/joakimk/deployer](https://github.com/joakimk/deployer)
 
-## Running the tests
+## Contributing
+
+### Running the tests
 
 You need mysql and postgres installed (but they do not have to be running) to be able to run bundle. The sql-mapper tests use sqlite3 by default.
 
     bundle
     rake
 
-## Contributing
+### Steps
 
 0. Read "Only the most basic API" above
 1. Fork it
