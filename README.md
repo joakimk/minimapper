@@ -103,7 +103,7 @@ puts repository.users.count    # => 0
 puts user.errors.full_messages # Name can't be blank
 ```
 
-### Using the ActiveRecord mapper
+### ActiveRecord
 
 This is not directly runnable like the previous example, it requires ActiveRecord, a database and a users table. Isn't it interesting how much you could do without those things in the previous example? :)
 
