@@ -6,7 +6,7 @@
 
 ### Introduction
 
-A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistance layer for an in-memory implementation in tests or use different persistance for different models.
+A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistence layer for an in-memory implementation in tests or use different persistence for different models.
 
 If you're following good style you're probably already pushing all knowledge of your ORM down into your models or model-layer classes. This takes it a step further and let's you work with your models without depending on heavy frameworks like rails or needing a database.
 
@@ -14,7 +14,7 @@ Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/
 
 ### Only the most basic API
 
-This library only implements the most basic persistance API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
+This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
 The reasons for this are:
 
@@ -111,7 +111,7 @@ puts user.errors.full_messages # Name can't be blank
 
 This is not directly runnable like the previous example, it requires ActiveRecord, a database and a users table. Isn't it interesting how much you could do without those things in the previous example? :)
 
-When you do need to use an ORM like ActiveRecord however, it now has the same API as your in-memory persistance (thanks to the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) which define how a mapper is supposed to behave).
+When you do need to use an ORM like ActiveRecord however, it now has the same API as your in-memory persistence (thanks to the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) which define how a mapper is supposed to behave).
 
 ``` ruby
 require "minimapper/ar"
