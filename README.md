@@ -130,11 +130,11 @@ mapper = AR::UserMapper.new
 mapper.create(user)
 ```
 
-### Implementing custom queries
+### Custom queries
 
 *todo* show how, talk about shared examples.
 
-### Implementing another mapper
+### A new mapper
 
 *todo*: how to use the shared examples
 
