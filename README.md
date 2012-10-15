@@ -10,7 +10,7 @@ If you're following good style you're probably already pushing all knowledge of 
 
 Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation (it implements repositories and data mappers but not criteria builders).
 
-## Only the most basic API
+### Only the most basic API
 
 This library only implements the most basic persistance API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
 
@@ -21,7 +21,7 @@ The reasons for this are:
 * It should be simple to add an adapter for a new database
 * It should be simple to maintain minimapper
 
-## Compatibility
+### Compatibility
 
 This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
 
