@@ -134,7 +134,7 @@ mapper.create(user)
 
 *todo* show how, talk about shared examples.
 
-### A new mapper
+### Adding a new mapper
 
 *todo*: how to use the shared examples
 
