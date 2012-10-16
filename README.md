@@ -27,6 +27,11 @@ The reasons for this are:
 
 This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
 
+### Early days
+
+This is not quite intended for production use yet. It's a very small API that is well tested so you could use it in production apps, but there are still some problem areas that hasn't been well explored (for example, how to handle associations). It is probably better to use this than to roll your own project specific solution though.
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
