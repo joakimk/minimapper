@@ -220,6 +220,7 @@ You need mysql and postgres installed (but they do not have to be running) to be
 
 * Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
 * Change the memory mapper to store entity attributes, not entity instances.
+  - Unless this makes it difficult to handle associated data, need to find a good way to handle that.
 * Make Minimapper::Entity a module so you won't have to inherit from it.
 * Make using Minimapper::Entity optional by providing shared examples of the behavior required by the mappers. Test the mappers with an object implementing only this behavior.
 
