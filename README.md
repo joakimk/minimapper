@@ -71,27 +71,27 @@ end
 
 ## Creating
 user = User.new(:name => "Joe")
-mapper = UserMapper.new
-mapper.create(user)
+user_mapper = UserMapper.new
+user_mapper.create(user)
 
 ## Finding
-user = mapper.find(user.id)
+user = user_mapper.find(user.id)
 puts user.name             # => Joe
-puts mapper.first.name     # => Joe
+puts user_mapper.first.name     # => Joe
 
 ## Updating
 user.name = "Joey"
-mapper.update(user)
-puts mapper.first.name    # => Joey
+user_mapper.update(user)
+puts user_mapper.first.name    # => Joey
 
 ## Deleting
 old_id = user.id
-mapper.delete(user)
+user_mapper.delete(user)
 puts user.id                   # => nil
-puts mapper.find_by_id(old_id) # => nil
-# mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
-# mapper.delete_all
-# mapper.delete_by_id(1)
+puts user_mapper.find_by_id(old_id) # => nil
+# user_mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
+# user_mapper.delete_all
+# user_mapper.delete_by_id(1)
 
 ## Using a repository
 require "minimapper/repository"
