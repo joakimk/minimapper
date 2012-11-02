@@ -182,10 +182,10 @@ class User < Minimapper::Entity
   attributes [ :profile_id, Integer ]
 end
 
-User.new(profile_id: "10").profile_id      # => 10
-User.new(profile_id: " 10 ").profile_id    # => 10
-User.new(profile_id: " ").profile_id       # => nil
-User.new(profile_id: "foobar").profile_id  # => nil
+User.new(:profile_id => "10").profile_id      # => 10
+User.new(:profile_id => " 10 ").profile_id    # => 10
+User.new(:profile_id => " ").profile_id       # => nil
+User.new(:profile_id => "foobar").profile_id  # => nil
 ```
 
 ### Adding a new mapper
