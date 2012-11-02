@@ -1,4 +1,5 @@
 require 'minimapper/entity/convert'
+require 'active_support/core_ext'
 
 describe Minimapper::Entity::Convert do
   it "converts strings into integers" do
