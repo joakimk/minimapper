@@ -172,6 +172,22 @@ end
 
 It gets simpler to maintain if you use shared tests to test both implementations. For inspiration, see the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) used to test minimapper.
 
+### Typed attributes
+
+``` ruby
+# Supported types: Integer, DateTime
+# TODO: Will probably not support more types, but instead provide a way to add custom conversions.
+
+class User < Minimapper::Entity
+  attributes [ :profile_id, Integer ]
+end
+
+User.new(profile_id: "10").profile_id      # => 10
+User.new(profile_id: " 10 ").profile_id    # => 10
+User.new(profile_id: " ").profile_id       # => nil
+User.new(profile_id: "foobar").profile_id  # => nil
+```
+
 ### Adding a new mapper
 
 If you where to add a [Mongoid](http://mongoid.org/en/mongoid/index.html) mapper:
@@ -223,6 +239,7 @@ You need mysql and postgres installed (but they do not have to be running) to be
 
 ### Next
 
+* Add some way to extend type conversions to keep that part of minimapper small.
 * Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
 * Change the memory mapper to store entity attributes, not entity instances.
   - Unless this makes it difficult to handle associated data.

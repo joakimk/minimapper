@@ -6,6 +6,7 @@
 #
 # This class also does some things needed for it to work well with rails.
 require 'informal'
+require 'minimapper/entity/convert'
 
 module Minimapper
   class Entity
@@ -13,11 +14,18 @@ module Minimapper
 
     def self.attributes(*list)
       list.each do |attribute|
+        type = nil
+
+        if attribute.is_a?(Array)
+          attribute, type = attribute
+        end
+
         define_method(attribute) do
           instance_variable_get("@#{attribute}")
         end
 
         define_method("#{attribute}=") do |value|
+          value = Convert.new(value).to(type)
           instance_variable_set("@#{attribute}", value)
           @attributes[attribute] = value
         end
@@ -37,7 +45,7 @@ module Minimapper
       id
     end
 
-    attributes :id, :created_at, :updated_at
+    attributes [ :id, Integer ], [ :created_at, DateTime ], [ :updated_at, DateTime ]
 
     attr_reader :attributes
   end

@@ -13,6 +13,26 @@ describe Minimapper::Entity do
     base.updated_at = time
     base.updated_at.should == time
   end
+
+  it "converts typed attributes" do
+    base = described_class.new
+    base.id = "10"
+    base.id.should == 10
+  end
+end
+
+class TestUser < Minimapper::Entity
+  attributes :name
+end
+
+describe Minimapper::Entity, "attributes without type" do
+  it "can be set and get with anything" do
+    user = TestUser.new
+    user.name = "Hello"
+    user.name.should == "Hello"
+    user.name = 5
+    user.name.should == 5
+  end
 end
 
 describe Minimapper::Entity, "attributes" do
