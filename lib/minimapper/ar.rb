@@ -21,7 +21,7 @@ module Minimapper
     end
 
     def all
-      record_klass.all.map { |record| entity_klass.new(record.attributes) }
+      record_klass.all.map { |record| entity_for(record) }
     end
 
     def first
@@ -74,9 +74,9 @@ module Minimapper
 
     # Will attempt to use Project as the enity class when
     # the mapper class name is AR::ProjectMapper
-    def entity_klass
-      @entity_klass ||= ("::" + self.class.name.split('::').last.gsub(/Mapper/, '')).constantize
-      @entity_klass
+    def entity_class
+      @entity_class ||= ("::" + self.class.name.split('::').last.gsub(/Mapper/, '')).constantize
+      @entity_class
     end
 
     def find_record_safely(id)
@@ -95,7 +95,10 @@ module Minimapper
 
     def entity_for(record)
       if record
-        entity_klass.new(record.attributes)
+        entity = entity_class.new
+        entity.id = record.id
+        entity.attributes = record.attributes.symbolize_keys
+        entity
       else
         nil
       end

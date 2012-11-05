@@ -1,15 +1,13 @@
 require 'minimapper/memory'
-require 'minimapper/entity'
+require 'minimapper/entity/core'
 
-class TestEntity
-  include Minimapper::Entity
-  attributes :name
-  validates :name, :presence => true
+class BasicEntity
+  include Minimapper::Entity::Core
 end
 
 describe Minimapper::Memory do
   let(:repository) { described_class.new }
-  let(:entity_klass) { TestEntity }
+  let(:entity_class) { BasicEntity }
 
   include_examples :mapper
 end

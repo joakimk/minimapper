@@ -241,11 +241,11 @@ You need mysql and postgres installed (but they do not have to be running) to be
 
 ### Next
 
+* Make "informal" optional. If you only use minimapper/entity/core there is no need for it as a dependency.
 * Add some way to extend type conversions to keep that part of minimapper small.
 * Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
 * Change the memory mapper to store entity attributes, not entity instances.
   - Unless this makes it difficult to handle associated data.
-* Make using Minimapper::Entity optional by providing shared examples of the behavior required by the mappers. Test the mappers with an object implementing only this behavior.
 
 ### Ideas
 

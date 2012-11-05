@@ -4,6 +4,12 @@ class TestEntity
   include Minimapper::Entity
 end
 
+class TestUser
+  include Minimapper::Entity
+  attributes :name
+  validates :name, :presence => true
+end
+
 describe Minimapper::Entity do
   it "handles base attributes" do
     entity = TestEntity.new
@@ -28,11 +34,13 @@ describe Minimapper::Entity do
     entity.id = "10"
     entity.id.should == 10
   end
-end
 
-class TestUser
-  include Minimapper::Entity
-  attributes :name
+  it "applies validations" do
+    user = TestUser.new
+    user.should_not be_valid
+    user.name = "Joe"
+    user.should be_valid
+  end
 end
 
 describe Minimapper::Entity, "attributes without type" do

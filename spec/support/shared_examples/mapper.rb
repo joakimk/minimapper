@@ -1,5 +1,5 @@
 shared_examples :mapper do
-  # expects repository and entity_klass to be defined
+  # expects repository and entity_class to be defined
 
   describe "#create" do
     it "sets an id on the entity" do
@@ -23,11 +23,14 @@ shared_examples :mapper do
       entity = build_valid_entity
       repository.create(entity)
       repository.last.object_id.should_not == entity.object_id
-      repository.last.name.should == "test"
+      repository.last.attributes[:name].should == "test"
     end
 
     it "validates the record before saving" do
-      entity = entity_klass.new
+      entity = entity_class.new
+      def entity.valid?
+        false
+      end
       repository.create(entity).should be_false
     end
   end
@@ -37,9 +40,9 @@ shared_examples :mapper do
       entity = build_valid_entity
       repository.create(entity)
       found_entity = repository.find(entity.id)
-      found_entity.name.should == "test"
+      found_entity.attributes[:name].should == "test"
       found_entity.id.should == entity.id
-      found_entity.should be_kind_of(Minimapper::Entity)
+      found_entity.should be_kind_of(Minimapper::Entity::Core)
     end
 
     it "supports string ids" do
@@ -65,9 +68,9 @@ shared_examples :mapper do
       entity = build_valid_entity
       repository.create(entity)
       found_entity = repository.find_by_id(entity.id)
-      found_entity.name.should == "test"
+      found_entity.attributes[:name].should == "test"
       found_entity.id.should == entity.id
-      found_entity.should be_kind_of(Minimapper::Entity)
+      found_entity.should be_kind_of(Minimapper::Entity::Core)
     end
 
     it "supports string ids" do
@@ -97,7 +100,7 @@ shared_examples :mapper do
       all_entities = repository.all
       all_entities.map(&:id).should include(first_created_entity.id)
       all_entities.map(&:id).should include(second_created_entity.id)
-      all_entities.first.should be_kind_of(Minimapper::Entity)
+      all_entities.first.should be_kind_of(Minimapper::Entity::Core)
     end
 
     it "does not return the same instances" do
@@ -114,7 +117,7 @@ shared_examples :mapper do
       repository.create(first_created_entity)
       repository.create(build_valid_entity)
       repository.first.id.should == first_created_entity.id
-      repository.first.should be_kind_of(entity_klass)
+      repository.first.should be_kind_of(entity_class)
     end
 
     it "does not return the same instance" do
@@ -135,7 +138,7 @@ shared_examples :mapper do
       repository.create(build_valid_entity)
       repository.create(last_created_entity)
       repository.last.id.should == last_created_entity.id
-      repository.last.should be_kind_of(entity_klass)
+      repository.last.should be_kind_of(entity_class)
     end
 
     it "does not return the same instance" do
@@ -163,21 +166,24 @@ shared_examples :mapper do
       entity = build_valid_entity
       repository.create(entity)
 
-      entity.name = "Updated"
-      repository.last.name.should == "test"
+      entity.attributes = { :name => "Updated" }
+      repository.last.attributes[:name].should == "test"
 
       repository.update(entity)
       repository.last.id.should == entity.id
-      repository.last.name.should == "Updated"
+      repository.last.attributes[:name].should == "Updated"
     end
 
     it "does not update and returns false when the entity isn't valid" do
       entity = build_valid_entity
       repository.create(entity)
-      entity.name = nil
+
+      def entity.valid?
+        false
+      end
 
       repository.update(entity).should be_false
-      repository.last.name.should == "test"
+      repository.last.attributes[:name].should == "test"
     end
 
     it "returns true" do
@@ -219,12 +225,13 @@ shared_examples :mapper do
     end
 
     it "fails when the entity does not have an id" do
-      entity = entity_klass.new
+      entity = entity_class.new
       lambda { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
 
     it "fails when the entity can not be found" do
-      entity = entity_klass.new(:id => -1)
+      entity = entity_class.new
+      entity.id = -1
       lambda { repository.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
     end
   end
@@ -255,6 +262,8 @@ shared_examples :mapper do
   private
 
   def build_valid_entity
-    entity_klass.new(:name => 'test')
+    entity = entity_class.new
+    entity.attributes = { :name => 'test' }
+    entity
   end
 end

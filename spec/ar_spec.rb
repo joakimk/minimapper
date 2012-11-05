@@ -1,17 +1,15 @@
 require "spec_helper"
-require "minimapper/entity"
+require "minimapper/entity/core"
 require "minimapper/ar"
 
 class TestEntity
-  include Minimapper::Entity
-  attributes :name, :github_url
-  validates :name, :presence => true
+  include Minimapper::Entity::Core
 end
 
 class TestMapper < Minimapper::AR
   private
 
-  def entity_klass
+  def entity_class
     TestEntity
   end
 
@@ -27,7 +25,7 @@ end
 
 describe Minimapper::AR do
   let(:repository) { TestMapper.new }
-  let(:entity_klass) { TestEntity }
+  let(:entity_class) { TestEntity }
 
   include_examples :mapper
 end
