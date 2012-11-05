@@ -1,27 +1,37 @@
 require 'minimapper/entity'
 
+class TestEntity
+  include Minimapper::Entity
+end
+
 describe Minimapper::Entity do
   it "handles base attributes" do
-    base = described_class.new
-    base.id = 5
-    base.id.should == 5
+    entity = TestEntity.new
+    entity.id = 5
+    entity.id.should == 5
 
     time = Time.now
-    base.created_at = time
-    base.created_at.should == time
+    entity.created_at = time
+    entity.created_at.should == time
 
-    base.updated_at = time
-    base.updated_at.should == time
+    entity.updated_at = time
+    entity.updated_at.should == time
+  end
+
+  it "can access attributes set at construction time" do
+    entity = TestEntity.new(:id => 5)
+    entity.id.should == 5
   end
 
   it "converts typed attributes" do
-    base = described_class.new
-    base.id = "10"
-    base.id.should == 10
+    entity = TestEntity.new
+    entity.id = "10"
+    entity.id.should == 10
   end
 end
 
-class TestUser < Minimapper::Entity
+class TestUser
+  include Minimapper::Entity
   attributes :name
 end
 
@@ -37,25 +47,25 @@ end
 
 describe Minimapper::Entity, "attributes" do
   it "returns the attributes" do
-    base = described_class.new(:id => 5)
+    entity = TestEntity.new(:id => 5)
     time = Time.now
-    base.created_at = time
-    base.attributes.should == { :id => 5, :created_at => time }
+    entity.created_at = time
+    entity.attributes.should == { :id => 5, :created_at => time }
   end
 end
 
 describe Minimapper::Entity, "to_param" do
   it "responds with the id to be compatible with rails link helpers" do
-    base = described_class.new(:id => 5)
-    base.to_param.should == 5
+    entity = TestEntity.new(:id => 5)
+    entity.to_param.should == 5
   end
 end
 
 describe Minimapper::Entity, "persisted?" do
   it "responds true when there is an id (to be compatible with rails form helpers)" do
-    base = described_class.new
-    base.should_not be_persisted
-    base.id = 5
-    base.should be_persisted
+    entity = TestEntity.new
+    entity.should_not be_persisted
+    entity.id = 5
+    entity.should be_persisted
   end
 end

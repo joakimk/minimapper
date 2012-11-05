@@ -1,5 +1,5 @@
 module Minimapper
-  class Entity
+  module Entity
     class Convert
       def initialize(value)
         @value = value

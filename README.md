@@ -61,7 +61,8 @@ require "minimapper"
 require "minimapper/entity"
 require "minimapper/memory"
 
-class User < Minimapper::Entity
+class User
+  include Minimapper::Entity
   attributes :name, :email
   validates :name, :presence => true
 end
@@ -178,7 +179,8 @@ It gets simpler to maintain if you use shared tests to test both implementations
 # Supported types: Integer, DateTime
 # TODO: Will probably not support more types, but instead provide a way to add custom conversions.
 
-class User < Minimapper::Entity
+class User
+  include Minimapper::Entity
   attributes [ :profile_id, Integer ]
 end
 
@@ -243,7 +245,6 @@ You need mysql and postgres installed (but they do not have to be running) to be
 * Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
 * Change the memory mapper to store entity attributes, not entity instances.
   - Unless this makes it difficult to handle associated data.
-* Make Minimapper::Entity a module so you won't have to inherit from it.
 * Make using Minimapper::Entity optional by providing shared examples of the behavior required by the mappers. Test the mappers with an object implementing only this behavior.
 
 ### Ideas

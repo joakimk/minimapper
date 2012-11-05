@@ -2,7 +2,8 @@ require "spec_helper"
 require "minimapper/entity"
 require "minimapper/ar"
 
-class TestEntity < Minimapper::Entity
+class TestEntity
+  include Minimapper::Entity
   attributes :name, :github_url
   validates :name, :presence => true
 end
