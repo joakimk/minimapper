@@ -11,11 +11,17 @@ module Minimapper
       end
 
       def attributes=(new_attributes)
-        @attributes = attributes.merge(new_attributes)
+        @attributes = attributes.merge(symbolize_keys(new_attributes))
       end
 
       def valid?
         true
+      end
+
+      private
+
+      def symbolize_keys(hash)
+        hash.inject({}) { |h, (k, v)| h.merge!(k.to_sym => v) }
       end
     end
   end

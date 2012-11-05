@@ -2,6 +2,7 @@ require 'minimapper/entity/core'
 
 class BasicEntity
   include Minimapper::Entity::Core
+  attr_accessor :one, :two
 end
 
 describe Minimapper::Entity::Core do
@@ -17,6 +18,13 @@ describe Minimapper::Entity::Core do
     entity.attributes = { :one => 1 }
     entity.attributes = { :two => 2 }
     entity.attributes.should == { :one => 1, :two => 2 }
+  end
+
+  it "converts all keys to symbols" do
+    entity = BasicEntity.new
+    entity.attributes = { :one => 1 }
+    entity.attributes = { "one" => 11 }
+    entity.attributes.should == { :one => 11 }
   end
 
   it "returns true for valid?" do

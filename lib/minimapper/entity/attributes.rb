@@ -12,13 +12,11 @@ module Minimapper
           end
 
           define_method(attribute) do
-            instance_variable_get("@#{attribute}")
+            attributes[attribute]
           end
 
           define_method("#{attribute}=") do |value|
-            value = Convert.new(value).to(type)
-            instance_variable_set("@#{attribute}", value)
-            attributes[attribute] = value
+            attributes[attribute] = Convert.new(value).to(type)
           end
         end
       end

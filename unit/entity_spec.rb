@@ -7,7 +7,6 @@ end
 class TestUser
   include Minimapper::Entity
   attributes :name
-  validates :name, :presence => true
 end
 
 describe Minimapper::Entity do
@@ -25,21 +24,23 @@ describe Minimapper::Entity do
   end
 
   it "can access attributes set at construction time" do
-    entity = TestEntity.new(:id => 5)
+    entity = TestUser.new(:id => 5)
     entity.id.should == 5
+    entity.attributes[:id].should == 5
+  end
+
+  it "can access attributes set though a hash" do
+    entity = TestUser.new
+    entity.attributes = { :id => 5 }
+    entity.id.should == 5
+    entity.attributes = { "id" => 8 }
+    entity.id.should == 8
   end
 
   it "converts typed attributes" do
     entity = TestEntity.new
     entity.id = "10"
     entity.id.should == 10
-  end
-
-  it "applies validations" do
-    user = TestUser.new
-    user.should_not be_valid
-    user.name = "Joe"
-    user.should be_valid
   end
 end
 
@@ -59,21 +60,5 @@ describe Minimapper::Entity, "attributes" do
     time = Time.now
     entity.created_at = time
     entity.attributes.should == { :id => 5, :created_at => time }
-  end
-end
-
-describe Minimapper::Entity, "to_param" do
-  it "responds with the id to be compatible with rails link helpers" do
-    entity = TestEntity.new(:id => 5)
-    entity.to_param.should == 5
-  end
-end
-
-describe Minimapper::Entity, "persisted?" do
-  it "responds true when there is an id (to be compatible with rails form helpers)" do
-    entity = TestEntity.new
-    entity.should_not be_persisted
-    entity.id = 5
-    entity.should be_persisted
   end
 end
