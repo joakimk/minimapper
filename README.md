@@ -63,6 +63,7 @@ require "minimapper/memory"
 
 class User
   include Minimapper::Entity
+
   attributes :name, :email
   validates :name, :presence => true
 end
@@ -189,6 +190,10 @@ User.new(:profile_id => " 10 ").profile_id    # => 10
 User.new(:profile_id => " ").profile_id       # => nil
 User.new(:profile_id => "foobar").profile_id  # => nil
 ```
+
+### Custom entity class
+
+You don't need to use Minimapper::Entity. The core API is implemented in [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb). Either include that module or implement your own version.
 
 ### Adding a new mapper
 
