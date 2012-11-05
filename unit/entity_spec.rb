@@ -41,6 +41,14 @@ describe Minimapper::Entity do
     entity = TestEntity.new
     entity.id = "10"
     entity.id.should == 10
+    entity.attributes = { :id => "15" }
+    entity.id.should == 15
+  end
+
+  it "symbolizes keys" do
+    entity = TestEntity.new
+    entity.attributes = { "id" => "15" }
+    entity.attributes[:id].should == 15
   end
 end
 

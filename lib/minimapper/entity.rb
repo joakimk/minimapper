@@ -9,7 +9,11 @@ module Minimapper
 
     def initialize(attributes = {})
       self.attributes = attributes
-      attributes.each_pair { |name, value| self.send("#{name}=", value) }
+    end
+
+    def attributes=(new_attributes)
+      super(new_attributes)
+      new_attributes.each_pair { |name, value| self.send("#{name}=", value) }
     end
 
     def self.included(klass)
