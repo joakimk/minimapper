@@ -10,6 +10,8 @@ Minimapper is a minimalistic way of separating models from ORMs like ActiveRecor
 
 Minimapper comes with an in-memory implementation of common CRUD operations. You can use this in tests to not hit the database where it isn't nessesary to do so. You can also develop new features without having to think about migrations until you need to persist data.
 
+Minimapper is not an ORM. It's a tool to make existing applications simpler to work with (though many small refactorings). It may also be an attractive alternative to going with DataMapper 2 (then it's done) for new apps if you have many years of experience with ActiveRecord like me and most of the rails developers I know.
+
 ### Early days
 
 The API may not be entiery stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around one or a few of them to make them good.
