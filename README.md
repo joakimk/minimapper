@@ -6,7 +6,7 @@
 
 ### Introduction
 
-Minimapper is a minimalistic way of separating models from ORMs like ActiveRecord. It enables you to unit test your models and code using your models within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example). This is very useful if you want your core application be independent of frameworks as described in Matt Wynne's [Hexagonal Rails](http://blog.mattwynne.net/2012/05/31/hexagonal-rails-objects-values-and-hexagons/) posts.
+Minimapper is a minimalistic way of separating models from ORMs like ActiveRecord. It enables you to unit test your models and code using your models within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example). This is very useful if you want your core application be independent of frameworks as described in Matt Wynne's [Hexagonal Rails](http://blog.mattwynne.net/2012/04/09/hexagonal-rails-introduction/) posts.
 
 Minimapper comes with an in-memory implementation of common CRUD operations. You can use this in tests to not hit the database where it isn't nessesary to do so. You can also develop new features without having to think about migrations until you need to persist data.
 
