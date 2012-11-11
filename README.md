@@ -10,6 +10,14 @@ Minimapper is a minimalistic way of separating models from ORMs like ActiveRecor
 
 Minimapper comes with an in-memory implementation of common CRUD operations. You can use this in tests to not hit the database where it isn't nessesary to do so. You can also develop new features without having to think about migrations until you need to persist data.
 
+### Early days
+
+The API may not be entiery stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around one or a few of them to make them good.
+
+### Compatibility
+
+This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
+
 ### Only the most basic API
 
 This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems. The reasons for this are:
@@ -18,14 +26,6 @@ This library only implements the most basic persistence API (mostly just CRUD). 
 * It should be possible to learn all it does in a short time
 * It should be simple to add an adapter for a new database
 * It should be simple to maintain minimapper
-
-### Compatibility
-
-This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
-
-### Early days
-
-The API may not be entiery stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around one or a few of them to make them good.
 
 ## Installation
 
