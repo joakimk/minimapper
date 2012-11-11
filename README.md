@@ -14,7 +14,7 @@ Minimapper is not an ORM. It's a tool to make existing applications simpler to w
 
 ### Early days
 
-The API may not be entiery stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around a few of them to make them good.
+The API may not be entiery stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around a few of them and make them good.
 
 ### Compatibility
 
