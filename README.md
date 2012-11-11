@@ -190,7 +190,7 @@ User.new(:profile_id => "foobar").profile_id  # => nil
 
 ### Custom entity class
 
-You don't need to use Minimapper::Entity. The core API is implemented in [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb). Either include that module or implement your own version.
+You don't need to use Minimapper::Entity. The core API is implemented in [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb). You can either include that module or choose to implement your own version.
 
 ### Adding a new mapper
 
