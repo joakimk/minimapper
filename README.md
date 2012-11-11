@@ -1,4 +1,4 @@
-![Build status](https://secure.travis-ci.org/joakimk/minimapper.png) | [builds](https://travis-ci.org/#!/joakimk/minimapper/builds)
+[![Build Status](https://secure.travis-ci.org/joakimk/minimapper.png)](http://travis-ci.org/joakimk/minimapper)
 
 # Minimapper
 
