@@ -6,19 +6,15 @@
 
 ### Introduction
 
-A minimalistic way of separating your models from ORMs like ActiveRecord that allows you to swap out your persistence layer for an in-memory implementation in tests or use different persistence for different models.
+Minimapper is a minimalistic way of separating models from ORMs like ActiveRecord. It enables you to unit test your models and code using your models within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example). This is very useful if you want your core application be independent of frameworks as described in Matt Wynne's [Hexagonal Rails](http://blog.mattwynne.net/2012/05/31/hexagonal-rails-objects-values-and-hexagons/) posts.
 
-If you're following good style you're probably already pushing all knowledge of your ORM down into your models or model-layer classes. This takes it a step further and let's you work with your models without depending on heavy frameworks like rails or needing a database.
-
-Minimapper is a partial [repository-pattern](http://martinfowler.com/eaaCatalog/repository.html) implementation (it implements repositories and data mappers but not criteria builders).
+Minimapper comes with an in-memory implementation of common CRUD operations. You can use this in tests to not hit the database where it isn't nessesary to do so. You can develop new features without having to think about migrations until you need to persist data.
 
 ### Only the most basic API
 
-This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems (with names like "minimapper-FOO").
+This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems. The reasons for this are:
 
-The reasons for this are:
-
-* You should be able to depend on the API
+* It should have a stable API
 * It should be possible to learn all it does in a short time
 * It should be simple to add an adapter for a new database
 * It should be simple to maintain minimapper
@@ -29,8 +25,7 @@ This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.ym
 
 ### Early days
 
-This is not quite intended for production use yet. It's a very small API that is well tested so you could use it in production apps, but there are still some problem areas that hasn't been well explored (for example, how to handle associations). It is probably better to use this than to roll your own project specific solution though.
-
+The API may not be entiery stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around one or a few of them to make them good.
 
 ## Installation
 
