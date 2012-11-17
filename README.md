@@ -173,10 +173,9 @@ It gets simpler to maintain if you use shared tests to test both implementations
 
 ### Typed attributes
 
-``` ruby
-# Supported types: Integer, DateTime
-# TODO: Will probably not support more types, but instead provide a way to add custom conversions.
+If you specify type, minimapper will attempt to convert into that type. Supported types: Integer and DateTime.
 
+``` ruby
 class User
   include Minimapper::Entity
   attributes [ :profile_id, Integer ]
@@ -187,6 +186,29 @@ User.new(:profile_id => " 10 ").profile_id    # => 10
 User.new(:profile_id => " ").profile_id       # => nil
 User.new(:profile_id => "foobar").profile_id  # => nil
 ```
+
+You can add your own type conversions like this:
+
+``` ruby
+require "date"
+
+class ToDate
+  def convert(value)
+    Date.parse(value) rescue nil
+  end
+end
+
+Minimapper::Entity::Convert.register_converter(Date, ToDate.new)
+
+class User
+  include Minimapper::Entity
+  attributes [ :profile_id, Date ]
+end
+
+User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
+```
+
+Minimapper only calls #convert on non-empty strings. When the value is blank or nil, the attribute is set to nil.
 
 ### Custom entity class
 

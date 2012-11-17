@@ -1,3 +1,6 @@
+require 'minimapper/entity/convert/to_integer'
+require 'minimapper/entity/convert/to_date_time'
+
 module Minimapper
   module Entity
     class Convert
@@ -5,32 +8,31 @@ module Minimapper
         @value = value
       end
 
+      def self.register_converter(type, converter)
+        @@converters ||= {}
+        @@converters[type.to_s] = converter
+      end
+
       def to(type)
-        return if value.blank?
+        return nil if value.blank?
         return value unless value.is_a?(String)
 
-        case type.to_s
-        when "Integer"
-          to_integer
-        when "DateTime"
-          to_date_time
-        else
-          value
-        end
+        converter_for(type).convert(value)
       end
+
+      register_converter Integer,  ToInteger.new
+      register_converter DateTime, ToDateTime.new
 
       private
 
-      def to_integer
-        if value =~ /[0-9]/
-          value.to_i
-        else
-          nil
-        end
+      def converter_for(type)
+        @@converters.fetch(type.to_s, NoOpConverter.new)
       end
 
-      def to_date_time
-        DateTime.parse(value) rescue nil
+      class NoOpConverter
+        def convert(value)
+          value
+        end
       end
 
       attr_reader :value
