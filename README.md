@@ -88,7 +88,7 @@ old_id = user.id
 user_mapper.delete(user)
 p user.id                        # => nil
 p user_mapper.find_by_id(old_id) # => nil
-# user_mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
+# user_mapper.find(old_id)       # raises Minimapper::Common::CanNotFindEntity
 # user_mapper.delete_all
 # user_mapper.delete_by_id(1)
 
