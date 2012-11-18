@@ -20,7 +20,7 @@ module Minimapper
         converter_for(type).convert(value)
       end
 
-      register_converter :integer,  ToInteger.new
+      register_converter :integer,   ToInteger.new
       register_converter :date_time, ToDateTime.new
 
       private
