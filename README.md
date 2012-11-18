@@ -49,7 +49,16 @@ Please avoid installing directly from the github repository. Code will be pushed
 
 ### Basics
 
-You can use the mappers like this (**it's runnable, try copy and pasting it into a ruby file** or [use this gist](https://gist.github.com/3904952)):
+Just noticed that this stopped working in the markdown readme of one of my projects:
+
+Text (**bold**) text.
+
+While this works:
+
+Text ( **bold**) text.
+
+
+You can use the mappers like this (<strong>it's runnable, try copy and pasting it into a ruby file</strong> or [use this gist](https://gist.github.com/3904952)):
 
 ``` ruby
 # minimapper_test.rb
