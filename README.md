@@ -84,19 +84,19 @@ user_mapper.create(user)
 
 ## Finding
 user = user_mapper.find(user.id)
-puts user.name             # => Joe
-puts user_mapper.first.name     # => Joe
+p user.name             # => Joe
+p user_mapper.first.name     # => Joe
 
 ## Updating
 user.name = "Joey"
 user_mapper.update(user)
-puts user_mapper.first.name    # => Joey
+p user_mapper.first.name    # => Joey
 
 ## Deleting
 old_id = user.id
 user_mapper.delete(user)
-puts user.id                   # => nil
-puts user_mapper.find_by_id(old_id) # => nil
+p user.id                   # => nil
+p user_mapper.find_by_id(old_id) # => nil
 # user_mapper.find(old_id)          # raises Minimapper::Common::CanNotFindEntity
 # user_mapper.delete_all
 # user_mapper.delete_by_id(1)
@@ -111,13 +111,13 @@ repository = Minimapper::Repository.build({
 
 user = User.new(:name => "Joe")
 repository.users.create(user)
-puts repository.users.find(user.id).name # => Joe
+p repository.users.find(user.id).name # => Joe
 
 ## Using ActiveModel validations
 user = User.new
 repository.users.create(user)
-puts repository.users.count    # => 0
-puts user.errors.full_messages # Name can't be blank
+p repository.users.count    # => 0
+p user.errors.full_messages # Name can't be blank
 ```
 
 ### ActiveRecord
@@ -174,7 +174,7 @@ And then use it like this:
 ``` ruby
 # repository = Minimapper::Repository.build(...)
 repository.projects.waiting_for_review.each do |project|
-  puts project.name
+  p project.name
 end
 ```
 
