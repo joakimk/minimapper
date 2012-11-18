@@ -13,15 +13,15 @@ module Minimapper
         @@converters[type] = converter
       end
 
+      register_converter :integer,   ToInteger.new
+      register_converter :date_time, ToDateTime.new
+
       def to(type)
         return nil if value.blank?
         return value unless value.is_a?(String)
 
         converter_for(type).convert(value)
       end
-
-      register_converter :integer,   ToInteger.new
-      register_converter :date_time, ToDateTime.new
 
       private
 
