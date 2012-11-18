@@ -173,12 +173,12 @@ It gets simpler to maintain if you use shared tests to test both implementations
 
 ### Typed attributes
 
-If you specify type, minimapper will attempt to convert into that type. Supported types: Integer and DateTime.
+If you specify type, minimapper will attempt to convert into that type. Supported types: Integer and DateTime (:integer and :date_time).
 
 ``` ruby
 class User
   include Minimapper::Entity
-  attributes [ :profile_id, Integer ]
+  attributes [ :profile_id, :integer ]
 end
 
 User.new(:profile_id => "10").profile_id      # => 10
@@ -198,11 +198,11 @@ class ToDate
   end
 end
 
-Minimapper::Entity::Convert.register_converter(Date, ToDate.new)
+Minimapper::Entity::Convert.register_converter(:date, ToDate.new)
 
 class User
   include Minimapper::Entity
-  attributes [ :profile_id, Date ]
+  attributes [ :reminder_on, :date ]
 end
 
 User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>

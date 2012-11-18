@@ -10,7 +10,7 @@ module Minimapper
 
       def self.register_converter(type, converter)
         @@converters ||= {}
-        @@converters[type.to_s] = converter
+        @@converters[type] = converter
       end
 
       def to(type)
@@ -20,13 +20,13 @@ module Minimapper
         converter_for(type).convert(value)
       end
 
-      register_converter Integer,  ToInteger.new
-      register_converter DateTime, ToDateTime.new
+      register_converter :integer,  ToInteger.new
+      register_converter :date_time, ToDateTime.new
 
       private
 
       def converter_for(type)
-        @@converters.fetch(type.to_s, NoOpConverter.new)
+        @@converters.fetch(type, NoOpConverter.new)
       end
 
       class NoOpConverter
