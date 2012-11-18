@@ -45,6 +45,12 @@ describe Minimapper::Entity do
     entity.id.should == 15
   end
 
+  it "sets blank values to nil" do
+    user = TestUser.new
+    user.name = "  "
+    user.name.should be_nil
+  end
+
   it "symbolizes keys" do
     entity = TestEntity.new
     entity.attributes = { "id" => "15" }
