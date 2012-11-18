@@ -61,7 +61,7 @@ Text ( **bold**) text.
 You can use the mappers like this (<strong>it's runnable, try copy and pasting it into a ruby file</strong> or [use this gist](https://gist.github.com/3904952)):
 
 ``` ruby
-# minimapper_test.rb
+# minimapper_example.rb
 require "rubygems"
 require "minimapper"
 require "minimapper/entity"
