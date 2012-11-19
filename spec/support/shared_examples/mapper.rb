@@ -1,6 +1,11 @@
 shared_examples :mapper do
   # expects mapper and entity_class to be defined
 
+  it "can set and get repository" do
+    mapper.repository = :repository_instance
+    mapper.repository.should == :repository_instance
+  end
+
   describe "#create" do
     it "sets an id on the entity" do
       entity1 = build_valid_entity
