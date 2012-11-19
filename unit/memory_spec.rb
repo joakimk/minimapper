@@ -6,7 +6,7 @@ class BasicEntity
 end
 
 describe Minimapper::Memory do
-  let(:repository) { described_class.new }
+  let(:mapper) { described_class.new }
   let(:entity_class) { BasicEntity }
 
   include_examples :mapper

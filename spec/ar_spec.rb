@@ -24,7 +24,7 @@ class TestMapper < Minimapper::AR
 end
 
 describe Minimapper::AR do
-  let(:repository) { TestMapper.new }
+  let(:mapper) { TestMapper.new }
   let(:entity_class) { TestEntity }
 
   include_examples :mapper
