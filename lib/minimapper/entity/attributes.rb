@@ -4,28 +4,46 @@ module Minimapper
   module Entity
     module Attributes
       def attributes(*list)
-        list.each do |attribute|
-          type = nil
-
-          if attribute.is_a?(Array)
-            attribute, type = attribute
-          end
-
-          define_method(attribute) do
-            attributes[attribute]
-          end
-
-          define_method("#{attribute}=") do |value|
-            attributes[attribute] = Convert.new(value).to(type)
-          end
+        columns = add_columns(list)
+        columns.each do |column|
+          define_reader(column)
+          define_writer(column)
         end
-
-        @@column_names ||= []
-        @@column_names |= list
       end
 
       def column_names
-        @@column_names.map { |column| column.is_a?(Array) ? column.first : column }.map(&:to_s)
+        @entity_columns.map(&:name).map(&:to_s)
+      end
+
+      private
+
+      def add_columns(list)
+        @entity_columns ||= []
+        @entity_columns |= list.map { |data| Column.new(data) }
+      end
+
+      def define_reader(column)
+        define_method(column.name) do
+          attributes[column.name]
+        end
+      end
+
+      def define_writer(column)
+        define_method("#{column.name}=") do |value|
+          attributes[column.name] = Convert.new(value).to(column.type)
+        end
+      end
+
+      class Column
+        attr_reader :name, :type
+
+        def initialize(data)
+          if data.is_a?(Array)
+            @name, @type = data
+          else
+            @name = data
+          end
+        end
       end
     end
   end

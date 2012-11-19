@@ -9,6 +9,11 @@ class TestUser
   attributes :name
 end
 
+class TestProject
+  include Minimapper::Entity
+  attributes :title
+end
+
 describe Minimapper::Entity do
   it "handles base attributes" do
     entity = TestEntity.new
@@ -81,5 +86,9 @@ describe Minimapper::Entity, "self.column_names" do
   it "returns all attributes as strings" do
     # used by some rails plugins
     TestUser.column_names.should == [ "id", "created_at", "updated_at", "name" ]
+  end
+
+  it "does not leak between different models" do
+    TestProject.column_names.should == [ "id", "created_at", "updated_at", "title" ]
   end
 end
