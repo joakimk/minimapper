@@ -2,6 +2,8 @@ require "minimapper/common"
 
 module Minimapper
   class AR
+    include Common
+
     # Create
     def create(entity)
       if entity.valid?

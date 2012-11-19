@@ -18,18 +18,26 @@ describe Minimapper::Repository, "self.build" do
     repository.projects.object_id.should == repository.projects.object_id
   end
 
+  it "adds a reference to the repository" do
+    mapper = Test::ProjectMapper.new
+    repository = described_class.build(:projects => mapper)
+    mapper.repository.should == repository
+  end
+
   it "does not leak between instances" do
-    repository1 = described_class.build(:projects => :foo)
-    repository2 = described_class.build(:projects => :bar)
-    repository1.projects.should == :foo
-    repository2.projects.should == :bar
+    mapper1 = mock.as_null_object
+    mapper2 = mock.as_null_object
+    repository1 = described_class.build(:projects => mapper1)
+    repository2 = described_class.build(:projects => mapper2)
+    repository1.projects.should == mapper1
+    repository2.projects.should == mapper2
   end
 end
 
 describe Minimapper::Repository, "#delete_all!" do
   it "removes all records by calling delete_all on all mappers" do
-    project_mapper = mock
-    user_mapper = mock
+    project_mapper = mock.as_null_object
+    user_mapper = mock.as_null_object
 
     project_mapper.should_receive(:delete_all)
     user_mapper.should_receive(:delete_all)

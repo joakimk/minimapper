@@ -2,6 +2,8 @@ require 'minimapper/common'
 
 module Minimapper
   class Memory
+    include Common
+
     def initialize
       @store = []
       @last_id = 0

@@ -6,6 +6,7 @@ module Minimapper
 
     def initialize(mappers)
       @mappers = mappers
+      assign_repository_instance
       define_mapper_methods
     end
 
@@ -14,6 +15,12 @@ module Minimapper
     end
 
     private
+
+    def assign_repository_instance
+      mappers.each do |name, instance|
+        instance.repository = self
+      end
+    end
 
     def define_mapper_methods
       mappers.each do |name, instance|
