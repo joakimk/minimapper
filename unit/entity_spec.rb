@@ -76,3 +76,10 @@ describe Minimapper::Entity, "attributes" do
     entity.attributes.should == { :id => 5, :created_at => time }
   end
 end
+
+describe Minimapper::Entity, "self.column_names" do
+  it "returns all attributes as strings" do
+    # used by some rails plugins
+    TestUser.column_names.should == [ "id", "created_at", "updated_at", "name" ]
+  end
+end

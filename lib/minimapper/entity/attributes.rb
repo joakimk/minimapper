@@ -19,6 +19,13 @@ module Minimapper
             attributes[attribute] = Convert.new(value).to(type)
           end
         end
+
+        @@column_names ||= []
+        @@column_names |= list
+      end
+
+      def column_names
+        @@column_names.map { |column| column.is_a?(Array) ? column.first : column }.map(&:to_s)
       end
     end
   end
