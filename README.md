@@ -212,6 +212,10 @@ User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
 
 Minimapper only calls #convert on non-empty strings. When the value is blank or nil, the attribute is set to nil.
 
+### Associations
+
+There is no built in support for associations yet, but you can handle them manually (see https://github.com/joakimk/minimapper/issues/3).
+
 ### Custom entity class
 
 [Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
