@@ -181,6 +181,9 @@ If you specify type, minimapper will attempt to convert into that type. Supporte
 class User
   include Minimapper::Entity
   attributes [ :profile_id, :integer ]
+
+  # Or for single attributes:
+  # attribute :profile_id, :integer
 end
 
 User.new(:profile_id => "10").profile_id      # => 10

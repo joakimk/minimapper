@@ -14,6 +14,12 @@ class TestProject
   attributes :title
 end
 
+class TestTask
+  include Minimapper::Entity
+
+  attribute :due_at, :date_time
+end
+
 describe Minimapper::Entity do
   it "handles base attributes" do
     entity = TestEntity.new
@@ -48,6 +54,11 @@ describe Minimapper::Entity do
     entity.id.should == 10
     entity.attributes = { :id => "15" }
     entity.id.should == 15
+  end
+
+  it "can use single line type declarations" do
+    task = TestTask.new(due_at: "2012-01-01 15:00")
+    task.due_at.should == DateTime.parse("2012-01-01 15:00")
   end
 
   it "sets blank values to nil" do

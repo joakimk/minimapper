@@ -11,6 +11,10 @@ module Minimapper
         end
       end
 
+      def attribute(*opts)
+        attributes [ *opts ]
+      end
+
       def column_names
         @entity_columns.map(&:name).map(&:to_s)
       end
