@@ -57,7 +57,7 @@ describe Minimapper::Entity do
   end
 
   it "can use single line type declarations" do
-    task = TestTask.new(due_at: "2012-01-01 15:00")
+    task = TestTask.new(:due_at => "2012-01-01 15:00")
     task.due_at.should == DateTime.parse("2012-01-01 15:00")
   end
 
