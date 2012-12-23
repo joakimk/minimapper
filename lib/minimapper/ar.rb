@@ -7,7 +7,7 @@ module Minimapper
     # Create
     def create(entity)
       if entity.valid?
-        entity.id = record_klass.create!(entity.attributes).id
+        entity.id = record_klass.create!(accessible_attributes(entity)).id
       else
         false
       end
@@ -41,7 +41,7 @@ module Minimapper
     # Update
     def update(entity)
       if entity.valid?
-        record_for(entity).update_attributes!(entity.attributes)
+        record_for(entity).update_attributes!(accessible_attributes(entity))
         true
       else
         false
@@ -79,6 +79,14 @@ module Minimapper
     def entity_class
       @entity_class ||= ("::" + self.class.name.split('::').last.gsub(/Mapper/, '')).constantize
       @entity_class
+    end
+
+    def accessible_attributes(entity)
+      entity.attributes.reject { |k, v| protected_attributes.include?(k.to_s) }
+    end
+
+    def protected_attributes
+      record_klass.protected_attributes
     end
 
     def find_record_safely(id)

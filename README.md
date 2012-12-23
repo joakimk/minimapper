@@ -276,6 +276,8 @@ You need mysql and postgres installed (but they do not have to be running) to be
 
 * Make it possible to override minimapper attributes with super (like it's done in https://github.com/barsoom/traco)
 * Support default values for attributes (probably only using lambdas to avoid bugs).
+* Built in way to set induvidual attributes in a way that bypasses protected attributes like you can do with an AR model.
+  - user.is_admin = true; user_mapper.update(user) should probably set is_admin to true, mass-assignment should not.
 * Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
 * Change the memory mapper to store entity attributes, not entity instances.
   - Unless this makes it difficult to handle associated data.
