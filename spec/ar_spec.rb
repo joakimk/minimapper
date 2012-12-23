@@ -44,8 +44,8 @@ describe Minimapper::AR do
 
       entity = TestEntity.new
       entity.attributes = { :visible => true, :name => "Joe" }
-      TestMapper::Record.stub(protected_attributes: [])
-      -> { mapper.create(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
+      TestMapper::Record.stub(:protected_attributes => [])
+      lambda { mapper.create(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
   end
 
@@ -60,8 +60,8 @@ describe Minimapper::AR do
       stored_entity.attributes[:visible].should be_nil
       stored_entity.attributes[:name].should == "Joe"
 
-      TestMapper::Record.stub(protected_attributes: [])
-      -> { mapper.update(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
+      TestMapper::Record.stub(:protected_attributes => [])
+      lambda { mapper.update(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
   end
 end
