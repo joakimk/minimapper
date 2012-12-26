@@ -23,7 +23,7 @@ module Minimapper
     end
 
     def all
-      record_klass.all.map { |record| entity_for(record) }
+      entities_for record_klass.all
     end
 
     def first
@@ -101,6 +101,10 @@ module Minimapper
     def record_for(entity)
       (entity.id && record_klass.find_by_id(entity.id)) ||
         raise(Common::CanNotFindEntity, entity.inspect)
+    end
+
+    def entities_for(records)
+      records.map { |record| entity_for(record) }
     end
 
     def entity_for(record)
