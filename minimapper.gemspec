@@ -6,7 +6,7 @@ require 'minimapper/version'
 Gem::Specification.new do |gem|
   gem.name          = "minimapper"
   gem.version       = Minimapper::VERSION
-  gem.authors       = ["Joakim Kolsjö"]
+  gem.authors       = ["Joakim Kolsjo"]
   gem.email         = ["joakim.kolsjo@gmail.com"]
   gem.description   = %q{A minimalistic way of separating your models from ORMs like ActiveRecord.}
   gem.summary       = %q{A minimalistic way of separating your models from ORMs like ActiveRecord.}
