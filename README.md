@@ -173,6 +173,19 @@ end
 
 It gets simpler to maintain if you use shared tests to test both implementations. For inspiration, see the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) used to test minimapper.
 
+`entity_for` returns nil for nil.
+
+It takes an optional second argument if you want a different entity class than the mapper's:
+
+```
+class ProjectMapper < Minimapper::AR
+  def owner_of(project)
+    owner_record = find(project).owner
+    entity_for(owner_record, User)
+  end
+end
+```
+
 ### Typed attributes
 
 If you specify type, minimapper will attempt to convert into that type. Supported types: Integer and DateTime (:integer and :date_time).

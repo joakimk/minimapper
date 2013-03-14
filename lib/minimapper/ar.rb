@@ -104,9 +104,9 @@ module Minimapper
       records.map { |record| entity_for(record) }
     end
 
-    def entity_for(record)
+    def entity_for(record, klass = entity_class)
       if record
-        entity = entity_class.new
+        entity = klass.new
         entity.id = record.id
         entity.attributes = record.attributes.symbolize_keys
         entity
