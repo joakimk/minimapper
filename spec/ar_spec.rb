@@ -13,7 +13,7 @@ class TestMapper < Minimapper::AR
     TestEntity
   end
 
-  def record_klass
+  def record_class
     Record
   end
 

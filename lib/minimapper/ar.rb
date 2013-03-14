@@ -7,7 +7,7 @@ module Minimapper
     # Create
     def create(entity)
       if entity.valid?
-        entity.id = record_klass.create!(accessible_attributes(entity)).id
+        entity.id = record_class.create!(accessible_attributes(entity)).id
       else
         false
       end
@@ -23,19 +23,19 @@ module Minimapper
     end
 
     def all
-      entities_for record_klass.all
+      entities_for record_class.all
     end
 
     def first
-      entity_for(record_klass.order("id ASC").first)
+      entity_for(record_class.order("id ASC").first)
     end
 
     def last
-      entity_for(record_klass.order("id ASC").last)
+      entity_for(record_class.order("id ASC").last)
     end
 
     def count
-      record_klass.count
+      record_class.count
     end
 
     # Update
@@ -59,7 +59,7 @@ module Minimapper
     end
 
     def delete_all
-      record_klass.delete_all
+      record_class.delete_all
     end
 
     private
@@ -68,7 +68,7 @@ module Minimapper
 
     # Will attempt to use AR:Project as the record class
     # when the mapper class name is AR::ProjectMapper
-    def record_klass
+    def record_class
       self.class.name.gsub(/Mapper/, '').constantize
     end
 
@@ -83,7 +83,7 @@ module Minimapper
     end
 
     def protected_attributes
-      record_klass.protected_attributes
+      record_class.protected_attributes
     end
 
     def find_record_safely(id)
@@ -92,11 +92,11 @@ module Minimapper
     end
 
     def find_record(id)
-      id && record_klass.find_by_id(id)
+      id && record_class.find_by_id(id)
     end
 
     def record_for(entity)
-      (entity.id && record_klass.find_by_id(entity.id)) ||
+      (entity.id && record_class.find_by_id(entity.id)) ||
         raise(Common::CanNotFindEntity, entity.inspect)
     end
 
