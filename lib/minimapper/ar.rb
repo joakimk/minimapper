@@ -69,13 +69,13 @@ module Minimapper
     # Will attempt to use AR:Project as the record class
     # when the mapper class name is AR::ProjectMapper
     def record_class
-      self.class.name.gsub(/Mapper/, '').constantize
+      self.class.name.sub(/Mapper$/, '').constantize
     end
 
     # Will attempt to use Project as the enity class when
     # the mapper class name is AR::ProjectMapper
     def entity_class
-      ("::" + self.class.name.split('::').last.gsub(/Mapper/, '')).constantize
+      ("::" + self.class.name.split('::').last.sub(/Mapper$/, '')).constantize
     end
 
     def accessible_attributes(entity)
