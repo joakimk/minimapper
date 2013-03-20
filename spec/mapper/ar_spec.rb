@@ -20,6 +20,10 @@ class TestMapper < Minimapper::Mapper::AR
   class Record < ActiveRecord::Base
     attr_protected :visible
 
+    validates :email,
+      uniqueness: true,
+      allow_nil: true
+
     self.table_name = :projects
     self.mass_assignment_sanitizer = :strict
   end
@@ -34,8 +38,7 @@ describe Minimapper::Mapper::AR do
   describe "#create" do
     it "does not include protected attributes" do
       # because it leads to exceptions when mass_assignment_sanitizer is set to strict
-      entity = TestEntity.new
-      entity.attributes = { :visible => true, :name => "Joe" }
+      entity = build_entity(:visible => true, :name => "Joe")
       mapper.create(entity)
 
       stored_entity = mapper.find(entity.id)
@@ -46,6 +49,35 @@ describe Minimapper::Mapper::AR do
       entity.attributes = { :visible => true, :name => "Joe" }
       TestMapper::Record.stub(:protected_attributes => [])
       lambda { mapper.create(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
+
+    it "copies record validation errors to entity" do
+      old_entity = build_entity(:email => "joe@example.com")
+      mapper.create(old_entity)
+      old_entity.mapper_errors.should == []
+
+      new_entity = build_entity(:email => "joe@example.com")
+      mapper.create(new_entity)
+      new_entity.mapper_errors.should == [ [:email, "has already been taken"] ]
+    end
+
+    it "can revalidate on record validation errors" do
+      old_entity = build_entity(:email => "joe@example.com")
+      mapper.create(old_entity)
+
+      new_entity = build_entity(:email => "joe@example.com")
+      mapper.create(new_entity)
+      new_entity.mapper_errors.should == [ [:email, "has already been taken"] ]
+
+      new_entity.attributes = { :email => "something.else@example.com" }
+      mapper.create(new_entity)
+      new_entity.should be_valid
+    end
+
+    def build_entity(attributes)
+      entity = TestEntity.new
+      entity.attributes = attributes
+      entity
     end
   end
 
@@ -62,6 +94,42 @@ describe Minimapper::Mapper::AR do
 
       TestMapper::Record.stub(:protected_attributes => [])
       lambda { mapper.update(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
+
+    it "copies record validation errors to entity" do
+      old_entity = build_entity(:email => "joe@example.com")
+      mapper.create(old_entity)
+
+      new_entity = TestEntity.new
+      mapper.create(new_entity)
+      new_entity.mapper_errors.should == []
+
+      new_entity.attributes = { :email => "joe@example.com" }
+      mapper.update(new_entity)
+      new_entity.mapper_errors.should == [ [:email, "has already been taken"] ]
+    end
+
+    it "can revalidate on record validation errors" do
+      old_entity = build_entity(:email => "joe@example.com")
+      mapper.create(old_entity)
+
+      new_entity = TestEntity.new
+      mapper.create(new_entity)
+      new_entity.mapper_errors.should == []
+
+      new_entity.attributes = { :email => "joe@example.com" }
+      mapper.update(new_entity)
+      new_entity.mapper_errors.should == [ [:email, "has already been taken"] ]
+
+      new_entity.attributes = { :email => "something.else@example.com" }
+      mapper.update(new_entity)
+      new_entity.should be_valid
+    end
+
+    def build_entity(attributes)
+      entity = TestEntity.new
+      entity.attributes = attributes
+      entity
     end
   end
 end

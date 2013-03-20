@@ -6,15 +6,22 @@ module Minimapper
       include Common
 
       # Create
+
       def create(entity)
+        record = record_class.new
+        validate_record_and_copy_errors_to_entity(record, entity)
+
         if entity.valid?
-          entity.id = record_class.create!(accessible_attributes(entity)).id
+          record.save!
+          entity.id = record.id
+          entity.id
         else
           false
         end
       end
 
       # Read
+
       def find(id)
         entity_for(find_record_safely(id))
       end
@@ -40,9 +47,13 @@ module Minimapper
       end
 
       # Update
+
       def update(entity)
+        record = record_for(entity)
+        validate_record_and_copy_errors_to_entity(record, entity)
+
         if entity.valid?
-          record_for(entity).update_attributes!(accessible_attributes(entity))
+          record.save!
           true
         else
           false
@@ -50,6 +61,7 @@ module Minimapper
       end
 
       # Delete
+
       def delete(entity)
         delete_by_id(entity.id)
         entity.id = nil
@@ -85,6 +97,12 @@ module Minimapper
 
       def protected_attributes
         record_class.protected_attributes
+      end
+
+      def validate_record_and_copy_errors_to_entity(record, entity)
+        record.attributes = accessible_attributes(entity)
+        record.valid?
+        entity.mapper_errors = record.errors.map { |k, v| [k, v] }
       end
 
       def find_record_safely(id)

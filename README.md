@@ -136,6 +136,24 @@ mapper = AR::UserMapper.new
 mapper.create(user)
 ```
 
+### Uniqueness validations and other DB validations
+
+Validations on uniqueness can't be implemented on the entity, because they need to access the database.
+
+Therefore, the ActiveRecord mapper will copy over any record errors to the entity when attempting to create or update.
+
+You would add these validations to the record itself, like:
+
+``` ruby
+class User < ActiveRecord::Base
+  validates :email, :uniqueness => true
+end
+```
+
+Note that calling `valid?` on the entity will not access the database. Errors copied over from the record will remain until the next attempt to create or update.
+
+So an entity that wouldn't be unique in the database will be `valid?` before you attempt to create it. And after you attempt to create it, the entity will not be `valid?` even after assigning a new value, until you attempt to create it again.
+
 ### Custom queries
 
 You can write custom queries like this:
@@ -300,7 +318,6 @@ You need mysql and postgres installed (but they do not have to be running) to be
 I won't implement anything that isn't actually used. But here are some ideas for things that might make it into minimapper someday if there is a need for it.
 
 * Provide a hook to convert attributes between entities and the backing models (when your entity attributes and db-schema isn't a one-to-one match).
-* Copy validation errors back from the mapper to the entity (for example if you do uniqueness validation in a backing ActiveRecord-model).
 
 ## Credits and license
 
