@@ -120,7 +120,7 @@ This is not directly runnable like the previous example, it requires ActiveRecor
 When you do need to use an ORM like ActiveRecord however, it now has the same API as your in-memory persistence (thanks to the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) which define how a mapper is supposed to behave).
 
 ``` ruby
-require "minimapper/ar"
+require "minimapper/mapper/ar"
 
 module AR
   class UserMapper < Minimapper::AR

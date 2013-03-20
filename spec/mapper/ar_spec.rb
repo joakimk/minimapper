@@ -1,12 +1,12 @@
 require "spec_helper"
 require "minimapper/entity/core"
-require "minimapper/ar"
+require "minimapper/mapper/ar"
 
 class TestEntity
   include Minimapper::Entity::Core
 end
 
-class TestMapper < Minimapper::AR
+class TestMapper < Minimapper::Mapper::AR
   private
 
   def entity_class
@@ -25,7 +25,7 @@ class TestMapper < Minimapper::AR
   end
 end
 
-describe Minimapper::AR do
+describe Minimapper::Mapper::AR do
   let(:mapper) { TestMapper.new }
   let(:entity_class) { TestEntity }
 
