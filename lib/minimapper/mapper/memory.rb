@@ -1,4 +1,4 @@
-require 'minimapper/common'
+require 'minimapper/mapper/common'
 
 module Minimapper
   module Mapper
@@ -77,7 +77,7 @@ module Minimapper
 
       def find_internal_safely(id)
         find_internal(id) ||
-          raise(Common::CanNotFindEntity, :id => id)
+          raise(CanNotFindEntity, :id => id)
       end
 
       def find_internal(id)

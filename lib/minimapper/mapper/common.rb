@@ -1,7 +1,9 @@
 module Minimapper
-  module Common
+  module Mapper
     CanNotFindEntity = Class.new(StandardError)
 
-    attr_accessor :repository
+    module Common
+      attr_accessor :repository
+    end
   end
 end
