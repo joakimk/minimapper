@@ -282,6 +282,7 @@ Robert "Uncle Bob" Martin:
 
 ### Apps
 
+* About 4 people at [Barsoom](http://barsoom.se/) are currently working full time on building a rails app that uses minimapper. We'll be extending minimapper as we go.
 * The deploy status app that minimapper was extracted from: [https://github.com/joakimk/deployer](https://github.com/joakimk/deployer)
 
 ## Contributing
