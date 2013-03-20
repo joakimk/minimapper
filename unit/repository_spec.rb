@@ -1,8 +1,8 @@
 require 'minimapper/repository'
-require 'minimapper/memory'
+require 'minimapper/mapper/memory'
 
 module Test
-  class ProjectMapper < Minimapper::Memory
+  class ProjectMapper < Minimapper::Mapper::Memory
   end
 end
 

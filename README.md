@@ -57,7 +57,7 @@ You can use the mappers like this (<strong>it's runnable, try copy and pasting i
 require "rubygems"
 require "minimapper"
 require "minimapper/entity"
-require "minimapper/memory"
+require "minimapper/mapper/memory"
 
 class User
   include Minimapper::Entity
@@ -66,7 +66,7 @@ class User
   validates :name, :presence => true
 end
 
-class UserMapper < Minimapper::Memory
+class UserMapper < Minimapper::Mapper::Memory
 end
 
 ## Creating
@@ -143,7 +143,7 @@ You can write custom queries like this:
 ``` ruby
 # Memory implementation
 module Memory
-  class ProjectMapper < Minimapper::Memory
+  class ProjectMapper < Minimapper::Mapper::Memory
     def waiting_for_review
       all.find_all { |p| p.waiting_for_review }.sort_by(&:id).reverse
     end
