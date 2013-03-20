@@ -21,8 +21,8 @@ class TestMapper < Minimapper::Mapper::AR
     attr_protected :visible
 
     validates :email,
-      uniqueness: true,
-      allow_nil: true
+      :uniqueness => true,
+      :allow_nil => true
 
     self.table_name = :projects
     self.mass_assignment_sanitizer = :strict
