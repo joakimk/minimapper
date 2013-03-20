@@ -12,8 +12,8 @@ module Minimapper
           extend  ActiveModel::Naming
           include ActiveModel::Validations
 
-          # Must be later than ActiveModel::Validations so
-          # it can call it with super.
+          # Must be added after ActiveModel::Validations so our
+          # validations can call ActiveModel's with `super`.
           include ValidationsWithMapperErrors
         end
       end
