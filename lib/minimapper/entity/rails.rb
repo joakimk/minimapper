@@ -1,3 +1,7 @@
+# Include this in your entity models for
+# Ruby on Rails conveniences, like being
+# able to use them in forms.
+
 require "active_model"
 
 module Minimapper
@@ -7,6 +11,22 @@ module Minimapper
         klass.class_eval do
           extend  ActiveModel::Naming
           include ActiveModel::Validations
+
+          # Must be later than ActiveModel::Validations so
+          # it can call it with super.
+          include ValidationsWithMapperErrors
+        end
+      end
+
+      module ValidationsWithMapperErrors
+        def valid?
+          super
+
+          mapper_errors.each do |a, v|
+            errors.add(a, v)
+          end
+
+          errors.empty?
         end
       end
 

@@ -15,7 +15,15 @@ module Minimapper
       end
 
       def valid?
-        true
+        mapper_errors.empty?
+      end
+
+      def mapper_errors
+        @mapper_errors ||= []
+      end
+
+      def mapper_errors=(list)
+        @mapper_errors = list
       end
 
       private

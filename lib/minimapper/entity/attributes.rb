@@ -15,6 +15,7 @@ module Minimapper
         attributes [ *opts ]
       end
 
+      # Compatibility with certain Rails plugins, like Traco.
       def column_names
         @entity_columns.map(&:name).map(&:to_s)
       end

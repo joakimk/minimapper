@@ -50,4 +50,15 @@ describe Minimapper::Entity::Rails do
     entity.name = "Joe"
     entity.should be_valid
   end
+
+  describe "#mapper_errors=" do
+    it "adds an error to the errors collection" do
+      entity = RailsEntity.new
+      entity.name = "Joe"
+      entity.should be_valid
+      entity.mapper_errors = [ [:name, "must be unique"] ]
+      entity.should_not be_valid
+      entity.errors[:name].should == ["must be unique"]
+    end
+  end
 end

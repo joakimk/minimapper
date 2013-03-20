@@ -45,7 +45,7 @@ end
 silence_stream(STDOUT) do
   ActiveRecord::Schema.define(:version => 0) do
     create_table :projects, :force => true do |t|
-      t.string :name
+      t.string :name, :email
       t.boolean :visible
     end
   end

@@ -19,7 +19,11 @@ module Minimapper
     def self.included(klass)
       klass.send(:include, Minimapper::Entity::Rails)
       klass.send(:extend, Minimapper::Entity::Attributes)
-      klass.attributes([ :id, :integer ], [ :created_at, :date_time ], [ :updated_at, :date_time ])
+      klass.attributes(
+        [ :id, :integer ],
+        [ :created_at, :date_time ],
+        [ :updated_at, :date_time ]
+      )
     end
   end
 end

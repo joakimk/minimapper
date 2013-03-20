@@ -64,7 +64,7 @@ shared_examples :mapper do
     end
 
     it "fails when an entity can not be found" do
-      lambda { mapper.find(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { mapper.find(-1) }.should raise_error(Minimapper::Mapper::CanNotFindEntity)
     end
   end
 
@@ -199,14 +199,14 @@ shared_examples :mapper do
 
     it "fails when the entity does not have an id" do
       entity = build_valid_entity
-      lambda { mapper.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { mapper.update(entity) }.should raise_error(Minimapper::Mapper::CanNotFindEntity)
     end
 
     it "fails when the entity no longer exists" do
       entity = build_valid_entity
       mapper.create(entity)
       mapper.delete_all
-      lambda { mapper.update(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { mapper.update(entity) }.should raise_error(Minimapper::Mapper::CanNotFindEntity)
     end
   end
 
@@ -231,13 +231,13 @@ shared_examples :mapper do
 
     it "fails when the entity does not have an id" do
       entity = entity_class.new
-      lambda { mapper.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { mapper.delete(entity) }.should raise_error(Minimapper::Mapper::CanNotFindEntity)
     end
 
     it "fails when the entity can not be found" do
       entity = entity_class.new
       entity.id = -1
-      lambda { mapper.delete(entity) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { mapper.delete(entity) }.should raise_error(Minimapper::Mapper::CanNotFindEntity)
     end
   end
 
@@ -252,7 +252,7 @@ shared_examples :mapper do
     end
 
     it "fails when an entity can not be found" do
-      lambda { mapper.delete_by_id(-1) }.should raise_error(Minimapper::Common::CanNotFindEntity)
+      lambda { mapper.delete_by_id(-1) }.should raise_error(Minimapper::Mapper::CanNotFindEntity)
     end
   end
 
