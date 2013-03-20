@@ -46,6 +46,8 @@ Or install it yourself as:
 
 Please avoid installing directly from the github repository. Code will be pushed there that might fail in [CI](https://travis-ci.org/#!/joakimk/minimapper/builds) (because testing all permutations of ruby versions and databases locally isn't practical). Gem releases are only done when CI is green.
 
+You also need the `activemodel` gem if you use Minimapper::Entity and not only Minimapper::Entity::Core.
+
 ## Usage
 
 ### Basics
