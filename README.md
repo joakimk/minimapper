@@ -19,7 +19,7 @@ The API may not be entirely stable yet and there are probably edge cases that ar
 
 ### Compatibility
 
-This gem is tested against all major rubies in both 1.8 and 1.9, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
+This gem is tested against all major rubies in 1.8, 1.9 and 2.0, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
 
 ### Only the most basic API
 
