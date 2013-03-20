@@ -1,6 +1,6 @@
 module Minimapper
   module Common
-    CanNotFindEntity            = Class.new(StandardError)
+    CanNotFindEntity = Class.new(StandardError)
 
     attr_accessor :repository
   end
