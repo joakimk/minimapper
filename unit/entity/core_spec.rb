@@ -27,14 +27,43 @@ describe Minimapper::Entity::Core do
     entity.attributes.should == { :one => 11 }
   end
 
-  it "returns true for valid?" do
-    entity = BasicEntity.new
-    entity.should be_valid
-  end
-
   it "responds to id" do
     entity = BasicEntity.new
     entity.id = 10
     entity.id.should == 10
+  end
+
+  describe "#mapper_errors" do
+    it "defaults to an empty array" do
+      entity = BasicEntity.new
+      entity.mapper_errors.should == []
+    end
+
+    it "can be changed" do
+      entity = BasicEntity.new
+      entity.mapper_errors = [ [:one, "bad"] ]
+      entity.mapper_errors.should == [ [:one, "bad"] ]
+    end
+  end
+
+  describe "#mapper_errors=" do
+    it "makes it invalid if present" do
+      entity = BasicEntity.new
+      entity.mapper_errors = [ [:one, "bad"] ]
+      entity.valid?.should be_false
+    end
+  end
+
+  describe "#valid?" do
+    it "is true without errors" do
+      entity = BasicEntity.new
+      entity.valid?.should be_true
+    end
+
+    it "is false with errors" do
+      entity = BasicEntity.new
+      entity.mapper_errors = [ [:one, "bad"] ]
+      entity.valid?.should be_false
+    end
   end
 end
