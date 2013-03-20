@@ -1,3 +1,7 @@
+# Include this in your entity models for
+# Ruby on Rails conveniences, like being
+# able to use them in forms.
+
 require "active_model"
 
 module Minimapper
