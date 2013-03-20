@@ -47,7 +47,7 @@ describe Minimapper::Entity::Core do
   end
 
   describe "#mapper_errors=" do
-    it "makes it invalid if present" do
+    it "makes the mapper invalid if present" do
       entity = BasicEntity.new
       entity.mapper_errors = [ [:one, "bad"] ]
       entity.valid?.should be_false
