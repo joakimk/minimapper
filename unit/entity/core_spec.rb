@@ -5,6 +5,10 @@ class BasicEntity
   attr_accessor :one, :two
 end
 
+class OtherEntity
+  include Minimapper::Entity::Core
+end
+
 describe Minimapper::Entity::Core do
   it "can get and set an attributes hash" do
     entity = BasicEntity.new
@@ -64,6 +68,43 @@ describe Minimapper::Entity::Core do
       entity = BasicEntity.new
       entity.mapper_errors = [ [:one, "bad"] ]
       entity.valid?.should be_false
+    end
+  end
+
+  describe "#==" do
+    it "is equal to the exact same instance" do
+      entity = build_entity(BasicEntity, nil)
+      entity.should == entity
+    end
+
+    it "is equal to another instance if class and id matches" do
+      entity = build_entity(BasicEntity,  123)
+      other_entity = build_entity(BasicEntity,  123)
+      entity.should == other_entity
+    end
+
+    it "is not equal to another instance if there is no id" do
+      entity = build_entity(BasicEntity, nil)
+      other_entity = build_entity(BasicEntity, nil)
+      entity.should_not == other_entity
+    end
+
+    it "is not equal to another instance if ids do not match" do
+      entity = build_entity(BasicEntity,  123)
+      other_entity = build_entity(BasicEntity,  456)
+      entity.should_not == other_entity
+    end
+
+    it "is not equal to another instance if classes do not match" do
+      entity = build_entity(BasicEntity, 123)
+      other_entity = build_entity(OtherEntity, 123)
+      entity.should_not == other_entity
+    end
+
+    def build_entity(klass, id)
+      entity = klass.new
+      entity.id = id
+      entity
     end
   end
 end
