@@ -103,3 +103,40 @@ describe Minimapper::Entity, "self.column_names" do
     TestProject.column_names.should == [ "id", "created_at", "updated_at", "title" ]
   end
 end
+
+describe Minimapper::Entity, "#==" do
+  it "is equal to the exact same instance" do
+    entity = build_entity(TestUser, nil)
+    entity.should == entity
+  end
+
+  it "is equal to another instance if class and id matches" do
+    entity = build_entity(TestUser,  123)
+    other_entity = build_entity(TestUser,  123)
+    entity.should == other_entity
+  end
+
+  it "is not equal to another instance if there is no id" do
+    entity = build_entity(TestUser, nil)
+    other_entity = build_entity(TestUser, nil)
+    entity.should_not == other_entity
+  end
+
+  it "is not equal to another instance if ids do not match" do
+    entity = build_entity(TestUser,  123)
+    other_entity = build_entity(TestUser,  456)
+    entity.should_not == other_entity
+  end
+
+  it "is not equal to another instance if classes do not match" do
+    entity = build_entity(TestUser, 123)
+    other_entity = build_entity(TestProject, 123)
+    entity.should_not == other_entity
+  end
+
+  def build_entity(klass, id)
+    entity = klass.new
+    entity.id = id
+    entity
+  end
+end

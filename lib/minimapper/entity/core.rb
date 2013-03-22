@@ -1,5 +1,9 @@
-# The core entity API required by minimapper. If your entity
-# class implements this API, it should work with the data mappers.
+# The core entity API required by minimapper. If your entity class implements
+# this API, it should work with the data mappers.
+
+# IMPORTANT: This module should only implement the minimal interface needed
+# to talk to the data mappers. If a method isn't used by the mappers it should
+# not be in this file.
 
 module Minimapper
   module Entity
@@ -24,14 +28,6 @@ module Minimapper
 
       def mapper_errors=(list)
         @mapper_errors = list
-      end
-
-      def ==(other)
-        super || (
-          other.instance_of?(self.class) &&
-          self.id &&
-          other.id == self.id
-        )
       end
 
       private

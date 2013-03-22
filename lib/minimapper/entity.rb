@@ -16,6 +16,14 @@ module Minimapper
       new_attributes.each_pair { |name, value| self.send("#{name}=", value) }
     end
 
+    def ==(other)
+      super || (
+        other.instance_of?(self.class) &&
+        self.id &&
+        other.id == self.id
+      )
+    end
+
     def self.included(klass)
       klass.send(:include, Minimapper::Entity::Rails)
       klass.send(:extend, Minimapper::Entity::Attributes)
