@@ -144,7 +144,7 @@ Validations on uniqueness can't be implemented on the entity, because they need 
 
 Therefore, the ActiveRecord mapper will copy over any record errors to the entity when attempting to create or update.
 
-You would add these validations to the record itself, like:
+Add these validations to the record itself, like:
 
 ``` ruby
 class User < ActiveRecord::Base
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-Note that calling `valid?` on the entity will not access the database. Errors copied over from the record will remain until the next attempt to create or update.
+Note that just calling `valid?` on the entity will not access the database. Errors copied over from the record will remain until the next attempt to create or update.
 
 So an entity that wouldn't be unique in the database will be `valid?` before you attempt to create it. And after you attempt to create it, the entity will not be `valid?` even after assigning a new value, until you attempt to create it again.
 

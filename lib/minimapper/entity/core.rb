@@ -26,6 +26,14 @@ module Minimapper
         @mapper_errors = list
       end
 
+      def ==(other)
+        super || (
+          other.instance_of?(self.class) &&
+          self.id &&
+          other.id == self.id
+        )
+      end
+
       private
 
       def symbolize_keys(hash)
