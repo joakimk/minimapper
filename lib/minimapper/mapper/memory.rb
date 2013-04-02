@@ -77,7 +77,7 @@ module Minimapper
 
       def find_internal_safely(id)
         find_internal(id) ||
-          raise(CanNotFindEntity, :id => id)
+          raise(EntityNotFound, :id => id)
       end
 
       def find_internal(id)
