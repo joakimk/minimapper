@@ -107,7 +107,7 @@ module Minimapper
 
       def find_record_safely(id)
         find_record(id) ||
-          raise(CanNotFindEntity, :id => id)
+          raise(EntityNotFound, :id => id)
       end
 
       def find_record(id)
@@ -116,7 +116,7 @@ module Minimapper
 
       def record_for(entity)
         (entity.id && record_class.find_by_id(entity.id)) ||
-          raise(CanNotFindEntity, entity.inspect)
+          raise(EntityNotFound, entity.inspect)
       end
 
       def entities_for(records)
