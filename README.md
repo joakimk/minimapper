@@ -23,7 +23,7 @@ This gem is tested against all major rubies in 1.8, 1.9 and 2.0, see [.travis.ym
 
 ### Only the most basic API
 
-This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems. The reasons for this are:
+This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems (like [minimapper-extras](https://github.com/barsoom/minimapper-extras)). The reasons for this are:
 
 * It should have a stable API
 * It should be possible to learn all it does in a short time
