@@ -17,7 +17,7 @@ module Minimapper
       register_converter :date_time, ToDateTime.new
 
       def to(type)
-        return nil if value.blank?
+        return nil   if     value != false && value.blank?
         return value unless value.is_a?(String)
 
         converter_for(type).convert(value)
