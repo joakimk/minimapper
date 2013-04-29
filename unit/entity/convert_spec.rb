@@ -11,7 +11,7 @@ describe Minimapper::Entity::Convert do
     described_class.new('2012-01-01 20:57').to(:date_time).should == DateTime.new(2012, 01, 01, 20, 57)
   end
 
-  it "make it nil when it can't convert" do
+  it "makes it nil when it can't convert" do
     described_class.new(' ').to(:integer).should be_nil
     described_class.new(' ').to(:date_time).should be_nil
     described_class.new('garbage').to(:integer).should be_nil
@@ -20,5 +20,9 @@ describe Minimapper::Entity::Convert do
 
   it "returns the value as-is when it does not know how to convert it" do
     described_class.new('foobar').to(:unknown).should == 'foobar'
+  end
+
+  it "does not make false nil" do
+    described_class.new(false).to(:unknown).should eq(false)
   end
 end
