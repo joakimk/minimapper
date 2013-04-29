@@ -29,4 +29,8 @@ describe Minimapper::Entity::Convert do
   it "raises when the type isn't known" do
     lambda { described_class.new('foobar').to(:unknown) }.should raise_error(/Unknown attribute type/)
   end
+
+  it "does not make false nil" do
+    described_class.new(false).to(:unknown).should eq(false)
+  end
 end
