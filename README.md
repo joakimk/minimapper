@@ -254,7 +254,7 @@ There is no built in support for associations yet, but you can handle them manua
 
 ### Lifecycle hooks
 
-## after_find
+#### after_find
 
 This is called after any kind of find and can be used for things like loading associated data.
 
