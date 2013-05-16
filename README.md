@@ -252,6 +252,24 @@ Minimapper only calls #convert on non-empty strings. When the value is blank or 
 
 There is no built in support for associations yet, but you can handle them manually (see https://github.com/joakimk/minimapper/issues/3).
 
+### Lifecycle hooks
+
+## after_find
+
+This is called after any kind of find and can be used for things like loading associated data.
+
+The parameters to the after_find hook differs between mappers, for example the ActiveRecord mapper provides a record as the second argument. In practice this should not be a problem as each mapper class in an app only implements one type of mapper.
+
+``` ruby
+class ProjectMapper < Minimapper::AR
+  private
+
+  def after_find(entity, record)
+    entity.owner = User.new(record.owner.attributes)
+  end
+end
+```
+
 ### Custom entity class
 
 [Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
