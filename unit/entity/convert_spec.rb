@@ -18,11 +18,15 @@ describe Minimapper::Entity::Convert do
     described_class.new('garbage').to(:date_time).should be_nil
   end
 
-  it "returns the value as-is when it does not know how to convert it" do
-    described_class.new('foobar').to(:unknown).should == 'foobar'
+  it "returns the value as-is when the type isn't specified" do
+    described_class.new('foobar').to(nil).should == 'foobar'
   end
 
   it "does not make false nil" do
-    described_class.new(false).to(:unknown).should eq(false)
+    described_class.new(false).to(nil).should eq(false)
+  end
+
+  it "raises when the type isn't known" do
+    lambda { described_class.new('foobar').to(:unknown) }.should raise_error(/Unknown attribute type/)
   end
 end

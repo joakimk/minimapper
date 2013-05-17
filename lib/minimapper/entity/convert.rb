@@ -26,6 +26,10 @@ module Minimapper
       private
 
       def converter_for(type)
+        if type && !@@converters[type]
+          raise "Unknown attribute type: #{type}. Perhaps you've spelled it wrong or not registered the converter for it."
+        end
+
         @@converters.fetch(type, NoOpConverter.new)
       end
 
