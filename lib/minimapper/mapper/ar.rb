@@ -9,6 +9,8 @@ module Minimapper
 
       def create(entity)
         record = record_class.new
+
+        copy_attributes_to_record(record, entity)
         validate_record_and_copy_errors_to_entity(record, entity)
 
         if entity.valid?
@@ -50,6 +52,8 @@ module Minimapper
 
       def update(entity)
         record = record_for(entity)
+
+        copy_attributes_to_record(record, entity)
         validate_record_and_copy_errors_to_entity(record, entity)
 
         if entity.valid?
@@ -99,8 +103,11 @@ module Minimapper
         record_class.protected_attributes
       end
 
-      def validate_record_and_copy_errors_to_entity(record, entity)
+      def copy_attributes_to_record(record, entity)
         record.attributes = accessible_attributes(entity)
+      end
+
+      def validate_record_and_copy_errors_to_entity(record, entity)
         record.valid?
         entity.mapper_errors = record.errors.map { |k, v| [k, v] }
       end
