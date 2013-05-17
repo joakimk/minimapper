@@ -272,11 +272,11 @@ end
 
 ### Custom entity class
 
-[Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
+[Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a Rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
 
 ### Adding a new mapper
 
-If you where to add a [Mongoid](http://mongoid.org/en/mongoid/index.html) mapper:
+If you were to add a [Mongoid](http://mongoid.org/en/mongoid/index.html) mapper:
 
 1. Start by copying *spec/ar_spec.rb* to *spec/mongoid_spec.rb* and adapt it for Mongoid.
 2. Add any setup code needed in *spec/support/database_setup.rb*.
