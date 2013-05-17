@@ -248,7 +248,9 @@ Minimapper only calls #convert on non-empty strings. When the value is blank or 
 
 ### Associations
 
-There is no built in support for associations yet, but you can handle them manually (see https://github.com/joakimk/minimapper/issues/3).
+There is no core support for associations, but we're implementing them in [minimapper-extras](https://github.com/barsoom/minimapper-extras) as we need them.
+
+For some discussion, [see this issue](https://github.com/joakimk/minimapper/issues/3).
 
 ### Lifecycle hooks
 
