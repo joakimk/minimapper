@@ -80,13 +80,13 @@ module Minimapper
       # NOTE: Don't memoize the classes or code reloading will break in rails apps.
 
       # Will attempt to use AR:Project as the record class
-      # when the mapper class name is AR::ProjectMapper
+      # when the mapper class name is AR::ProjectMapper.
       def record_class
         self.class.name.sub(/Mapper$/, '').constantize
       end
 
-      # Will attempt to use Project as the enity class when
-      # the mapper class name is AR::ProjectMapper
+      # Will attempt to use Project as the entity class when
+      # the mapper class name is AR::ProjectMapper.
       def entity_class
         ("::" + self.class.name.split('::').last.sub(/Mapper$/, '')).constantize
       end
