@@ -246,6 +246,21 @@ User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
 
 Minimapper only calls #convert on non-empty strings. When the value is blank or nil, the attribute is set to nil.
 
+### Overriding attribute readers
+
+Attribute readers are implemented so that you can override them with inheritance:
+
+``` ruby
+class User
+  include Minimapper::Entity
+  attribute :name
+
+  def name
+    super.upcase
+  end
+end
+```
+
 ### Associations
 
 There is no core support for associations, but we're implementing them in [minimapper-extras](https://github.com/barsoom/minimapper-extras) as we need them.

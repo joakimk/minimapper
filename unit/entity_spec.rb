@@ -20,9 +20,19 @@ class TestTask
   attribute :due_at, :date_time
 end
 
+class OverridingTestUser
+  include Minimapper::Entity
+  attributes :name
+
+  def name
+    super.upcase
+  end
+end
+
 describe Minimapper::Entity do
   it "handles base attributes" do
     entity = TestEntity.new
+
     entity.id = 5
     entity.id.should == 5
 
@@ -71,6 +81,12 @@ describe Minimapper::Entity do
     entity = TestEntity.new
     entity.attributes = { "id" => "15" }
     entity.attributes[:id].should == 15
+  end
+
+  it "is possible to override attribute readers with inheritance" do
+    user = OverridingTestUser.new
+    user.name = "pelle"
+    user.name.should == "PELLE"
   end
 end
 
