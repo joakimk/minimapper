@@ -135,10 +135,20 @@ module Minimapper
           entity = klass.new
           entity.id = record.id
           entity.attributes = record.attributes.symbolize_keys
+
+          if klass == entity_class
+            after_find(entity, record)
+          end
+
           entity
         else
           nil
         end
+      end
+
+      # Hooks
+
+      def after_find(entity, record)
       end
     end
   end

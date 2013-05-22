@@ -81,7 +81,9 @@ module Minimapper
       end
 
       def find_internal(id)
-        id && store.find { |e| e.id == id.to_i }
+        entity = id && store.find { |e| e.id == id.to_i }
+        after_find(entity)
+        entity
       end
 
       def next_id
@@ -89,6 +91,11 @@ module Minimapper
       end
 
       attr_reader :store, :last_id
+
+      # Hooks
+
+      def after_find(entity)
+      end
     end
   end
 end

@@ -63,6 +63,13 @@ shared_examples :mapper do
       mapper.find(entity.id).object_id.should_not == mapper.find(entity.id).object_id
     end
 
+    it "calls after_find on the mapper" do
+      entity = build_valid_entity
+      mapper.create(entity)
+      mapper.should_receive(:after_find)
+      found_entity = mapper.find(entity.id)
+    end
+
     it "fails when an entity can not be found" do
       lambda { mapper.find(-1) }.should raise_error(Minimapper::EntityNotFound)
     end
