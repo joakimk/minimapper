@@ -12,7 +12,7 @@ module Minimapper
 
         columns.each do |column|
           define_reader(column, instance_method_container)
-          define_writer(column)
+          define_writer(column, instance_method_container)
         end
 
         include instance_method_container
@@ -42,9 +42,11 @@ module Minimapper
         end
       end
 
-      def define_writer(column)
-        define_method("#{column.name}=") do |value|
-          attributes[column.name] = Convert.new(value).to(column.type)
+      def define_writer(column, instance_method_container)
+        instance_method_container.module_eval do
+          define_method("#{column.name}=") do |value|
+            attributes[column.name] = Convert.new(value).to(column.type)
+          end
         end
       end
 
