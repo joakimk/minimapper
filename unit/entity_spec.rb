@@ -27,6 +27,10 @@ class OverridingTestUser
   def name
     super.upcase
   end
+
+  def name=(value)
+    super(value.strip)
+  end
 end
 
 describe Minimapper::Entity do
@@ -87,6 +91,12 @@ describe Minimapper::Entity do
     user = OverridingTestUser.new
     user.name = "pelle"
     user.name.should == "PELLE"
+  end
+
+  it "is possible to override attribute writers with inheritance" do
+    user = OverridingTestUser.new
+    user.name = " 123 "
+    user.name.should == "123"
   end
 end
 

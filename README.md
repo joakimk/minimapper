@@ -246,9 +246,9 @@ User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
 
 Minimapper only calls #convert on non-empty strings. When the value is blank or nil, the attribute is set to nil.
 
-### Overriding attribute readers
+### Overriding attribute accessors
 
-Attribute readers are implemented so that you can override them with inheritance:
+Attribute readers and writers are implemented so that you can override them with inheritance:
 
 ``` ruby
 class User
@@ -257,6 +257,10 @@ class User
 
   def name
     super.upcase
+  end
+
+  def name=(value)
+    super(value.strip)
   end
 end
 ```
