@@ -40,7 +40,7 @@ describe Minimapper::Entity do
     entity.attributes[:id].should == 5
   end
 
-  it "can access attributes set though a hash" do
+  it "can access attributes set through a hash" do
     entity = TestUser.new
     entity.attributes = { :id => 5 }
     entity.id.should == 5
