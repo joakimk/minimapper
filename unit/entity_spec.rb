@@ -9,6 +9,10 @@ class TestUser
   attributes :name
 end
 
+class TestAgedUser < TestUser
+  attributes :age
+end
+
 class TestProject
   include Minimapper::Entity
   attributes :title
@@ -85,6 +89,14 @@ describe Minimapper::Entity do
     entity = TestEntity.new
     entity.attributes = { "id" => "15" }
     entity.attributes[:id].should == 15
+  end
+
+  it "inherits attributes" do
+    user = TestAgedUser.new
+    user.name = "Name"
+    user.age = 123
+    user.name.should == "Name"
+    user.age.should == 123
   end
 
   it "is possible to override attribute readers with inheritance" do

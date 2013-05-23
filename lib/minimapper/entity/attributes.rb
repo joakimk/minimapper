@@ -8,14 +8,15 @@ module Minimapper
 
         # By adding instance methods via an included module,
         # they become overridable with "super".
-        instance_method_container = Module.new
-
-        columns.each do |column|
-          define_reader(column, instance_method_container)
-          define_writer(column, instance_method_container)
+        unless @minimapper_instance_method_container
+          @minimapper_instance_method_container = Module.new
+          include @minimapper_instance_method_container
         end
 
-        include instance_method_container
+        columns.each do |column|
+          define_reader(column)
+          define_writer(column)
+        end
       end
 
       def attribute(*opts)
@@ -34,16 +35,16 @@ module Minimapper
         @entity_columns |= list.map { |data| Column.new(data) }
       end
 
-      def define_reader(column, instance_method_container)
-        instance_method_container.module_eval do
+      def define_reader(column)
+        @minimapper_instance_method_container.module_eval do
           define_method(column.name) do
             attributes[column.name]
           end
         end
       end
 
-      def define_writer(column, instance_method_container)
-        instance_method_container.module_eval do
+      def define_writer(column)
+        @minimapper_instance_method_container.module_eval do
           define_method("#{column.name}=") do |value|
             attributes[column.name] = Convert.new(value).to(column.type)
           end
