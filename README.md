@@ -265,6 +265,16 @@ class User
 end
 ```
 
+### Protected attributes
+
+We recommend using [strong_parameters](https://github.com/rails/strong_parameters) for attribute security, without including `ActiveModel::ForbiddenAttributesProtection`.
+
+If you use `attr_accessible` or `attr_private`, you may obstruct the mapper.
+
+If you use Minimapper as intended, you only assign attributes on the entity. Once they're on the entity, the mapper will assume they're permitted to be persisted; and once they're in the record, the mapper will assume they are permitted for populating an entity.
+
+(FIXME?: There's a ongoing discussion about whether Minimapper should actively bypass attribute protection, or encourage you not to use it, or what.)
+
 ### Associations
 
 There is no core support for associations, but we're implementing them in [minimapper-extras](https://github.com/barsoom/minimapper-extras) as we need them.
