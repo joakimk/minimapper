@@ -269,7 +269,7 @@ end
 
 We recommend using [strong_parameters](https://github.com/rails/strong_parameters) for attribute security, without including `ActiveModel::ForbiddenAttributesProtection`.
 
-If you use `attr_accessible` or `attr_protected`, you may obstruct the mapper.
+Use of `attr_accessible` or `attr_protected` may obstruct the mapper.
 
 If you use Minimapper as intended, you only assign attributes on the entity. Once they're on the entity, the mapper will assume they're permitted to be persisted; and once they're in the record, the mapper will assume they are permitted for populating an entity.
 
