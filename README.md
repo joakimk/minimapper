@@ -17,6 +17,11 @@ Minimapper is not an ORM, instead it's a tool to make it simpler to handle persi
 
 The API may not be entirely stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around a few of them and make them good.
 
+### Important resources
+
+- [Gist of yet to be extracted mapper code](https://gist.github.com/joakimk/5656945) from a project using minimapper.
+- [minimapper-extras](https://github.com/barsoom/minimapper-extras) (useful tools for projects using minimapper)
+
 ### Compatibility
 
 This gem is tested against all major rubies in 1.8, 1.9 and 2.0, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
