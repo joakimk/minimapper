@@ -1,21 +1,13 @@
 require "spec_helper"
 require "minimapper/entity/core"
-require "minimapper/mapper/ar"
+require "minimapper/mapper"
 
-class TestEntity
+class Project
   include Minimapper::Entity::Core
 end
 
-class TestMapper < Minimapper::Mapper::AR
+class ProjectMapper < Minimapper::Mapper
   private
-
-  def entity_class
-    TestEntity
-  end
-
-  def record_class
-    Record
-  end
 
   class Record < ActiveRecord::Base
     attr_protected :visible
@@ -29,9 +21,9 @@ class TestMapper < Minimapper::Mapper::AR
   end
 end
 
-describe Minimapper::Mapper::AR do
-  let(:mapper) { TestMapper.new }
-  let(:entity_class) { TestEntity }
+describe Minimapper::Mapper do
+  let(:mapper) { ProjectMapper.new }
+  let(:entity_class) { Project }
 
   include_examples :mapper
 
@@ -45,9 +37,9 @@ describe Minimapper::Mapper::AR do
       stored_entity.attributes[:visible].should be_nil
       stored_entity.attributes[:name].should == "Joe"
 
-      entity = TestEntity.new
+      entity = Project.new
       entity.attributes = { :visible => true, :name => "Joe" }
-      TestMapper::Record.stub(:protected_attributes => [])
+      ProjectMapper::Record.stub(:protected_attributes => [])
       lambda { mapper.create(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
 
@@ -75,7 +67,7 @@ describe Minimapper::Mapper::AR do
     end
 
     def build_entity(attributes)
-      entity = TestEntity.new
+      entity = Project.new
       entity.attributes = attributes
       entity
     end
@@ -83,7 +75,7 @@ describe Minimapper::Mapper::AR do
 
   describe "#update" do
     it "does not include protected attributes" do
-      entity = TestEntity.new
+      entity = Project.new
       mapper.create(entity)
 
       entity.attributes = { :visible => true, :name => "Joe" }
@@ -92,7 +84,7 @@ describe Minimapper::Mapper::AR do
       stored_entity.attributes[:visible].should be_nil
       stored_entity.attributes[:name].should == "Joe"
 
-      TestMapper::Record.stub(:protected_attributes => [])
+      ProjectMapper::Record.stub(:protected_attributes => [])
       lambda { mapper.update(entity) }.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
 
@@ -100,7 +92,7 @@ describe Minimapper::Mapper::AR do
       old_entity = build_entity(:email => "joe@example.com")
       mapper.create(old_entity)
 
-      new_entity = TestEntity.new
+      new_entity = Project.new
       mapper.create(new_entity)
       new_entity.mapper_errors.should == []
 
@@ -113,7 +105,7 @@ describe Minimapper::Mapper::AR do
       old_entity = build_entity(:email => "joe@example.com")
       mapper.create(old_entity)
 
-      new_entity = TestEntity.new
+      new_entity = Project.new
       mapper.create(new_entity)
       new_entity.mapper_errors.should == []
 
@@ -127,7 +119,7 @@ describe Minimapper::Mapper::AR do
     end
 
     def build_entity(attributes)
-      entity = TestEntity.new
+      entity = Project.new
       entity.attributes = attributes
       entity
     end
