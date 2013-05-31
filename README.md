@@ -211,7 +211,7 @@ end
 
 ### Typed attributes and type coercion
 
-If you specify type, Minimapper will only allow values of that type, or values that can be coerced into that type.
+If you specify type, Minimapper will only allow values of that type, or strings that can be coerced into that type.
 
 The latter means that it can accept e.g. string integers directly from a form.
 Minimapper aims to be much less of a form value parser than ActiveRecord, but we'll allow ourselves conveniences like this.
