@@ -7,11 +7,7 @@
 
 ### Introduction
 
-Minimapper is a minimalistic way of separating models from ActiveRecord. It enables you to test your models (and code using your models) within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example) and makes it simpler to have a modular design as described in [Matt Wynne's Hexagonal Rails posts](http://blog.mattwynne.net/2012/04/09/hexagonal-rails-introduction/).
-
-Minimapper is a [DataMapper](http://martinfowler.com/eaaCatalog/dataMapper.html) for apps using the ActiveRecord library, and because of that it may be an attractive alternative to using DataMapper 2 (when it's done) if you already know ActiveRecord well.
-
-When using minimapper you can develop new features without having to think about migrations until you need to persist data.
+Minimapper is a minimalistic way of [separating models](http://martinfowler.com/eaaCatalog/dataMapper.html) from ActiveRecord. It enables you to test your models (and code using your models) within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example) and makes it simpler to have a modular design as described in [Matt Wynne's Hexagonal Rails posts](http://blog.mattwynne.net/2012/04/09/hexagonal-rails-introduction/).
 
 ### Early days
 
