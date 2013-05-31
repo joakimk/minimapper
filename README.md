@@ -209,9 +209,14 @@ class ProjectMapper < Minimapper::AR
 end
 ```
 
-### Typed attributes
+### Typed attributes and type coercion
 
-If you specify type, minimapper will attempt to convert into that type. Supported types: Integer and DateTime (:integer and :date_time).
+If you specify type, Minimapper will only allow values of that type, or values that can be coerced into that type.
+
+The latter means that it can accept e.g. string integers directly from a form.
+Minimapper aims to be much less of a form value parser than ActiveRecord, but we'll allow ourselves conveniences like this.
+
+Supported types: Integer and DateTime (`:integer` and `:date_time`).
 
 ``` ruby
 class User

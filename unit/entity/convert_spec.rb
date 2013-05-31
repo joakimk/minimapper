@@ -2,20 +2,29 @@ require 'minimapper/entity/convert'
 require 'active_support/core_ext'
 
 describe Minimapper::Entity::Convert do
-  it "converts strings into integers" do
-    described_class.new('10').to(:integer).should == 10
-    described_class.new(' 10 ').to(:integer).should == 10
+  describe ":integer" do
+    it "converts strings into integers" do
+      described_class.new('10').to(:integer).should == 10
+      described_class.new(' 10 ').to(:integer).should == 10
+    end
+
+    it "makes it nil when it can't convert" do
+      described_class.new(' ').to(:integer).should be_nil
+      described_class.new(' ').to(:date_time).should be_nil
+      described_class.new('garbage').to(:integer).should be_nil
+      described_class.new('garbage').to(:date_time).should be_nil
+    end
   end
 
-  it "converts datetime strings into datetimes" do
-    described_class.new('2012-01-01 20:57').to(:date_time).should == DateTime.new(2012, 01, 01, 20, 57)
-  end
+  describe ":date_time" do
+    it "converts datetime strings into datetimes" do
+      described_class.new('2012-01-01 20:57').to(:date_time).should == DateTime.new(2012, 01, 01, 20, 57)
+    end
 
-  it "makes it nil when it can't convert" do
-    described_class.new(' ').to(:integer).should be_nil
-    described_class.new(' ').to(:date_time).should be_nil
-    described_class.new('garbage').to(:integer).should be_nil
-    described_class.new('garbage').to(:date_time).should be_nil
+    it "makes it nil when it can't convert" do
+      described_class.new(' ').to(:date_time).should be_nil
+      described_class.new('garbage').to(:date_time).should be_nil
+    end
   end
 
   it "returns the value as-is when the type isn't specified" do
