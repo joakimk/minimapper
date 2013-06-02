@@ -123,9 +123,9 @@ p Repository.users.count    # => 0
 p user.errors.full_messages # Name can't be blank
 ```
 
-### Loading related data
+### Eager loading
 
-When using minimapper don't have lazy loading. We haven't gotten around to adding the inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
+When using minimapper don't have lazy loading. We haven't gotten around to adding the association-inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
 
 ### Uniqueness validations and other DB validations
 
