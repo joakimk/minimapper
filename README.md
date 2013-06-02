@@ -9,6 +9,8 @@
 
 Minimapper is a minimalistic way of [separating models](http://martinfowler.com/eaaCatalog/dataMapper.html) from ActiveRecord. It enables you to test your models (and code using your models) within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example) and makes it simpler to have a modular design as described in [Matt Wynne's Hexagonal Rails posts](http://blog.mattwynne.net/2012/04/09/hexagonal-rails-introduction/).
 
+Minimapper follows many Rails conventions but it does not require Rails.
+
 ### Early days
 
 The API may not be entirely stable yet and there are probably edge cases that aren't covered. However... it's most likely better to use this than to roll your own project specific solution. We need good tools for this kind of thing in the rails community, but to make that possible we need to gather around a few of them and make them good.
@@ -52,13 +54,15 @@ Please avoid installing directly from the github repository. Code will be pushed
 
 ### Basics
 
+Basics and how we use minimapper in practice.
+
 ``` ruby
-# minimapper_example.rb
 require "rubygems"
 require "minimapper"
 require "minimapper/entity"
 require "minimapper/mapper"
 
+# app/models/user.rb
 class User
   include Minimapper::Entity
 
@@ -66,6 +70,7 @@ class User
   validates :name, :presence => true
 end
 
+# app/mappers/user_mapper.rb
 class UserMapper < Minimapper::Mapper
   class Record < ActiveRecord::Base
     self.table_name = "users"
@@ -84,6 +89,7 @@ p user_mapper.first.name # => Joe
 
 ## Updating
 user.name = "Joey"
+# user.attributes = params[:user]
 user_mapper.update(user)
 p user_mapper.first.name # => Joey
 
@@ -99,6 +105,7 @@ p user_mapper.find_by_id(old_id) # => nil
 ## Using a repository
 require "minimapper/repository"
 
+# config/initializers/repository.rb
 Repository = Minimapper::Repository.build({
   :users    => UserMapper.new
   # :projects => ProjectMapper.new
@@ -115,6 +122,10 @@ Repository.users.create(user)
 p Repository.users.count    # => 0
 p user.errors.full_messages # Name can't be blank
 ```
+
+### Loading all the data you need before acting on it
+
+When using a data mapper like minimapper you generally want to load all data you need upfront whenever possible as you don't have lazy loading. It has a few benefits including avoiding N+1 queries, allowing the logic be ignorant of persistance and being more clear on what data is needed. We haven't gotten around to adding the inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
 
 ### Uniqueness validations and other DB validations
 
@@ -266,6 +277,10 @@ end
 ### Custom entity class
 
 [Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a Rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
+
+### Supporting other persistance methods
+
+We had an in-memory mapper but we removed it because we've found that we never use it. For now we've choosen to do the simplest thing and have minimapper be just a data-mapper adapter for ActiveRecord. That might change in the future.
 
 ## Inspiration
 
