@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Minimapper::VERSION
   gem.authors       = ["Joakim Kolsjo"]
   gem.email         = ["joakim.kolsjo@gmail.com"]
-  gem.description   = %q{A minimalistic way of separating your models from ORMs like ActiveRecord.}
-  gem.summary       = %q{A minimalistic way of separating your models from ORMs like ActiveRecord.}
+  gem.description   = %q{A minimalistic way of separating your models from ActiveRecord.}
+  gem.summary       = %q{A minimalistic way of separating your models from ActiveRecord.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
