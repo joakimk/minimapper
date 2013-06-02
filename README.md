@@ -131,7 +131,7 @@ When using a data mapper like minimapper you generally want to load all data you
 
 Validations on uniqueness can't be implemented on the entity, because they need to access the database.
 
-Therefore, the ActiveRecord mapper will copy over any record errors to the entity when attempting to create or update.
+Therefore, the mapper will copy over any record errors to the entity when attempting to create or update.
 
 Add these validations to the record itself, like:
 
@@ -282,10 +282,6 @@ end
 ### Custom entity class
 
 [Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a Rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
-
-### Supporting other persistance methods
-
-We had an in-memory mapper but we removed it because we've found that we never use it. For now we've choosen to do the simplest thing and have minimapper be just a data-mapper adapter for ActiveRecord. That might change in the future.
 
 ## Inspiration
 
