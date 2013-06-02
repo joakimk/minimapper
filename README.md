@@ -7,11 +7,9 @@
 
 ### Introduction
 
-Minimapper is a minimalistic way of separating models from ORMs like ActiveRecord. It enables you to test your models (and code using your models) within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example) and makes it simpler to have a modular design as described in [Matt Wynne's Hexagonal Rails posts](http://blog.mattwynne.net/2012/04/09/hexagonal-rails-introduction/).
+Minimapper is a minimalistic way of [separating models](http://martinfowler.com/eaaCatalog/dataMapper.html) from ActiveRecord. It enables you to test your models (and code using your models) within a [sub-second unit test suite](https://github.com/joakimk/fast_unit_tests_example) and makes it simpler to have a modular design as described in [Matt Wynne's Hexagonal Rails posts](http://blog.mattwynne.net/2012/04/09/hexagonal-rails-introduction/).
 
-Minimapper comes with an in-memory implementation of common CRUD operations. You can use this in tests to not hit the database where it isn't nessesary to do so. You can also develop new features without having to think about migrations until you need to persist data.
-
-Minimapper is not an ORM, instead it's a tool to make it simpler to handle persistence in existing applications using ORMs like ActiveRecord. It may also be an attractive alternative to using DataMapper 2 (when it's done) for new apps if you already know ActiveRecord well (most of the rails developers I know have many years of experience with ActiveRecord).
+Minimapper follows many Rails conventions but it does not require Rails.
 
 ### Early days
 
@@ -19,21 +17,20 @@ The API may not be entirely stable yet and there are probably edge cases that ar
 
 ### Important resources
 
-- [Gist of yet to be extracted mapper code](https://gist.github.com/joakimk/5656945) from a project using minimapper.
 - [minimapper-extras](https://github.com/barsoom/minimapper-extras) (useful tools for projects using minimapper)
+- [Gist of yet to be extracted mapper code](https://gist.github.com/joakimk/5656945) from a project using minimapper.
 
 ### Compatibility
 
-This gem is tested against all major rubies in 1.8, 1.9 and 2.0, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the SQL mappers are tested against SQLite3, PostgreSQL and MySQL.
+This gem is tested against all major rubies in 1.8, 1.9 and 2.0, see [.travis.yml](https://github.com/joakimk/minimapper/blob/master/.travis.yml). For each ruby version, the mapper is tested against SQLite3, PostgreSQL and MySQL.
 
 ### Only the most basic API
 
 This library only implements the most basic persistence API (mostly just CRUD). Any significant additions will be made into separate gems (like [minimapper-extras](https://github.com/barsoom/minimapper-extras)). The reasons for this are:
 
-* It should have a stable API
-* It should be possible to learn all it does in a short time
-* It should be simple to add an adapter for a new database
 * It should be simple to maintain minimapper
+* It should be possible to learn all it does in a short time
+* It should have a stable API
 
 ## Installation
 
@@ -57,15 +54,15 @@ Please avoid installing directly from the github repository. Code will be pushed
 
 ### Basics
 
-You can use the mappers like this (<strong>it's runnable, try copy and pasting it into a ruby file</strong> or [use this gist](https://gist.github.com/3904952)):
+Basics and how we use minimapper in practice.
 
 ``` ruby
-# minimapper_example.rb
 require "rubygems"
 require "minimapper"
 require "minimapper/entity"
-require "minimapper/mapper/memory"
+require "minimapper/mapper"
 
+# app/models/user.rb
 class User
   include Minimapper::Entity
 
@@ -73,7 +70,11 @@ class User
   validates :name, :presence => true
 end
 
-class UserMapper < Minimapper::Mapper::Memory
+# app/mappers/user_mapper.rb
+class UserMapper < Minimapper::Mapper
+  class Record < ActiveRecord::Base
+    self.table_name = "users"
+  end
 end
 
 ## Creating
@@ -88,6 +89,7 @@ p user_mapper.first.name # => Joe
 
 ## Updating
 user.name = "Joey"
+# user.attributes = params[:user]
 user_mapper.update(user)
 p user_mapper.first.name # => Joey
 
@@ -103,45 +105,27 @@ p user_mapper.find_by_id(old_id) # => nil
 ## Using a repository
 require "minimapper/repository"
 
-repository = Minimapper::Repository.build({
+# config/initializers/repository.rb
+Repository = Minimapper::Repository.build({
   :users    => UserMapper.new
   # :projects => ProjectMapper.new
 })
 
 user = User.new(:name => "Joe")
-repository.users.create(user)
+Repository.users.create(user)
 p repository.users.find(user.id).name # => Joe
-repository.users.delete_all
+Repository.users.delete_all
 
 ## Using ActiveModel validations
 user = User.new
-repository.users.create(user)
-p repository.users.count    # => 0
+Repository.users.create(user)
+p Repository.users.count    # => 0
 p user.errors.full_messages # Name can't be blank
 ```
 
-### ActiveRecord
+### Loading all the data you need before acting on it
 
-This is not directly runnable like the previous example, it requires ActiveRecord, a database and a users table. Isn't it interesting how much you could do without those things in the previous example? :)
-
-When you do need to use an ORM like ActiveRecord however, it now has the same API as your in-memory persistence (thanks to the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) which define how a mapper is supposed to behave).
-
-``` ruby
-require "minimapper/mapper/ar"
-
-module AR
-  class UserMapper < Minimapper::AR
-  end
-
-  class User < ActiveRecord::Base
-    attr_accessible :name, :email
-  end
-end
-
-user = User.new(name: "Joe")
-mapper = AR::UserMapper.new
-mapper.create(user)
-```
+When using a data mapper like minimapper you generally want to load all data you need upfront whenever possible as you don't have lazy loading. It has a few benefits including avoiding N+1 queries, allowing the logic be ignorant of persistance and being more clear on what data is needed. We haven't gotten around to adding the inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
 
 ### Uniqueness validations and other DB validations
 
@@ -166,21 +150,9 @@ So an entity that wouldn't be unique in the database will be `valid?` before you
 You can write custom queries like this:
 
 ``` ruby
-# Memory implementation
-module Memory
-  class ProjectMapper < Minimapper::Mapper::Memory
-    def waiting_for_review
-      all.find_all { |p| p.waiting_for_review }.sort_by(&:id).reverse
-    end
-  end
-end
-
-# ActiveRecord implementation
-module AR
-  class ProjectMapper < Minimapper::AR
-    def waiting_for_review
-      entities_for record_class.where(waiting_for_review: true).order("id DESC")
-    end
+class ProjectMapper < Minimapper::AR
+  def waiting_for_review
+    entities_for record_class.where(waiting_for_review: true).order("id DESC")
   end
 end
 ```
@@ -188,13 +160,11 @@ end
 And then use it like this:
 
 ``` ruby
-# repository = Minimapper::Repository.build(...)
-repository.projects.waiting_for_review.each do |project|
+# Repository = Minimapper::Repository.build(...)
+Repository.projects.waiting_for_review.each do |project|
   p project.name
 end
 ```
-
-It gets simpler to maintain if you use shared tests to test both implementations. For inspiration, see the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) used to test minimapper.
 
 `entity_for` returns nil for nil.
 
@@ -313,16 +283,9 @@ end
 
 [Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a Rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
 
-### Adding a new mapper
+### Supporting other persistance methods
 
-If you were to add a [Mongoid](http://mongoid.org/en/mongoid/index.html) mapper:
-
-1. Start by copying *spec/ar_spec.rb* to *spec/mongoid_spec.rb* and adapt it for Mongoid.
-2. Add any setup code needed in *spec/support/database_setup.rb*.
-3. Get the [shared tests](https://github.com/joakimk/minimapper/blob/master/spec/support/shared_examples/mapper.rb) to pass for *spec/mongoid_spec.rb*.
-4. Ensure all other tests pass.
-5. Send a pull request.
-6. As soon as it can be made to work in travis in all ruby versions that apply (in Mongoid's case that is only the 1.9 rubies), I'll merge it in.
+We had an in-memory mapper but we removed it because we've found that we never use it. For now we've choosen to do the simplest thing and have minimapper be just a data-mapper adapter for ActiveRecord. That might change in the future.
 
 ## Inspiration
 
@@ -346,7 +309,7 @@ Robert "Uncle Bob" Martin:
 
 ### Running the tests
 
-You need mysql and postgres installed (but they do not have to be running) to be able to run bundle. The sql-mapper tests use sqlite3 by default.
+You need mysql and postgres installed (but they do not have to be running) to be able to run bundle. The mapper tests use sqlite3 by default.
 
     bundle
     rake
@@ -365,19 +328,7 @@ You need mysql and postgres installed (but they do not have to be running) to be
 
 ### Next
 
-* Make it possible to override minimapper attributes with super (like it's done in https://github.com/barsoom/traco)
 * Support default values for attributes (probably only using lambdas to avoid bugs).
-* Built in way to set induvidual attributes in a way that bypasses protected attributes like you can do with an AR model.
-  - user.is_admin = true; user_mapper.update(user) should probably set is_admin to true, mass-assignment should not.
-* Extract entity and model class lookup code from the ar-mapper and reuse it in the memory mapper.
-* Change the memory mapper to store entity attributes, not entity instances.
-  - Unless this makes it difficult to handle associated data.
-
-### Ideas
-
-I won't implement anything that isn't actually used. But here are some ideas for things that might make it into minimapper someday if there is a need for it.
-
-* Provide a hook to convert attributes between entities and the backing models (when your entity attributes and db-schema isn't a one-to-one match).
 
 ## Credits and license
 
