@@ -226,6 +226,8 @@ User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
 
 Minimapper only calls #convert on non-empty strings. When the value is blank or nil, the attribute is set to nil.
 
+(FIXME? We're considering changing this so Minimapper core can only enforce type, and there's some `Minimapper::FormObject` mixin to parse string values.)
+
 ### Overriding attribute accessors
 
 Attribute readers and writers are implemented so that you can override them with inheritance:
