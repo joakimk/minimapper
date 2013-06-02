@@ -125,7 +125,7 @@ p user.errors.full_messages # Name can't be blank
 
 ### Loading all the data you need before acting on it
 
-When using a data mapper like minimapper you generally want to load all data you need upfront whenever possible as you don't have lazy loading. It has a few benefits including avoiding N+1 queries, allowing the logic be ignorant of persistance and being more clear on what data is needed. We haven't gotten around to adding the inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
+When using minimapper you generally want to load all data you need upfront whenever possible as you don't have lazy loading. We haven't gotten around to adding the inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
 
 ### Uniqueness validations and other DB validations
 
