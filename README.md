@@ -125,7 +125,7 @@ p user.errors.full_messages # Name can't be blank
 
 ### Eager loading
 
-When using minimapper don't have lazy loading. We haven't gotten around to adding the association-inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
+When using minimapper you don't have lazy loading. We haven't gotten around to adding the association-inclusion syntax yet, but [it's quite simple to implement](https://gist.github.com/joakimk/5656945).
 
 ### Uniqueness validations and other DB validations
 
@@ -266,8 +266,6 @@ For some discussion, [see this issue](https://github.com/joakimk/minimapper/issu
 #### after_find
 
 This is called after any kind of find and can be used for things like loading associated data.
-
-The parameters to the after_find hook differs between mappers, for example the ActiveRecord mapper provides a record as the second argument. In practice this should not be a problem as each mapper class in an app only implements one type of mapper.
 
 ``` ruby
 class ProjectMapper < Minimapper::AR
