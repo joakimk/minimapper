@@ -1,8 +1,8 @@
 # The core entity API required by minimapper. If your entity class implements
-# this API, it should work with the data mappers.
+# this API, it should work with the mapper.
 
 # IMPORTANT: This module should only implement the minimal interface needed
-# to talk to the data mappers. If a method isn't used by the mappers it should
+# to talk to the data mapper. If a method isn't used by the mapper it should
 # not be in this file.
 
 module Minimapper
