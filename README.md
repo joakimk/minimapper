@@ -320,12 +320,6 @@ You need mysql and postgres installed (but they do not have to be running) to be
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
 
-## Todo
-
-### Next
-
-* Support default values for attributes (probably only using lambdas to avoid bugs).
-
 ## Credits and license
 
 By [Joakim Kolsjö](https://twitter.com/joakimk) under the MIT license:
