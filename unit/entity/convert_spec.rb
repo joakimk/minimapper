@@ -1,5 +1,4 @@
 require 'minimapper/entity/convert'
-require 'active_support/core_ext'
 
 describe Minimapper::Entity::Convert do
   describe ":integer" do
