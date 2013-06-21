@@ -113,7 +113,7 @@ Repository = Minimapper::Repository.build({
 
 user = User.new(:name => "Joe")
 Repository.users.create(user)
-p repository.users.find(user.id).name # => Joe
+p Repository.users.find(user.id).name # => Joe
 Repository.users.delete_all
 
 ## Using ActiveModel validations
