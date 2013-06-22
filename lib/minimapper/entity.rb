@@ -21,9 +21,9 @@ module Minimapper
       klass.send(:include, Minimapper::Entity::Validation)
       klass.send(:include, Minimapper::Entity::Rails)
       klass.attributes(
-        [ :id, :integer ],
-        [ :created_at, :date_time ],
-        [ :updated_at, :date_time ]
+        [ :id, Integer ],
+        [ :created_at, DateTime ],
+        [ :updated_at, DateTime ]
       )
     end
   end
