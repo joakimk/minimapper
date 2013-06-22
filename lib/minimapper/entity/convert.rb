@@ -14,8 +14,8 @@ module Minimapper
         @@converters[type] = converter
       end
 
-      register_converter :integer,   ToInteger.new
-      register_converter :date_time, ToDateTime.new
+      register_converter Integer,   ToInteger.new
+      register_converter DateTime, ToDateTime.new
 
       def to(type)
         return nil   if     value != false && value.blank?

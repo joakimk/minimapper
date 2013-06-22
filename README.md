@@ -186,15 +186,15 @@ If you specify type, Minimapper will only allow values of that type, or strings 
 The latter means that it can accept e.g. string integers directly from a form.
 Minimapper aims to be much less of a form value parser than ActiveRecord, but we'll allow ourselves conveniences like this.
 
-Supported types: Integer and DateTime (`:integer` and `:date_time`).
+Supported types: Integer and DateTime.
 
 ``` ruby
 class User
   include Minimapper::Entity
-  attributes [ :profile_id, :integer ]
+  attributes [ :profile_id, Integer ]
 
   # Or for single attributes:
-  # attribute :profile_id, :integer
+  # attribute :profile_id, Integer
 end
 
 User.new(:profile_id => "10").profile_id      # => 10

@@ -5,7 +5,7 @@ module Attribute
   class User
     include Minimapper::Entity::Core
     include Minimapper::Entity::Attributes
-    attribute :id, :integer
+    attribute :id, Integer
     attribute  :name
   end
 
@@ -23,7 +23,7 @@ module Attribute
     include Minimapper::Entity::Core
     include Minimapper::Entity::Attributes
 
-    attribute :due_at, :date_time
+    attribute :due_at, DateTime
   end
 
   class OverridingUser
