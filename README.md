@@ -279,6 +279,23 @@ class ProjectMapper < Minimapper::AR
 end
 ```
 
+### Exceptions and status 404
+
+Code like `UserMapper.find(123)` will raise `Minimapper::EntityNotFound` if there's no such record.
+
+Rails treats the similar `ActiveRecord::RecordNotFound` exception as a 404 error, using that status code with the error backtrace in development and test, and showing the 404 page in production.
+
+If you want the same for Minimapper, you can add a `config/initializers/minimapper.rb` containing:
+
+``` ruby
+# For 404 status with the dev/test backtrace, and a 404 page in production.
+ActionDispatch::ExceptionWrapper.rescue_responses.merge!(
+  "Minimapper::EntityNotFound" => :not_found
+)
+```
+
+You may also want to ignore those errors in your error logger UI.
+
 ### Custom entity class
 
 [Minimapper::Entity](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity.rb) adds some convenience methods for when a model is used within a Rails application. If you don't need that you can just include the core API from the [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb) module (or implement your own version that behaves like [Minimapper::Entity::Core](https://github.com/joakimk/minimapper/blob/master/lib/minimapper/entity/core.rb)).
