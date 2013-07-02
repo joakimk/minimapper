@@ -4,6 +4,7 @@ require "minimapper/mapper"
 
 class Project
   include Minimapper::Entity::Core
+  include Minimapper::Entity::Core
 end
 
 class ProjectMapper < Minimapper::Mapper

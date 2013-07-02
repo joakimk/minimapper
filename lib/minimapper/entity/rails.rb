@@ -9,8 +9,9 @@ module Minimapper
         id
       end
 
+      # Implemented in core.
       def persisted?
-        id
+        super
       end
 
       def new_record?
