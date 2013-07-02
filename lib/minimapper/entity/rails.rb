@@ -14,7 +14,7 @@ module Minimapper
       end
 
       def new_record?
-        !id
+        !persisted?
       end
 
       def to_model
