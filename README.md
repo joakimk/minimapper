@@ -279,6 +279,12 @@ class ProjectMapper < Minimapper::AR
 end
 ```
 
+### Deletion
+
+When you do `mapper.delete(entity)`, it will use [ActiveRecord's `delete`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-destroy), which means that no destroy callbacks or `:dependent` association options are honored.
+
+(FIXME?: Should we support `destroy` instead or as well?)
+
 ### Exceptions and status 404
 
 Code like `UserMapper.find(123)` will raise `Minimapper::EntityNotFound` if there's no such record.
