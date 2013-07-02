@@ -14,7 +14,7 @@ describe Minimapper::Entity::Rails do
     entity.should_not be_new_record
   end
 
-  it "resonds to to_model" do
+  it "responds to to_model" do
     entity = RailsEntity.new
     entity.to_model.should == entity
   end
