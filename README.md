@@ -300,7 +300,13 @@ ActionDispatch::ExceptionWrapper.rescue_responses.merge!(
 )
 ```
 
-You may also want to ignore those errors in your error logger UI.
+You may also want to ignore those errors in your error logger. With [Honeybadger](https://www.honeybadger.io), you do:
+
+``` ruby
+Honeybadger.configure do |config|
+  config.ignore << "Minimapper::EntityNotFound"
+end
+```
 
 ### Custom entity class
 
