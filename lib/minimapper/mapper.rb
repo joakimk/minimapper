@@ -123,8 +123,8 @@ module Minimapper
         raise(EntityNotFound, entity.inspect)
     end
 
-    def entities_for(records)
-      records.map { |record| entity_for(record) }
+    def entities_for(records, klass = entity_class)
+      records.map { |record| entity_for(record, klass) }
     end
 
     def entity_for(record, klass = entity_class)

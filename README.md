@@ -168,7 +168,7 @@ end
 
 `entity_for` returns nil for nil.
 
-It takes an optional second argument if you want a different entity class than the mapper's:
+`entity_for` and `entities_for` take an optional second argument if you want a different entity class than the mapper's:
 
 ```
 class ProjectMapper < Minimapper::AR
