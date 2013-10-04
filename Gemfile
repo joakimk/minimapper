@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 
 # We don't require active_record to use minimapper, only to
 # use minimapper/mapper/ar. We do require it for the tests though :)
-gem "activerecord"
+#
+# Also locked to below rails 4.0 as our specs use rails 3 features. Need to look into
+# if there are any issues with rails 4.
+gem "activerecord", "< 4.0"
 gem "rspec"
 
 platforms :ruby do

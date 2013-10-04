@@ -25,8 +25,8 @@ describe Minimapper::Repository, "self.build" do
   end
 
   it "does not leak between instances" do
-    mapper1 = mock.as_null_object
-    mapper2 = mock.as_null_object
+    mapper1 = double.as_null_object
+    mapper2 = double.as_null_object
     repository1 = described_class.build(:projects => mapper1)
     repository2 = described_class.build(:projects => mapper2)
     repository1.projects.should == mapper1
@@ -36,8 +36,8 @@ end
 
 describe Minimapper::Repository, "#delete_all!" do
   it "removes all records by calling delete_all on all mappers" do
-    project_mapper = mock.as_null_object
-    user_mapper = mock.as_null_object
+    project_mapper = double.as_null_object
+    user_mapper = double.as_null_object
 
     project_mapper.should_receive(:delete_all)
     user_mapper.should_receive(:delete_all)
