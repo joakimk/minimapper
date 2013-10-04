@@ -168,7 +168,7 @@ end
 
 `entity_for` returns nil for nil.
 
-It takes an optional second argument if you want a different entity class than the mapper's:
+`entity_for` and `entities_for` take an optional second argument if you want a different entity class than the mapper's:
 
 ```
 class ProjectMapper < Minimapper::AR
@@ -226,6 +226,8 @@ User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
 
 Minimapper only calls #convert on non-empty strings. When the value is blank or nil, the attribute is set to nil.
 
+(FIXME? We're considering changing this so Minimapper core can only enforce type, and there's some `Minimapper::FormObject` mixin to parse string values.)
+
 ### Overriding attribute accessors
 
 Attribute readers and writers are implemented so that you can override them with inheritance:
@@ -274,6 +276,35 @@ class ProjectMapper < Minimapper::AR
   def after_find(entity, record)
     entity.owner = User.new(record.owner.attributes)
   end
+end
+```
+
+### Deletion
+
+When you do `mapper.delete(entity)`, it will use [ActiveRecord's `delete`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-destroy), which means that no destroy callbacks or `:dependent` association options are honored.
+
+(FIXME?: Should we support `destroy` instead or as well?)
+
+### Exceptions and status 404
+
+Code like `UserMapper.find(123)` will raise `Minimapper::EntityNotFound` if there's no such record.
+
+Rails treats the similar `ActiveRecord::RecordNotFound` exception as a 404 error, using that status code with the error backtrace in development and test, and showing the 404 page in production.
+
+If you want the same for Minimapper, you can add a `config/initializers/minimapper.rb` containing:
+
+``` ruby
+# For 404 status with the dev/test backtrace, and a 404 page in production.
+ActionDispatch::ExceptionWrapper.rescue_responses.merge!(
+  "Minimapper::EntityNotFound" => :not_found
+)
+```
+
+You may also want to ignore those errors in your error logger. With [Honeybadger](https://www.honeybadger.io), you do:
+
+``` ruby
+Honeybadger.configure do |config|
+  config.ignore << "Minimapper::EntityNotFound"
 end
 ```
 

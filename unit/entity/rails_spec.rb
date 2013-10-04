@@ -9,20 +9,21 @@ end
 describe Minimapper::Entity::Rails do
   it "responds to new_record?" do
     entity = RailsEntity.new
-    entity.should be_new_record
-    entity.id = 5
-    entity.should_not be_new_record
+    entity.new_record?.should be_true
+    entity.mark_as_persisted
+    entity.new_record?.should be_false
   end
 
-  it "resonds to to_model" do
+  it "responds to to_model" do
     entity = RailsEntity.new
     entity.to_model.should == entity
   end
 
   it "responds to to_key" do
     entity = RailsEntity.new
-    entity.to_key.should be_nil
     entity.id = 5
+    entity.to_key.should be_nil
+    entity.mark_as_persisted
     entity.to_key.should == [ 5 ]
   end
 
@@ -37,7 +38,7 @@ describe Minimapper::Entity::Rails do
   it "responds to persisted?" do
     entity = RailsEntity.new
     entity.should_not be_persisted
-    entity.id = 5
+    entity.mark_as_persisted
     entity.should be_persisted
   end
 end

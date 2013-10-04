@@ -30,6 +30,18 @@ module Minimapper
         @mapper_errors = list
       end
 
+      def persisted?
+        @entity_is_persisted
+      end
+
+      def mark_as_persisted
+        @entity_is_persisted = true
+      end
+
+      def mark_as_not_persisted
+        @entity_is_persisted = false
+      end
+
       private
 
       def symbolize_keys(hash)

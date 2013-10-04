@@ -18,6 +18,13 @@ shared_examples :mapper do
       entity2.id.should == entity1.id + 1
     end
 
+    it "marks the entity as persisted" do
+      entity1 = build_valid_entity
+      entity1.should_not be_persisted
+      mapper.create(entity1)
+      entity1.should be_persisted
+    end
+
     it "returns the id" do
       id = mapper.create(build_valid_entity)
       id.should be_kind_of(Fixnum)
@@ -68,6 +75,13 @@ shared_examples :mapper do
       mapper.create(entity)
       mapper.should_receive(:after_find)
       found_entity = mapper.find(entity.id)
+    end
+
+    it "returns an entity marked as persisted" do
+      entity = build_valid_entity
+      mapper.create(entity)
+      found_entity = mapper.find(entity.id)
+      found_entity.should be_persisted
     end
 
     it "fails when an entity can not be found" do
@@ -228,12 +242,12 @@ shared_examples :mapper do
       mapper.first.id.should_not == removed_entity_id
     end
 
-    it "clears the entity id" do
+    it "marks the entity as no longer persisted" do
       entity = build_valid_entity
       mapper.create(entity)
-      entity.id.should_not be_nil
+      entity.should be_persisted
       mapper.delete(entity)
-      entity.id.should be_nil
+      entity.should_not be_persisted
     end
 
     it "fails when the entity does not have an id" do

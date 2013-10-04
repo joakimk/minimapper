@@ -14,6 +14,7 @@ module Minimapper
 
       if entity.valid?
         record.save!
+        entity.mark_as_persisted
         entity.id = record.id
         entity.id
       else
@@ -67,7 +68,7 @@ module Minimapper
 
     def delete(entity)
       delete_by_id(entity.id)
-      entity.id = nil
+      entity.mark_as_not_persisted
     end
 
     def delete_by_id(id)
@@ -122,14 +123,15 @@ module Minimapper
         raise(EntityNotFound, entity.inspect)
     end
 
-    def entities_for(records)
-      records.map { |record| entity_for(record) }
+    def entities_for(records, klass = entity_class)
+      records.map { |record| entity_for(record, klass) }
     end
 
     def entity_for(record, klass = entity_class)
       if record
         entity = klass.new
         entity.id = record.id
+        entity.mark_as_persisted
         entity.attributes = record.attributes.symbolize_keys
 
         if klass == entity_class
