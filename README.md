@@ -214,11 +214,11 @@ class ToDate
   end
 end
 
-Minimapper::Entity::Convert.register_converter(:date, ToDate.new)
+Minimapper::Entity::Convert.register_converter(Date, ToDate.new)
 
 class User
   include Minimapper::Entity
-  attributes [ :reminder_on, :date ]
+  attribute :reminder_on, Date
 end
 
 User.new(:reminder_on => "2012-01-01").reminder # => #<Date: 2012-01-01 ...>
