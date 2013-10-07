@@ -1,7 +1,6 @@
 # Look at minimapper/entity/core for the required API.
 require 'minimapper/entity/core'
 require 'minimapper/entity/attributes'
-require 'minimapper/entity/form_conversions'
 require 'minimapper/entity/validation'
 require 'minimapper/entity/rails'
 
@@ -19,7 +18,6 @@ module Minimapper
 
     def self.included(klass)
       klass.send(:include, Minimapper::Entity::Attributes)
-      klass.send(:include, Minimapper::Entity::FormConversions)
       klass.send(:include, Minimapper::Entity::Validation)
       klass.send(:include, Minimapper::Entity::Rails)
       klass.attributes(
