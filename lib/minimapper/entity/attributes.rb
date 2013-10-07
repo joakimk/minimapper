@@ -1,8 +1,8 @@
-require 'minimapper/entity/convert'
-
 module Minimapper
   module Entity
     module Attributes
+      class InvalidType < StandardError; end
+
       def self.included(klass)
         klass.extend ClassMethods
       end
@@ -17,7 +17,19 @@ module Minimapper
       end
 
       def normalize_attribute_value(value, type)
-        Convert.new(value).to(type)
+        value = DateTime.parse(value.to_s) if value.is_a?(Time)
+
+        if valid_type?(value, type)
+          value
+        else
+          raise InvalidType, "Expected '#{value}' to be a #{type}, but it's a #{value.class}"
+        end
+      end
+
+      def valid_type?(value, type)
+        type.nil? ||
+          value.nil? ||
+          value.is_a?(type)
       end
 
       module ClassMethods

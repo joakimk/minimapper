@@ -1,27 +1,32 @@
 require 'minimapper/entity/core'
 require 'minimapper/entity/attributes'
+require 'minimapper/entity/form_conversions'
 
 module Attribute
   class User
     include Minimapper::Entity::Core
     include Minimapper::Entity::Attributes
+    include Minimapper::Entity::FormConversions
     attribute :id, Integer
-    attribute  :name
+    attribute :name
+    attribute :admin
   end
 
   class AgedUser < User
-    attributes :age
+    attribute :age, Integer
   end
 
   class Project
     include Minimapper::Entity::Core
     include Minimapper::Entity::Attributes
+    include Minimapper::Entity::FormConversions
     attributes :title
   end
 
   class Task
     include Minimapper::Entity::Core
     include Minimapper::Entity::Attributes
+    include Minimapper::Entity::FormConversions
 
     attribute :due_at, DateTime
   end
@@ -29,6 +34,7 @@ module Attribute
   class OverridingUser
     include Minimapper::Entity::Core
     include Minimapper::Entity::Attributes
+    include Minimapper::Entity::FormConversions
     attributes :name
 
     def name
@@ -82,6 +88,22 @@ describe Minimapper::Entity::Attributes do
     entity.id.should == 15
   end
 
+  it "converts time to datetime (as it's conventient to assign time values but the db has datetime)" do
+    entity = Attribute::Task.new
+    time = Time.at(10)
+    entity.due_at = time
+    entity.due_at.should be_instance_of(DateTime)
+    entity.due_at.to_time.should == time
+  end
+
+  it "accepts booleans" do
+    entity = Attribute::User.new
+    entity.admin = false
+    entity.admin.should == false
+    entity.admin = true
+    entity.admin.should == true
+  end
+
   it "can use single line type declarations" do
     task = Attribute::Task.new(:due_at => "2012-01-01 15:00")
     task.due_at.should == DateTime.parse("2012-01-01 15:00")
@@ -105,6 +127,11 @@ describe Minimapper::Entity::Attributes do
     user.age = 123
     user.name.should == "Name"
     user.age.should == 123
+  end
+
+  it "does not allow the wrong type of attribute" do
+    user = Attribute::AgedUser.new
+    -> { user.age = 123.25 }.should raise_error(Minimapper::Entity::Attributes::InvalidType)
   end
 
   it "is possible to override attribute readers with inheritance" do
@@ -131,7 +158,7 @@ end
 describe Minimapper::Entity::Attributes, "self.column_names" do
   it "returns all attributes as strings" do
     # used by some rails plugins
-    Attribute::User.column_names.should == [ "id", "name" ]
+    Attribute::User.column_names.should == [ "id", "name", "admin" ]
   end
 
   it "does not leak between different models" do

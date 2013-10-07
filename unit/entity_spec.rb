@@ -23,7 +23,7 @@ describe Minimapper::Entity do
     entity.id = 5
     entity.id.should == 5
 
-    time = Time.now
+    time = DateTime.now
     entity.created_at = time
     entity.created_at.should == time
 
