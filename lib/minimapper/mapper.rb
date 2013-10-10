@@ -9,16 +9,18 @@ module Minimapper
     def create(entity)
       record = record_class.new
 
-      copy_attributes_to_record(record, entity)
-      validate_record_and_copy_errors_to_entity(record, entity)
+      with_save_hooks(entity, record) do
+        copy_attributes_to_record(record, entity)
+        validate_record_and_copy_errors_to_entity(record, entity)
 
-      if entity.valid?
-        record.save!
-        entity.mark_as_persisted
-        entity.id = record.id
-        entity.id
-      else
-        false
+        if entity.valid?
+          record.save!
+          entity.mark_as_persisted
+          entity.id = record.id
+          entity.id
+        else
+          false
+        end
       end
     end
 
@@ -53,14 +55,16 @@ module Minimapper
     def update(entity)
       record = record_for(entity)
 
-      copy_attributes_to_record(record, entity)
-      validate_record_and_copy_errors_to_entity(record, entity)
+      with_save_hooks(entity, record) do
+        copy_attributes_to_record(record, entity)
+        validate_record_and_copy_errors_to_entity(record, entity)
 
-      if entity.valid?
-        record.save!
-        true
-      else
-        false
+        if entity.valid?
+          record.save!
+          true
+        else
+          false
+        end
       end
     end
 
@@ -144,9 +148,22 @@ module Minimapper
       end
     end
 
+    def with_save_hooks(entity, record)
+      before_save(entity, record)
+      result = yield
+      after_save(entity, record) if result
+      result
+    end
+
     # Hooks
 
     def after_find(entity, record)
+    end
+
+    def before_save(entity, record)
+    end
+
+    def after_save(entity, record)
     end
   end
 end

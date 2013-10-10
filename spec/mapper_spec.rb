@@ -70,6 +70,25 @@ describe Minimapper::Mapper do
       mapper.create(entity).should be_false
     end
 
+    it "calls before_save and after_save on the mapper" do
+      entity = build_valid_entity
+      record = ProjectMapper::Record.new
+      ProjectMapper::Record.stub(new: record)
+      mapper.should_receive(:before_save).with(entity, record)
+      mapper.should_receive(:after_save).with(entity, record)
+      mapper.create(entity)
+    end
+
+    it "does not call after_save if the save fails" do
+      entity = entity_class.new
+      def entity.valid?
+        false
+      end
+      mapper.should_receive(:before_save)
+      mapper.should_not_receive(:after_save)
+      mapper.create(entity)
+    end
+
     it "does not include protected attributes" do
       # because it leads to exceptions when mass_assignment_sanitizer is set to strict
       entity = build_entity(:visible => true, :name => "Joe")
@@ -272,6 +291,18 @@ describe Minimapper::Mapper do
 
       mapper.update(entity).should be_false
       mapper.last.attributes[:name].should == "test"
+    end
+
+    it "calls before_save and after_save on the mapper" do
+      entity = build_valid_entity
+      mapper.create(entity)
+
+      record = ProjectMapper::Record.new
+      ProjectMapper::Record.stub(find_by_id: record)
+
+      mapper.should_receive(:before_save).with(entity, record)
+      mapper.should_receive(:after_save).with(entity, record)
+      mapper.update(entity)
     end
 
     it "returns true" do
