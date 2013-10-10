@@ -79,13 +79,22 @@ describe Minimapper::Mapper do
       mapper.create(entity)
     end
 
-    it "does not call after_save if the save fails" do
+    it "calls after_create on the mapper" do
+      entity = build_valid_entity
+      record = ProjectMapper::Record.new
+      ProjectMapper::Record.stub(:new => record)
+      mapper.should_receive(:after_create).with(entity, record)
+      mapper.create(entity)
+    end
+
+    it "does not call after_save or after_create if the save fails" do
       entity = entity_class.new
       def entity.valid?
         false
       end
       mapper.should_receive(:before_save)
       mapper.should_not_receive(:after_save)
+      mapper.should_not_receive(:after_create)
       mapper.create(entity)
     end
 
@@ -297,11 +306,23 @@ describe Minimapper::Mapper do
       entity = build_valid_entity
       mapper.create(entity)
 
-      record = ProjectMapper::Record.new
+      record = ProjectMapper::Record.last
       ProjectMapper::Record.stub(:find_by_id => record)
 
       mapper.should_receive(:before_save).with(entity, record)
       mapper.should_receive(:after_save).with(entity, record)
+      mapper.update(entity)
+    end
+
+    it "does not call after_create" do
+      entity = build_valid_entity
+      mapper.create(entity)
+
+      record = ProjectMapper::Record.last
+      ProjectMapper::Record.stub(:find_by_id => record)
+
+      mapper.should_receive(:after_save)
+      mapper.should_not_receive(:after_create)
       mapper.update(entity)
     end
 

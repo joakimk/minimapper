@@ -149,9 +149,18 @@ module Minimapper
     end
 
     def with_save_hooks(entity, record)
+      creating = record.new_record?
       before_save(entity, record)
       result = yield
-      after_save(entity, record) if result
+
+      if result
+        after_save(entity, record)
+
+        if creating
+          after_create(entity, record)
+        end
+      end
+
       result
     end
 
@@ -164,6 +173,9 @@ module Minimapper
     end
 
     def after_save(entity, record)
+    end
+
+    def after_create(entity, record)
     end
   end
 end
