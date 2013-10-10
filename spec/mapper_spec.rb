@@ -73,7 +73,7 @@ describe Minimapper::Mapper do
     it "calls before_save and after_save on the mapper" do
       entity = build_valid_entity
       record = ProjectMapper::Record.new
-      ProjectMapper::Record.stub(new: record)
+      ProjectMapper::Record.stub(:new => record)
       mapper.should_receive(:before_save).with(entity, record)
       mapper.should_receive(:after_save).with(entity, record)
       mapper.create(entity)
@@ -298,7 +298,7 @@ describe Minimapper::Mapper do
       mapper.create(entity)
 
       record = ProjectMapper::Record.new
-      ProjectMapper::Record.stub(find_by_id: record)
+      ProjectMapper::Record.stub(:find_by_id => record)
 
       mapper.should_receive(:before_save).with(entity, record)
       mapper.should_receive(:after_save).with(entity, record)
