@@ -271,7 +271,7 @@ describe Minimapper::Mapper do
 
   describe "#reload" do
     it "reloads the given record" do
-      entity = build_entity(email: "foo@example.com")
+      entity = build_entity(:email => "foo@example.com")
       mapper.create(entity)
       entity.attributes[:email] = "test@example.com"
       mapper.reload(entity)
