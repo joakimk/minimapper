@@ -98,7 +98,7 @@ old_id = user.id
 user_mapper.delete(user)
 p user.id                        # => nil
 p user_mapper.find_by_id(old_id) # => nil
-# user_mapper.find(old_id)       # raises Minimapper::EntityNotFound
+# user_mapper.find(old_id)       # raises ActiveRecord::RecordNotFound
 # user_mapper.delete_all
 # user_mapper.delete_by_id(1)
 
@@ -284,29 +284,6 @@ end
 When you do `mapper.delete(entity)`, it will use [ActiveRecord's `delete`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-destroy), which means that no destroy callbacks or `:dependent` association options are honored.
 
 (FIXME?: Should we support `destroy` instead or as well?)
-
-### Exceptions and status 404
-
-Code like `UserMapper.find(123)` will raise `Minimapper::EntityNotFound` if there's no such record.
-
-Rails treats the similar `ActiveRecord::RecordNotFound` exception as a 404 error, using that status code with the error backtrace in development and test, and showing the 404 page in production.
-
-If you want the same for Minimapper, you can add a `config/initializers/minimapper.rb` containing:
-
-``` ruby
-# For 404 status with the dev/test backtrace, and a 404 page in production.
-ActionDispatch::ExceptionWrapper.rescue_responses.merge!(
-  "Minimapper::EntityNotFound" => :not_found
-)
-```
-
-You may also want to ignore those errors in your error logger. With [Honeybadger](https://www.honeybadger.io), you do:
-
-``` ruby
-Honeybadger.configure do |config|
-  config.ignore << "Minimapper::EntityNotFound"
-end
-```
 
 ### Custom entity class
 

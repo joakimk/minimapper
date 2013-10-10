@@ -1,6 +1,4 @@
 module Minimapper
-  EntityNotFound = Class.new(StandardError)
-
   class Mapper
     attr_accessor :repository
 
@@ -118,8 +116,7 @@ module Minimapper
     end
 
     def find_record_safely(id)
-      find_record(id) ||
-        raise(EntityNotFound, :id => id)
+      record_class.find(id)
     end
 
     def find_record(id)
@@ -127,8 +124,7 @@ module Minimapper
     end
 
     def record_for(entity)
-      (entity.id && record_class.find_by_id(entity.id)) ||
-        raise(EntityNotFound, entity.inspect)
+      record_class.find(entity.id)
     end
 
     def entities_for(records, klass = entity_class)
