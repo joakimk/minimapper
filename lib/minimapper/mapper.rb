@@ -46,6 +46,10 @@ module Minimapper
       entity_for(record_class.order("id ASC").last)
     end
 
+    def reload(entity)
+      find(entity.id)
+    end
+
     def count
       record_class.count
     end

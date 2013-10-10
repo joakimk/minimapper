@@ -269,6 +269,17 @@ describe Minimapper::Mapper do
     end
   end
 
+  describe "#reload" do
+    it "reloads the given record" do
+      entity = build_entity(email: "foo@example.com")
+      mapper.create(entity)
+      entity.attributes[:email] = "test@example.com"
+      mapper.reload(entity)
+      entity.attributes[:email] = "foo@example.com"
+      mapper.reload(entity).object_id.should_not == entity.object_id
+    end
+  end
+
   describe "#count" do
     it "returns the number of entities" do
       mapper.create(build_valid_entity)
