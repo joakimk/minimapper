@@ -4,7 +4,5 @@ $: << File.join(ROOT, "unit")
 
 require "minimapper"
 
-Dir[File.join(ROOT, "spec/support/shared_examples/*.rb")].each { |f| require f }
-
 RSpec.configure do |config|
 end
