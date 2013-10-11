@@ -39,15 +39,15 @@ module Minimapper
     end
 
     def all
-      entities_for scope.all
+      entities_for query_scope.all
     end
 
     def first
-      entity_for(scope.order("id ASC").first)
+      entity_for(query_scope.order("id ASC").first)
     end
 
     def last
-      entity_for(scope.order("id ASC").last)
+      entity_for(query_scope.order("id ASC").last)
     end
 
     def reload(entity)
@@ -55,7 +55,7 @@ module Minimapper
     end
 
     def count
-      scope.count
+      query_scope.count
     end
 
     # Update
@@ -92,7 +92,7 @@ module Minimapper
     end
 
     def delete_all
-      scope.delete_all
+      query_scope.delete_all
     end
 
     private
@@ -115,15 +115,15 @@ module Minimapper
     end
 
     def find_record_safely(id)
-      scope.find(id)
+      query_scope.find(id)
     end
 
     def find_record(id)
-      id && scope.find_by_id(id)
+      id && query_scope.find_by_id(id)
     end
 
     def record_for(entity)
-      scope.find(entity.id)
+      query_scope.find(entity.id)
     end
 
     def entities_for(records, klass = entity_class)
@@ -164,7 +164,7 @@ module Minimapper
     end
 
     # Override to customize default includes etc that apply to all queries
-    def scope
+    def query_scope
       record_class
     end
 
