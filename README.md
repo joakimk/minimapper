@@ -150,9 +150,9 @@ So an entity that wouldn't be unique in the database will be `valid?` before you
 You can write custom queries like this:
 
 ``` ruby
-class ProjectMapper < Minimapper::AR
+class ProjectMapper < Minimapper::Mapper
   def waiting_for_review
-    entities_for record_class.where(waiting_for_review: true).order("id DESC")
+    entities_for query_scope.where(waiting_for_review: true).order("id DESC")
   end
 end
 ```
@@ -165,6 +165,10 @@ Repository.projects.waiting_for_review.each do |project|
   p project.name
 end
 ```
+
+`record_class` is shorthand for ProjectMapper::Record.
+
+`query_scope` is a wrapper around `record_class` to allow you to add custom scopes to all queries.
 
 `entity_for` returns nil for nil.
 
