@@ -149,7 +149,7 @@ describe Minimapper::Mapper do
       def entity.valid?
         false
       end
-      -> { mapper.create!(entity) }.should raise_error(Minimapper::EntityInvalid)
+      lambda { mapper.create!(entity) }.should raise_error(Minimapper::EntityInvalid)
     end
   end
 
@@ -431,7 +431,7 @@ describe Minimapper::Mapper do
       def entity.valid?
         false
       end
-      -> { mapper.update!(entity) }.should raise_error(Minimapper::EntityInvalid)
+      lambda { mapper.update!(entity) }.should raise_error(Minimapper::EntityInvalid)
     end
   end
 
