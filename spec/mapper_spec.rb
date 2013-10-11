@@ -137,6 +137,22 @@ describe Minimapper::Mapper do
     end
   end
 
+  describe "#create!" do
+    it "can create records" do
+      entity = build_valid_entity
+      mapper.create!(entity)
+      entity.should be_persisted
+    end
+
+    it "raises Minimapper::EntityInvalid when the entity is invalid" do
+      entity = entity_class.new
+      def entity.valid?
+        false
+      end
+      -> { mapper.create!(entity) }.should raise_error(Minimapper::EntityInvalid)
+    end
+  end
+
   describe "#find" do
     it "returns an entity matching the id" do
       entity = build_valid_entity
@@ -397,6 +413,25 @@ describe Minimapper::Mapper do
       new_entity.attributes = { :email => "something.else@example.com" }
       mapper.update(new_entity)
       new_entity.should be_valid
+    end
+  end
+
+  describe "#update!" do
+    it "can update records" do
+      entity = build_valid_entity
+      mapper.create(entity)
+      entity.attributes[:email] = "updated@example.com"
+      mapper.update!(entity)
+      mapper.reload(entity).attributes[:email].should == "updated@example.com"
+    end
+
+    it "raises Minimapper::EntityInvalid when the entity is invalid" do
+      entity = build_valid_entity
+      mapper.create(entity)
+      def entity.valid?
+        false
+      end
+      -> { mapper.update!(entity) }.should raise_error(Minimapper::EntityInvalid)
     end
   end
 
