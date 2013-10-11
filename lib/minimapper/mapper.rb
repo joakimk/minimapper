@@ -109,6 +109,10 @@ module Minimapper
       record.attributes = accessible_attributes(entity)
     end
 
+    def copy_attributes_to_entity(record, entity)
+      entity.attributes = record.attributes.symbolize_keys
+    end
+
     def validate_record_and_copy_errors_to_entity(record, entity)
       record.valid?
       entity.mapper_errors = record.errors.map { |k, v| [k, v] }
@@ -135,7 +139,7 @@ module Minimapper
         entity = klass.new
         entity.id = record.id
         entity.mark_as_persisted
-        entity.attributes = record.attributes.symbolize_keys
+        copy_attributes_to_entity(record, entity)
 
         if klass == entity_class
           after_find(entity, record)
