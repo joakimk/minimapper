@@ -39,15 +39,15 @@ module Minimapper
     end
 
     def all
-      entities_for record_class.all
+      entities_for scope.all
     end
 
     def first
-      entity_for(record_class.order("id ASC").first)
+      entity_for(scope.order("id ASC").first)
     end
 
     def last
-      entity_for(record_class.order("id ASC").last)
+      entity_for(scope.order("id ASC").last)
     end
 
     def reload(entity)
@@ -55,7 +55,7 @@ module Minimapper
     end
 
     def count
-      record_class.count
+      scope.count
     end
 
     # Update
@@ -92,21 +92,10 @@ module Minimapper
     end
 
     def delete_all
-      record_class.delete_all
+      scope.delete_all
     end
 
     private
-
-    # NOTE: Don't memoize the record_class or code reloading will break in rails apps.
-    def record_class
-      "#{self.class.name}::Record".constantize
-    end
-
-    # Will attempt to use Project as the entity class when
-    # the mapper class name is ProjectMapper.
-    def entity_class
-      self.class.name.sub(/Mapper$/, '').constantize
-    end
 
     def accessible_attributes(entity)
       entity.attributes.reject { |k, v| protected_attributes.include?(k.to_s) }
@@ -126,15 +115,15 @@ module Minimapper
     end
 
     def find_record_safely(id)
-      record_class.find(id)
+      scope.find(id)
     end
 
     def find_record(id)
-      id && record_class.find_by_id(id)
+      id && scope.find_by_id(id)
     end
 
     def record_for(entity)
-      record_class.find(entity.id)
+      scope.find(entity.id)
     end
 
     def entities_for(records, klass = entity_class)
@@ -172,6 +161,22 @@ module Minimapper
       end
 
       result
+    end
+
+    # Override to customize default includes etc that apply to all queries
+    def scope
+      record_class
+    end
+
+    # NOTE: Don't memoize the record_class or code reloading will break in rails apps.
+    def record_class
+      "#{self.class.name}::Record".constantize
+    end
+
+    # Will attempt to use Project as the entity class when
+    # the mapper class name is ProjectMapper.
+    def entity_class
+      self.class.name.sub(/Mapper$/, '').constantize
     end
 
     # Hooks
