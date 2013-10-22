@@ -46,7 +46,12 @@ silence_stream(STDOUT) do
   ActiveRecord::Schema.define(:version => 0) do
     create_table :projects, :force => true do |t|
       t.string :name, :email
+      t.integer :user_id
       t.boolean :visible
+    end
+
+    create_table :users, :force => true do |t|
+      t.string :name
     end
   end
 end

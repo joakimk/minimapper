@@ -97,6 +97,13 @@ module Minimapper
 
     private
 
+    # Shorter syntax for default_includes
+    def self.default_include(*list)
+      define_method(:default_includes) do
+        list
+      end
+    end
+
     def accessible_attributes(entity)
       entity.attributes.reject { |k, v| protected_attributes.include?(k.to_s) }
     end
@@ -179,6 +186,12 @@ module Minimapper
     end
 
     def included_associations
+      default_includes
+    end
+
+    # Override to load associated data, ex. [ :employee ] (AR include syntax)
+    # Is overwritten by self.default_include.
+    def default_includes
       []
     end
 

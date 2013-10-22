@@ -6,6 +6,12 @@ class Project
   include Minimapper::Entity::Core
 end
 
+class User
+  include Minimapper::Entity::Core
+
+  attr_accessor :projects_are_eager_loaded
+end
+
 class ProjectMapper < Minimapper::Mapper
   private
 
@@ -18,6 +24,37 @@ class ProjectMapper < Minimapper::Mapper
 
     self.table_name = :projects
     self.mass_assignment_sanitizer = :strict
+  end
+end
+
+class UserMapper < Minimapper::Mapper
+  default_include :projects
+
+  def after_find(entity, record)
+    entity.projects_are_eager_loaded = record.projects.loaded?
+  end
+
+  private
+
+  class Record < ActiveRecord::Base
+    self.table_name = :users
+    self.mass_assignment_sanitizer = :strict
+
+    has_many :projects, :class_name => ProjectMapper::Record, :foreign_key => :user_id
+  end
+end
+
+describe Minimapper::Mapper, "self.default_include" do
+  it "eager loads the associated data by default" do
+    user = User.new
+    UserMapper.new.create!(user)
+
+    project = Project.new
+    project.attributes = { :user_id => user.id }
+    ProjectMapper.new.create!(project)
+
+    user = UserMapper.new.first
+    user.projects_are_eager_loaded.should be_true
   end
 end
 

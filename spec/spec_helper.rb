@@ -7,6 +7,6 @@ require File.join(ROOT, "spec/support/database_setup")
 
 RSpec.configure do |config|
   config.before(:each) do
-    ActiveRecord::Base.connection.execute "DELETE FROM projects;"
+    ActiveRecord::Base.connection.execute "DELETE FROM projects; DELETE FROM users;"
   end
 end
