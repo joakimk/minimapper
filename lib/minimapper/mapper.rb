@@ -167,9 +167,19 @@ module Minimapper
       result
     end
 
-    # Override to customize default includes etc that apply to all queries
+    # Override to customize the scope used for all queries
     def query_scope
-      record_class
+      record_class.public_send(include_strategy, included_associations)
+    end
+
+    # You sometimes want to customize the way AR loads associations by specifying either
+    # preload (one query per table) or eager_load (joins).
+    def include_strategy
+      :includes
+    end
+
+    def included_associations
+      []
     end
 
     # NOTE: Don't memoize the record_class or code reloading will break in rails apps.
