@@ -174,7 +174,7 @@ module Minimapper
 
     # NOTE: Don't memoize the record_class or code reloading will break in rails apps.
     def record_class
-      "#{self.class.name}::Record".constantize
+      self.class.const_get(:Record)
     end
 
     # Will attempt to use Project as the entity class when
