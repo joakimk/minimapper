@@ -1,3 +1,4 @@
+require "backports/1.9.1/kernel/public_send"
 require "minimapper/entity_invalid"
 
 module Minimapper

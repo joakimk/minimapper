@@ -7,6 +7,7 @@ source 'https://rubygems.org'
 # if there are any issues with rails 4.
 gem "activerecord", "< 4.0"
 gem "rspec"
+gem "backports"
 
 platforms :ruby do
   gem "sqlite3"
