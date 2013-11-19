@@ -174,7 +174,7 @@ end
 
 `entity_for` and `entities_for` take an optional second argument if you want a different entity class than the mapper's:
 
-```
+``` ruby
 class ProjectMapper < Minimapper::AR
   def owner_of(project)
     owner_record = find(project).owner
