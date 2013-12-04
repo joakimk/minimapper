@@ -1,4 +1,3 @@
-require 'active_support/core_ext'
 require 'minimapper/entity/convert/to_integer'
 require 'minimapper/entity/convert/to_date_time'
 
