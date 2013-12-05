@@ -2,7 +2,6 @@ language: ruby
 rvm:
   # 2.0 rubies
   - 2.0.0
-  - rbx-2.1.1
 
   # 1.9 rubies
   - 1.9.3
