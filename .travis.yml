@@ -2,16 +2,15 @@ language: ruby
 rvm:
   # 2.0 rubies
   - 2.0.0
+  - rbx-2.1.1
 
   # 1.9 rubies
   - 1.9.3
   - 1.9.2
-  - rbx-19mode
   - jruby-19mode
 
   # 1.8 rubies
   - ree
   - 1.8.7
   - jruby-18mode
-  - rbx-18mode
 script: "script/ci"
