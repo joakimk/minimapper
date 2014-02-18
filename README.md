@@ -19,6 +19,7 @@ The API may not be entirely stable yet and there are probably edge cases that ar
 
 - [minimapper-extras](https://github.com/barsoom/minimapper-extras) (useful tools for projects using minimapper)
 - [Gist of yet to be extracted mapper code](https://gist.github.com/joakimk/5656945) from a project using minimapper.
+- [Gist of alternative way of organizing records and mappers](https://gist.github.com/joakimk/9070106)
 
 ### Compatibility
 
@@ -72,7 +73,6 @@ end
 
 # app/mappers/user_mapper.rb
 class UserMapper < Minimapper::Mapper
-  # The backing ActiveRecord model. Alternativly you can organize records and mappers like this: https://gist.github.com/joakimk/9070106
   class Record < ActiveRecord::Base
     self.table_name = "users"
   end
