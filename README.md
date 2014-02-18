@@ -72,6 +72,7 @@ end
 
 # app/mappers/user_mapper.rb
 class UserMapper < Minimapper::Mapper
+  # The backing ActiveRecord model. Alternativly you can organize records and mappers like this: https://gist.github.com/joakimk/9070106
   class Record < ActiveRecord::Base
     self.table_name = "users"
   end
