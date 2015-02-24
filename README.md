@@ -1,3 +1,11 @@
+# NOTE: This project is no longer being actively maintained
+
+We didn't end up using it to the extent I thought and it hasn't seen much active use outside of [auctionet](http://dev.auctionet.com) as far as I can see.
+
+I recommend looking at [rom-rb](http://rom-rb.org/) or [lotus](http://lotusrb.org/).
+
+## Old readme below
+
 [![Build Status](https://secure.travis-ci.org/joakimk/minimapper.png)](http://travis-ci.org/joakimk/minimapper)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/joakimk/minimapper)
 
